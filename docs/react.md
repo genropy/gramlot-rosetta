@@ -7,17 +7,17 @@ The React variant is a small Vite application served by the shared FastAPI proce
 From `frontends/react`:
 
 ```sh
-npm install
+npm ci
 npm run build
 ```
 
-The production output is `frontends/react/dist`. The Vite base is `/react/`, so FastAPI can mount that directory at the matching URL. For development, start the shared FastAPI server on port 8000, then run:
+The production output is `frontends/react/dist`. The Vite base is `/react/`, so FastAPI can mount that directory at the matching URL. For development, start the shared FastAPI server on port 8026, then run:
 
 ```sh
 npm run dev
 ```
 
-Vite proxies `/api` and `/shared` to `http://127.0.0.1:8000`.
+Vite proxies `/api` and `/shared` to `http://127.0.0.1:8026`.
 
 ## Scope and limitations
 
