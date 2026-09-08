@@ -38,7 +38,7 @@ function controls(root) {
       field.input({"type": "range", "value": "^size", "updateOn": "input", "min": 10, "max": 48, "step": 1});
     }
     { const field = pane.html_label(); field.span("Font family");
-      const select = field.select({value: "^font", updateOn: "change"});
+      const select = field.select({value: "^font", updateOn: "change", "aria-label": "Font family"});
       for (const font of ["system-ui", "serif", "monospace"]) select.option(font, {value: font});
     }
     { const field = pane.html_label(); field.span("Bold");

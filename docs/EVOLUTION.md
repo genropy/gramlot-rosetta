@@ -47,3 +47,7 @@ This should be reusable outside Genro ASGI. When Orders returns, preserve equal
 observable behavior across React, Vue and Pages while allowing idiomatic shared
 form abstractions in every implementation. The archived React and Vue versions
 explicitly bind disabled to busy; their input disabling was application code.
+
+The first six binding increments are now implemented alongside Hello World.
+Each has an independent source in four variants. Shared-state dual output,
+remote calls and the library widget-label contract remain future work.

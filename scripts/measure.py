@@ -45,6 +45,13 @@ def report(root):
                       'frontends/vue/package.json'],
         'pages_setup': ['frontends/pages/index.html'],
     }
+    for variant, extension in (("react", "jsx"), ("vue", "vue"), ("pages", "py"), ("pages-js", "js")):
+        directory = root / "frontends" / variant
+        if variant in ("react", "vue"):
+            directory /= "src"
+        for path in sorted((directory / "examples").glob(f"*.{extension}")):
+            groups[f"{variant}_{path.stem}_page"] = [str(path.relative_to(root))]
+    groups['shared_example_catalog'] = ['backend/examples.py']
     return {name: measure(root, paths) for name, paths in groups.items()}
 
 

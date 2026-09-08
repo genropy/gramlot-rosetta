@@ -1,12 +1,12 @@
 """Host Rosetta's common HTML frame and the independent Hello World examples."""
 import os
+from html import escape
 from pathlib import Path
 
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 
-from html import escape
 from backend.examples import EXAMPLES
 from backend.source_browser import SourceBrowser
 

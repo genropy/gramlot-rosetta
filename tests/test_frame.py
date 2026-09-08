@@ -12,7 +12,7 @@ def test_shared_frame_routes_to_one_example(variant):
     assert response.status_code == 200
     assert '<script' not in response.text
     assert f'src="/examples/{variant}/hello-world/"' in response.text
-    assert f'href="/sources/{variant}"' in response.text
+    assert f'href="/sources/{variant}?example=hello-world"' in response.text
     assert 'Orders is on standby.' in response.text
     assert '<input' not in response.text
 

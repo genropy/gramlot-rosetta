@@ -1,4 +1,4 @@
-# Rosetta specification — Hello World baseline
+# Rosetta specification — progressive binding gallery
 
 The comparison frame is ordinary HTML shared by React, Vue and Genro Pages.
 It owns implementation navigation, example selection and View source. Each
@@ -30,8 +30,7 @@ inside the same HTML frame, stripping its previous comparison navigation.
 
 ## Later agreed directions, not part of this baseline
 
-Reactive greeting input; then slider, text/background colors and font selection
-using existing components. A minimal genro-asgi host should eventually run the
+A minimal genro-asgi host should eventually run the
 same frontend examples. The intended FastAPI adapter should ship with Pages;
 this consumer demo does not establish that packaging yet. See docs/EVOLUTION.md.
 
@@ -71,3 +70,36 @@ recipe and preview content. A shared Pages bootstrap module mounts the library's
 existing inspector against the running application's Data and Source Bags. It
 rebinds after successful JS Apply and disposes the old inspector with its owner.
 The shared integration is listed under Boilerplate for both Pages variants.
+
+
+## First binding batch (implemented)
+
+Every example is autonomous, with complete state, controls and logic in its own
+source file. Each step retains the preceding behavior and adds the named feature:
+
+1. hello-world: unchanged static introduction.
+2. editable-text: text input commits when it loses focus.
+3. text-color: adds an input-event text color picker, initially #223044.
+4. background-color: adds an input-event background picker, initially #ffffff.
+5. font-size: adds a continuous slider from 10 to 48 px, initially 14.
+6. font-family: adds system-ui, serif and monospace choices; initially system-ui.
+7. font-style: adds independent Bold and Italic checkboxes, initially false.
+
+React, Vue, Pages Python and Pages JS implement the same observable behavior.
+Pages examples use supported native HTML controls and existing data/style binding;
+no new widgets or lbl implementation are added by the demo. MyText remains a
+separate output label with its explicit colon while the widget-label contract is
+being coordinated. Styling affects the greeting, not its label.
+
+Pages recipes include a brief Inspector → Data invitation. Numeric pixel size and
+boolean weight/style are converted through existing dataFormula providers, which
+run in the browser; Python only constructs their serialized declarations.
+
+The routes /{variant}/{example}/ select a page. /{variant}/ remains a Hello World
+alias. Switching variant preserves the selected example. Source tabs and raw
+source preserve the example query parameter. The JS editor executes the selected
+example's real recipe; reload restores its original code and state.
+
+Two views sharing state, remote examples, Orders and all database examples remain
+outside this batch. The editable inspector and new widget lbl contract are
+separate library work, not claims made by these examples.

@@ -1,22 +1,23 @@
-# Active baseline: Hello World
+# Active baseline: progressive binding gallery
 
-React, Vue and Genro Pages each render a title and a greeting inside the same
-plain HTML frame. Navigation, the example menu and source links belong to the
-frame. The source viewer shows each application and exposes shared files
-separately.
+Seven autonomous cumulative examples are available in React, Vue, Pages Python
+and Pages JS: static Hello World, editable text, text color, background color,
+font size, font family, and bold/italic. Text commits on blur; visual controls
+update during interaction. Each example includes its actual source.
 
-Validation: both frontend production builds, 14 Python tests, Ruff and 6 browser
-tests passed. Browser contracts cover every implementation, source display,
-frame isolation and mobile overflow.
+The shared HTML frame preserves example selection across implementations.
+Page, Boilerplate and Common separate application code from shared context.
+Pages JS retains the dark CodeMirror editor with Live, Focus out and Manual
+modes. Both Pages variants retain the library Inspector and include a brief
+invitation to observe Data in the interactive examples.
 
-Orders is on standby in standby/orders, including its source, seed data, tests
-and earlier reports. The active server does not expose its API.
+Validation: both frontend production builds, 15 Python tests, Ruff and 35 browser
+tests passed. Browser coverage checks every progressive example's behavior,
+source text, mobile overflow, and existing editor/inspector contracts. A direct
+inspection also verified that the Data tree holds the value committed by input.
 
-Next directions are recorded in EVOLUTION.md. Input and style examples, the
-minimal Genro ASGI host, and a library-shipped FastAPI adapter are not implemented
-in this baseline.
-
-Pages JS now provides a fourth Hello World implementation and a live CodeMirror
-recipe editor. Validation includes 15 Python tests, Ruff and 9 browser tests,
-including live updates, syntax-error recovery and reload restoration. The editor
-bundle is built locally with npm run build:editor; no CDN is required at runtime.
+No library changes or new widgets were introduced. The widget-only lbl contract
+and editable inspector are being coordinated separately; the demo does not
+pretend they are ready. Native HTML controls exercise the existing binding API.
+Orders remains in standby. Dual-view state sharing, minimal Genro ASGI hosting
+and remote examples are later work.

@@ -3,9 +3,10 @@ from html import escape
 from pathlib import Path
 from urllib.parse import urlencode
 
-from backend.examples import EXAMPLES
 from fastapi import HTTPException
 from fastapi.responses import HTMLResponse, PlainTextResponse
+
+from backend.examples import EXAMPLES
 
 
 class SourceBrowser:

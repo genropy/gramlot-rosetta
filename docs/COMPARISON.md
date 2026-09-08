@@ -51,3 +51,19 @@ Pages JS adds an independently authored JavaScript recipe. Compare it with Pages
 Python for language differences and with React/Vue for composition semantics.
 The live CodeMirror editor is demo tooling, not part of the page recipe. Recipe,
 execution harness and editor are measured in separate inventory groups.
+
+## Progressive binding examples
+
+Six cumulative increments now follow Hello World. Each framework's example is
+independent and includes its own state and behavior. The inventory lists every
+example separately instead of treating only Hello World as application cost.
+
+React separates draft text from committed state; Vue likewise commits a draft
+on blur. Pages declares updateOn on the binding. Pages dataFormula declares
+browser-side conversions for CSS size and boolean styles; Python constructs the
+recipe without executing those reactions. All variants use native controls for
+this batch, pending the separately coordinated widget-label feature.
+
+The shared editor, inspector bridge, routing and example catalog are integration
+costs, not costs repeated for every example. No conclusion about a framework's
+superiority follows merely from these line counts.

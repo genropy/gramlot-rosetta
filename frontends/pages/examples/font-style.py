@@ -48,7 +48,7 @@ class ExamplePage(WebPage):
         field.input(type='range', value='^size', updateOn='input', min=10, max=48, step=1)
         field = pane.html_label()
         field.span('Font family')
-        select = field.select(value="^font", updateOn="change")
+        select = field.select(value="^font", updateOn="change", **{"aria-label": "Font family"})
         for font in ("system-ui", "serif", "monospace"):
             select.option(font, value=font)
         field = pane.html_label()

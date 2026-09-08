@@ -6,11 +6,11 @@ from pathlib import Path
 
 import genro_pages
 from fastapi import HTTPException
-from backend.examples import EXAMPLES
 from fastapi.responses import FileResponse, HTMLResponse, Response
 from fastapi.staticfiles import StaticFiles
 from genro_tytx import to_tytx
 
+from backend.examples import EXAMPLES
 from frontends.pages.recipe import HelloWorldPage
 
 DEFAULT_CLIENT_MODULES = Path(

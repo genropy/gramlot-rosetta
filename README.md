@@ -55,3 +55,8 @@ edit the JavaScript recipe and press Apply, choose Live for each edit, or Focus 
 restores the original recipe. `scripts/setup.sh` builds the local editor bundle;
 run `npm run build:editor` after changing editor code. The runtime and editor are
 listed separately from the authored recipe in the source browser and inventory.
+
+The example menu now offers seven cumulative, independently authored pages in
+each of the four variants. Start with `/pages/editable-text/` or explore the
+complete set of controls at `/pages/font-style/`. Switching implementation keeps
+the example selected. See SPEC.md for update events and initial values.
