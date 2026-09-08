@@ -86,3 +86,18 @@ Implementation references used during setup:
 [FastAPI static mounts](https://fastapi.tiangolo.com/tutorial/static-files/),
 [React app setup](https://react.dev/learn/build-a-react-app-from-scratch), and
 [Vue quick start](https://vuejs.org/guide/quick-start.html).
+
+
+## Reproduction record — 2026-09-08
+
+The documented setup succeeds in `/Users/gporcari/Sviluppo/genro_ng/demo-rosetta`.
+The final server runs there on loopback port 8026. Python contracts: 16 passed;
+Ruff: passed; common Chromium scenarios: 21 passed (7 per implementation).
+The same suite runs against the canonical server after the visual corrections.
+Its live Genro source fingerprints match dependency-baseline.json unchanged.
+Two upstream TestClient/AnyIO deprecation warnings remain non-failing.
+
+The first run of the new label assertion rejected whitespace in Vue/Pages
+templates; the selector now tolerates surrounding whitespace while still requiring
+the actual label. No application behavior was weakened to satisfy that check.
+Screenshots remain local under `.local/screenshots/`.

@@ -11,9 +11,12 @@
 - Shared behavioral verification: 16 Python contracts and 21 browser scenarios.
 - Source inventory and comparison: recorded separately from framework/setup costs.
 
-The integrated tests passed on 2026-09-08. Visual review corrections are applied.
-Canonical-checkout installation and final regression verification are the remaining
-completion check.
+Completed on 2026-09-08. The documented setup command succeeds from the canonical
+checkout; its server hosts all three apps at port 8026. Final verification passes
+16 Python contracts, Ruff and all 21 shared Chromium scenarios, including visible
+labels, selected-order ARIA, decimal validation and double submission prevention.
+Desktop/mobile screenshots are retained locally under .local/screenshots/.
+The source-dependency fingerprint matches the recorded baseline unchanged.
 
 The repository keeps the integration, React, Vue and Pages branches/worktrees for
 future aligned revisions. It does not alter the current Genro libraries or their
