@@ -394,34 +394,34 @@
     "files": [
       {
         "file": "frontends/pages/examples/font-family.py",
-        "nonblank_lines": 36,
-        "bytes": 2009
+        "nonblank_lines": 35,
+        "bytes": 2002
       }
     ],
-    "nonblank_lines": 36,
-    "bytes": 2009
+    "nonblank_lines": 35,
+    "bytes": 2002
   },
   "pages_font-size_page": {
     "files": [
       {
         "file": "frontends/pages/examples/font-size.py",
-        "nonblank_lines": 34,
-        "bytes": 1827
+        "nonblank_lines": 33,
+        "bytes": 1820
       }
     ],
-    "nonblank_lines": 34,
-    "bytes": 1827
+    "nonblank_lines": 33,
+    "bytes": 1820
   },
   "pages_font-style_page": {
     "files": [
       {
         "file": "frontends/pages/examples/font-style.py",
-        "nonblank_lines": 42,
-        "bytes": 2488
+        "nonblank_lines": 41,
+        "bytes": 2481
       }
     ],
-    "nonblank_lines": 42,
-    "bytes": 2488
+    "nonblank_lines": 41,
+    "bytes": 2481
   },
   "pages_text-color_page": {
     "files": [
@@ -460,34 +460,34 @@
     "files": [
       {
         "file": "frontends/pages-js/examples/font-family.js",
-        "nonblank_lines": 31,
-        "bytes": 1492
+        "nonblank_lines": 30,
+        "bytes": 1463
       }
     ],
-    "nonblank_lines": 31,
-    "bytes": 1492
+    "nonblank_lines": 30,
+    "bytes": 1463
   },
   "pages-js_font-size_page": {
     "files": [
       {
         "file": "frontends/pages-js/examples/font-size.js",
-        "nonblank_lines": 29,
-        "bytes": 1299
+        "nonblank_lines": 28,
+        "bytes": 1270
       }
     ],
-    "nonblank_lines": 29,
-    "bytes": 1299
+    "nonblank_lines": 28,
+    "bytes": 1270
   },
   "pages-js_font-style_page": {
     "files": [
       {
         "file": "frontends/pages-js/examples/font-style.js",
-        "nonblank_lines": 37,
-        "bytes": 1987
+        "nonblank_lines": 36,
+        "bytes": 1958
       }
     ],
-    "nonblank_lines": 37,
-    "bytes": 1987
+    "nonblank_lines": 36,
+    "bytes": 1958
   },
   "pages-js_text-color_page": {
     "files": [

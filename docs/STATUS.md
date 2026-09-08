@@ -19,6 +19,7 @@ inspection also verified that the Data tree holds the value committed by input.
 No library changes or new widgets were introduced by the demo. Pages now consumes
 the coordinator-verified widget lbl contract and editable inspector from the local
 assembly. textBox/colorpicker/filteringSelect/checkbox replace native controls;
-the range remains native because horizontalSlider lacks min/max/step forwarding.
+horizontalSlider now replaces the native range with verified bounds, step and
+intermediateChanges behavior.
 Orders remains in standby. Dual-view state sharing, minimal Genro ASGI hosting
 and remote examples are later work.

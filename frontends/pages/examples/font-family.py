@@ -33,9 +33,8 @@ class ExamplePage(WebPage):
         pane.textBox(value="^text", lbl='Text', updateOn='blur')
         pane.colorpicker(value="^color", lbl='Text color', updateOn='input')
         pane.colorpicker(value="^background", lbl='Background color', updateOn='input')
-        field = pane.html_label()
-        field.span("Font size")
-        field.input(type="range", value="^size", updateOn="input", min=10, max=48, step=1)
+        pane.horizontalSlider(value="^size", lbl="Font size", minimum=10, maximum=48,
+                              step=1, intermediateChanges=True)
         pane.filteringSelect(value="^font", lbl='Font family', updateOn='change', values="system-ui,serif,monospace")
 
     def preview(self, root):

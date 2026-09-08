@@ -24,6 +24,9 @@ for (const variant of ['react','vue','pages','pages-js']) {
       }
       if(stage>=3) {
         const slider=frame.getByRole('slider');
+        await expect(slider).toHaveAttribute('min', '10');
+        await expect(slider).toHaveAttribute('max', '48');
+        await expect(slider).toHaveAttribute('step', '1');
         await slider.fill('28');
         await expect(output).toHaveCSS('font-size','28px');
       }

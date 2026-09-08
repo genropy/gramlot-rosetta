@@ -62,8 +62,8 @@ React separates draft text from committed state; Vue likewise commits a draft
 on blur. Pages declares updateOn on the binding. Pages dataFormula declares
 browser-side conversions for CSS size and boolean styles; Python constructs the
 recipe without executing those reactions. Pages uses the verified widget controls with lbl; React/Vue use native controls.
-The bounded range remains native in all variants until the widget forwards its
-range constraints. Output is a readonly field with separate label in all variants.
+Pages uses horizontalSlider with explicit bounds, step and intermediateChanges;
+React/Vue retain the equivalent native range. Output is a readonly field with separate label in all variants.
 
 The shared editor, inspector bridge, routing and example catalog are integration
 costs, not costs repeated for every example. No conclusion about a framework's

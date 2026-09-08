@@ -112,13 +112,12 @@ The source remains in its owning libraries; Rosetta consumes it without patches.
 All Page sources expose the actual widget declarations with lbl. The font choice
 is an existing filteringSelect limited to the same three families as React/Vue.
 
-horizontalSlider does not yet forward min/max/step to its native shadow input.
-The font-size example therefore keeps the visible native range control and its
-explicit label to preserve the 10..48 step1 contract. This is a recorded DOM gap,
-not hidden application boilerplate. numberTextBox localized readonly formatting
+horizontalSlider now uses minimum=10, maximum=48, step=1 and
+intermediateChanges=True, with lbl="Font size". Its range and continuous updates
+are verified in the demo for both Python and JavaScript recipes. numberTextBox localized readonly formatting
 is also not available and is not demonstrated here.
 
 The inspector edits Data/Source of the running instance; changes do not rewrite
 recipe files. Demo tests exercise Data Apply updating input and readonly output
-in both Python and JS authoring modes. Defaults discussed from legacy remain
-unimplemented by this change; explicit state initialization stays in each recipe.
+in both Python and JS authoring modes. The runtime now supports defaults and verticalSlider, but this gallery revision
+only adopts horizontalSlider; explicit state initialization stays in each recipe.
