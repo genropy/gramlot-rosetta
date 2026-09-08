@@ -49,3 +49,17 @@ plain HTML links; the embedded viewer does not repeat framework navigation.
 
 Use equivalent concise documentation across the three application sources. Avoid
 redundant comments or docstrings that merely repeat the visible code.
+
+## Pages JS live recipe
+
+Pages JS is a fourth implementation at /pages-js/. Its authored recipe.js uses
+DOM JS's fluent builder directly; it is not generated from the Python recipe.
+The same Hello World content and shared visual contracts apply.
+
+The Page source tab uses a locally bundled CodeMirror editor for this variant.
+After 250 ms without typing, the recipe executes in the preview document. Syntax
+and execution errors are displayed while the last successful preview is retained.
+Reload restores the checked-in recipe; edits are not written to disk. This is a
+local JavaScript playground, not an isolation boundary for untrusted programs.
+Boilerplate exposes the runtime harness, and Common exposes the editor. The outer
+HTML frame continues to contain no script. Other implementations remain read-only.

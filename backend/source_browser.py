@@ -29,13 +29,19 @@ class SourceBrowser:
             "shell": ("Startup document", "frontends/pages/index.html"),
         },
     }
+    FILES["pages-js"] = {
+        "app": ("Page recipe · JavaScript", "frontends/pages-js/recipe.js"),
+        "client": ("Page bootstrap · JavaScript", "frontends/pages-js/app.js"),
+        "host": ("FastAPI host adapter", "backend/pages_host.py"),
+    }
     SHARED = {
+        "editor": ("Live editor", "shared/editor/editor.js"),
         "frame": ("Shared HTML frame", "backend/templates/frame.html"),
         "frame-style": ("Frame style", "shared/frame.css"),
         "backend": ("Shared FastAPI backend", "backend/app.py"),
         "style": ("Shared example style", "shared/example.css"),
     }
-    TITLES = {"react": "React", "vue": "Vue", "pages": "Genro Pages"}
+    TITLES = {"react": "React", "vue": "Vue", "pages": "Pages Python", "pages-js": "Pages JS"}
 
     def __init__(self, root):
         self.root = Path(root).resolve()
@@ -76,6 +82,8 @@ class SourceBrowser:
             "files": self.get_file_links(variant, files, file) if len(files) > 1 else "",
             "raw_url": escape(f"/sources/{variant}?{urlencode({'file': file, 'raw': 'true'})}"),
             "source": escape(source),
+            "editor_script": '<script type="module" src="/shared/editor/dist/editor.js"></script>'
+            if variant == "pages-js" and section == "page" else "",
         }
         # One formatting pass: placeholders in the source itself stay literal.
         return HTMLResponse(template.format_map(values), headers=headers)

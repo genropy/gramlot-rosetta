@@ -49,3 +49,9 @@ The repository is local-only at /Users/gporcari/Sviluppo/genro_ng/demo-rosetta.
 Four codex/* worktrees are preserved under
 /Users/gporcari/Documents/ChatGPT/genro-pages/temp/demo-rosetta-worktrees/.
 No Genro dependency repository is modified by this demo.
+
+Pages JS is available at `/pages-js/`. Its Page tab is a live CodeMirror editor:
+change the JavaScript recipe to update the preview, without saving files. Reload
+restores the original recipe. `scripts/setup.sh` builds the local editor bundle;
+run `npm run build:editor` after changing editor code. The runtime and editor are
+listed separately from the authored recipe in the source browser and inventory.

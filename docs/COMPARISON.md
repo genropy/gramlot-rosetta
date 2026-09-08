@@ -46,3 +46,8 @@ Shared code has an initial and maintenance cost, but must not be counted again
 for each page. A page-specific helper still belongs to the page even if placed
 in another file. Every framework may use idiomatic abstractions; compare the
 same observable behavior and explain the semantics behind the authored code.
+
+Pages JS adds an independently authored JavaScript recipe. Compare it with Pages
+Python for language differences and with React/Vue for composition semantics.
+The live CodeMirror editor is demo tooling, not part of the page recipe. Recipe,
+execution harness and editor are measured in separate inventory groups.

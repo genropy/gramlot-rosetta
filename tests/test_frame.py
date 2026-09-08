@@ -5,7 +5,7 @@ from fastapi.testclient import TestClient
 from backend.app import DemoServer
 
 
-@pytest.mark.parametrize('variant', ['react', 'vue', 'pages'])
+@pytest.mark.parametrize('variant', ['react', 'vue', 'pages', 'pages-js'])
 def test_shared_frame_routes_to_one_example(variant):
     client = TestClient(DemoServer(pages=False).app)
     response = client.get(f'/{variant}/')

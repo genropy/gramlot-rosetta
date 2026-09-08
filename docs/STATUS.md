@@ -15,3 +15,8 @@ and earlier reports. The active server does not expose its API.
 Next directions are recorded in EVOLUTION.md. Input and style examples, the
 minimal Genro ASGI host, and a library-shipped FastAPI adapter are not implemented
 in this baseline.
+
+Pages JS now provides a fourth Hello World implementation and a live CodeMirror
+recipe editor. Validation includes 15 Python tests, Ruff and 9 browser tests,
+including live updates, syntax-error recovery and reload restoration. The editor
+bundle is built locally with npm run build:editor; no CDN is required at runtime.

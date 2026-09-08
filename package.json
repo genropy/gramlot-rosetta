@@ -4,9 +4,13 @@
   "type": "module",
   "scripts": {
     "test": "playwright test",
-    "metrics": "python3 scripts/measure.py"
+    "metrics": "python3 scripts/measure.py",
+    "build:editor": "esbuild shared/editor/editor.js --bundle --format=esm --outfile=shared/editor/dist/editor.js"
   },
   "devDependencies": {
-    "@playwright/test": "1.63.0"
+    "@codemirror/lang-javascript": "^6.2.5",
+    "@playwright/test": "1.63.0",
+    "codemirror": "^6.0.2",
+    "esbuild": "^0.28.2"
   }
 }

@@ -7,6 +7,7 @@ if [[ ! -x .venv/bin/python ]]; then
 fi
 uv pip sync requirements.lock
 npm ci --ignore-scripts --no-audit --no-fund
+npm run build:editor
 for variant in react vue; do
   npm --prefix "frontends/$variant" ci --no-audit --no-fund
   npm --prefix "frontends/$variant" run build

@@ -21,6 +21,39 @@
     "nonblank_lines": 6,
     "bytes": 250
   },
+  "pages_js_recipe": {
+    "files": [
+      {
+        "file": "frontends/pages-js/recipe.js",
+        "nonblank_lines": 4,
+        "bytes": 226
+      }
+    ],
+    "nonblank_lines": 4,
+    "bytes": 226
+  },
+  "pages_js_bootstrap": {
+    "files": [
+      {
+        "file": "frontends/pages-js/app.js",
+        "nonblank_lines": 31,
+        "bytes": 1325
+      }
+    ],
+    "nonblank_lines": 31,
+    "bytes": 1325
+  },
+  "shared_live_editor": {
+    "files": [
+      {
+        "file": "shared/editor/editor.js",
+        "nonblank_lines": 32,
+        "bytes": 1537
+      }
+    ],
+    "nonblank_lines": 32,
+    "bytes": 1537
+  },
   "pages_recipe": {
     "files": [
       {
@@ -47,12 +80,12 @@
     "files": [
       {
         "file": "backend/pages_host.py",
-        "nonblank_lines": 67,
-        "bytes": 3375
+        "nonblank_lines": 73,
+        "bytes": 3822
       }
     ],
-    "nonblank_lines": 67,
-    "bytes": 3375
+    "nonblank_lines": 73,
+    "bytes": 3822
   },
   "pages_browser_adapter": {
     "files": [
@@ -70,18 +103,18 @@
       {
         "file": "backend/app.py",
         "nonblank_lines": 48,
-        "bytes": 2559
+        "bytes": 2584
       }
     ],
     "nonblank_lines": 48,
-    "bytes": 2559
+    "bytes": 2584
   },
   "shared_frame": {
     "files": [
       {
         "file": "backend/templates/frame.html",
-        "nonblank_lines": 38,
-        "bytes": 1369
+        "nonblank_lines": 39,
+        "bytes": 1431
       },
       {
         "file": "shared/frame.css",
@@ -89,8 +122,8 @@
         "bytes": 1197
       }
     ],
-    "nonblank_lines": 50,
-    "bytes": 2566
+    "nonblank_lines": 51,
+    "bytes": 2628
   },
   "shared_style": {
     "files": [
@@ -112,13 +145,13 @@
     "files": [
       {
         "file": "backend/source_browser.py",
-        "nonblank_lines": 91,
-        "bytes": 4632
+        "nonblank_lines": 99,
+        "bytes": 5144
       },
       {
         "file": "backend/templates/sources.html",
-        "nonblank_lines": 22,
-        "bytes": 796
+        "nonblank_lines": 23,
+        "bytes": 814
       },
       {
         "file": "shared/sources.css",
@@ -126,8 +159,8 @@
         "bytes": 732
       }
     ],
-    "nonblank_lines": 123,
-    "bytes": 6160
+    "nonblank_lines": 132,
+    "bytes": 6690
   },
   "react_setup": {
     "files": [

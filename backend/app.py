@@ -12,7 +12,7 @@ from backend.source_browser import SourceBrowser
 class DemoServer:
     """Serve the comparison frame separately from every framework's application."""
 
-    TITLES = {"react": "React", "vue": "Vue", "pages": "Genro Pages"}
+    TITLES = {"react": "React", "vue": "Vue", "pages": "Pages Python", "pages-js": "Pages JS"}
 
     def __init__(self, root=None, pages=True):
         self.root = Path(root) if root else Path(__file__).resolve().parents[1]

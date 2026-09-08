@@ -43,6 +43,8 @@ class PagesHost:
         app.add_api_route("/examples/pages/hello-world/recipe", self.recipe, include_in_schema=False)
         app.add_api_route("/pages/app.js", self.application_script, include_in_schema=False)
         app.add_api_route("/pages/module.js", self.module_script, include_in_schema=False)
+        app.add_api_route("/examples/pages-js/hello-world/", self.js_index, include_in_schema=False)
+        app.mount("/pages-js", StaticFiles(directory=self.root / "frontends/pages-js"), name="pages-js")
         for name, directory in self.assets.items():
             app.mount(
                 f"/pages/assets/{name}", StaticFiles(directory=directory),
@@ -62,6 +64,11 @@ class PagesHost:
         importmap = json.dumps({"imports": imports}).replace("<", "\\u003c")
         template = (self.frontend / "index.html").read_text()
         return HTMLResponse(template.replace("__ROSETTA_IMPORTMAP__", importmap))
+
+    def js_index(self):
+        """Reuse the runtime shell for an independently authored JavaScript recipe."""
+        response = self.index()
+        return HTMLResponse(response.body.decode().replace('/pages/app.js', '/pages-js/app.js'))
 
     def recipe(self):
         builder = HelloWorldPage.source_builder("main")

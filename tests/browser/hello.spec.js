@@ -2,6 +2,7 @@ import {test, expect} from '@playwright/test';
 import {readFileSync} from 'node:fs';
 
 const files = {
+  'pages-js': 'frontends/pages-js/recipe.js',
   react: 'frontends/react/src/App.jsx',
   vue: 'frontends/vue/src/App.vue',
   pages: 'frontends/pages/recipe.py',
@@ -57,3 +58,20 @@ for (const variant of Object.keys(files)) {
     await expect(page.frameLocator('.example-panel iframe').locator('h1')).toHaveText('Hello World');
   });
 }
+
+test('Pages JS edits update the preview and recover after errors', async ({page}) => {
+  await page.goto('/pages-js/');
+  const source = page.frameLocator('.source-frame-panel iframe');
+  const preview = page.frameLocator('.example-panel iframe');
+  await expect(preview.locator('h1')).toHaveText('Hello World');
+  const editor = source.locator('.cm-content');
+  await editor.fill("root.h1('Live title'); root.div('Live text');");
+  await expect(preview.locator('h1')).toHaveText('Live title');
+  await editor.fill('root.h1(');
+  await expect(source.getByRole('status')).toContainText('Error:');
+  await expect(preview.locator('h1')).toHaveText('Live title');
+  await editor.fill("root.h1('Recovered');");
+  await expect(preview.locator('h1')).toHaveText('Recovered');
+  await page.reload();
+  await expect(preview.locator('h1')).toHaveText('Hello World');
+});
