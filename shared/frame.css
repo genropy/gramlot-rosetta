@@ -1,10 +1,13 @@
-.rosetta-frame { max-width: 1200px; margin: auto; }
+.rosetta-frame { max-width: 1800px; margin: auto; }
 .rosetta-header { display: flex; align-items: center; flex-wrap: wrap; gap: 24px; margin-bottom: 20px; }
 .rosetta-header nav { margin: 0; flex-wrap: wrap; }
 .rosetta-header > a { margin-left: auto; }
 .rosetta-frame a[aria-current="page"] { font-weight: 700; text-decoration-thickness: 2px; }
-.rosetta-layout { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 18px; }
+.rosetta-layout { display: grid; grid-template-columns: 180px minmax(0, 1fr) minmax(0, 1.2fr); gap: 18px; }
 .rosetta-layout aside { align-self: start; }
-.example-panel { min-width: 0; border: 1px solid #d6dce5; border-radius: 6px; background: white; overflow: hidden; }
-.example-panel iframe { display: block; border: 0; width: 100%; min-height: 420px; }
+.example-panel, .source-frame-panel { min-width: 0; border: 1px solid #d6dce5; border-radius: 6px; background: white; overflow: hidden; }
+.example-panel iframe, .source-frame-panel iframe { display: block; border: 0; width: 100%; height: max(600px, calc(100vh - 130px)); }
 @media (max-width: 640px) { .rosetta-layout { grid-template-columns: 1fr; } .rosetta-header { gap: 14px; } .rosetta-header > a { margin-left: 0; } }
+
+@media (min-width: 641px) and (max-width: 1100px) { .rosetta-layout { grid-template-columns: 180px minmax(0, 1fr); } .source-frame-panel { grid-column: 2; } }
+@media (max-width: 1100px) { .example-panel iframe { height: 300px; } .source-frame-panel iframe { height: 650px; } }

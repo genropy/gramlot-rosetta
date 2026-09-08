@@ -33,3 +33,9 @@ Reactive greeting input; then slider, text/background colors and font selection
 using existing components. A minimal genro-asgi host should eventually run the
 same frontend examples. The intended FastAPI adapter should ship with Pages;
 this consumer demo does not establish that packaging yet. See docs/EVOLUTION.md.
+
+The shared HTML frame always displays the selected implementation's source in a
+second iframe: alongside the example on wide screens and below it on narrower
+screens. Source navigation stays within that pane and does not replace the live
+example. The standalone source link remains available. No frontend-specific code
+or parent JavaScript is required for this layout.

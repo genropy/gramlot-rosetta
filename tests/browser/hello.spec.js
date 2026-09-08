@@ -18,7 +18,7 @@ for (const variant of Object.keys(files)) {
     await page.goto(`/${variant}/`);
     await expect(page.getByRole('navigation', {name:'Implementations'})).toBeVisible();
     await expect(page.locator('script')).toHaveCount(0);
-    const example = page.frameLocator('iframe');
+    const example = page.frameLocator('.example-panel iframe');
     await expect(example.locator('h1')).toHaveText('Hello World');
     await expect(example.locator('h1 + div')).toHaveText('Hello World');
     await expect(example.locator('nav')).toHaveCount(0);
@@ -33,6 +33,11 @@ for (const variant of Object.keys(files)) {
 
   test(`${variant}: source browser starts from the individual page`, async ({page}) => {
     await page.goto(`/${variant}/`);
+    const embedded = page.frameLocator('.source-frame-panel iframe');
+    await expect(embedded.locator('#source-code')).toHaveText(readFileSync(files[variant], 'utf8'));
+    await embedded.getByRole('link', {name:'Shared HTML frame',exact:true}).click();
+    await expect(embedded.locator('#source-code')).toHaveText(readFileSync('backend/templates/frame.html', 'utf8'));
+    await expect(page.frameLocator('.example-panel iframe').locator('h1')).toHaveText('Hello World');
     const popup = page.waitForEvent('popup');
     await page.getByRole('link', {name:'View source',exact:true}).click();
     const source = await popup;
@@ -43,6 +48,6 @@ for (const variant of Object.keys(files)) {
       .getByRole('link', {name:'Genro Pages',exact:true}).click();
     await expect(source.locator('#source-code')).toHaveText(readFileSync(files.pages, 'utf8'));
     await source.close();
-    await expect(page.frameLocator('iframe').locator('h1')).toHaveText('Hello World');
+    await expect(page.frameLocator('.example-panel iframe').locator('h1')).toHaveText('Hello World');
   });
 }
