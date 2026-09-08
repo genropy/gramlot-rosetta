@@ -10,7 +10,7 @@ From the repository root:
 
 ```sh
 cd frontends/vue
-npm install
+npm ci
 npm run build
 ```
 
@@ -20,9 +20,9 @@ Then return to the repository root and run the integrated demo:
 ./scripts/run.sh
 ```
 
-Open `http://127.0.0.1:8026/vue/`. For frontend-only development, run
-`npm run dev`. The Vite development server still expects the shared API at
-`/api`; configure a local proxy or use the built application through FastAPI.
+Open `http://127.0.0.1:8026/vue/`. For frontend development, keep the shared
+FastAPI server running on port 8026 and run `npm run dev` in `frontends/vue`.
+Vite proxies `/api` and `/shared` to that server.
 
 ## Dependencies and limitations
 
@@ -32,5 +32,5 @@ the shared `/shared/style.css`; it adds no router or UI component library.
 
 The three variants intentionally share one in-memory backend, so saving or
 resetting in one variant affects the others. Data persists only for the lifetime
-of the FastAPI process. The standalone Vite development command does not provide
-or automatically proxy that backend.
+of the FastAPI process. The Vite development command depends on the shared
+FastAPI server running at `http://127.0.0.1:8026`.
