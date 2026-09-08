@@ -1,30 +1,17 @@
-# Work status — Rosetta v1
+# Active baseline: Hello World
 
-- Repository: local-only `demo-rosetta`, no remote or publication.
-- Shared FastAPI backend and fixtures: implemented.
-- React: implemented with native controls; Vite build passes.
-- Vue: implemented with native controls; Vite build passes.
-- Pages: implemented using existing WebPage/WidgetTestBuilder and DOM components.
-- Genro-asgi: absent from the isolated Python runtime, asserted by tests.
-- Local Pages/Builders/DOM source dependencies: still required and documented.
-- Grid and richer widgets: intentionally absent; no surrogate component was added.
-- Shared behavioral verification: 24 Python contracts and 24 browser scenarios.
-- Source inventory and comparison: recorded separately from framework/setup costs.
+React, Vue and Genro Pages each render a title and a greeting inside the same
+plain HTML frame. Navigation, the example menu and source links belong to the
+frame. The source viewer shows each application and exposes shared files
+separately.
 
-Completed on 2026-09-08. The documented setup command succeeds from the canonical
-checkout; its server hosts all three apps at port 8026. Final verification passes
-24 Python contracts, Ruff and all 24 shared Chromium scenarios, including visible
-labels, selected-order ARIA, decimal validation and double submission prevention.
-Desktop/mobile screenshots are retained locally under .local/screenshots/.
-The source-dependency fingerprint matches the recorded baseline unchanged.
+Validation: both frontend production builds, 14 Python tests, Ruff and 6 browser
+tests passed. Browser contracts cover every implementation, source display,
+frame isolation and mobile overflow.
 
-The repository keeps the integration, React, Vue and Pages branches/worktrees for
-future aligned revisions. It does not alter the current Genro libraries or their
-active development branches. See EVOLUTION.md before extending the demo.
+Orders is on standby in standby/orders, including its source, seed data, tests
+and earlier reports. The active server does not expose its API.
 
-
-Source inspection update: View source is available in all three apps, with actual
-application and supporting code, in a separate tab preserving unsaved drafts.
-Pages main() now delegates to short documented composition methods; AGENTS.md
-records this as an ongoing authoring rule. All 24 Python and 24 browser tests pass
-for this update, including source-text equality and source-view navigation.
+Next directions are recorded in EVOLUTION.md. Input and style examples, the
+minimal Genro ASGI host, and a library-shipped FastAPI adapter are not implemented
+in this baseline.
