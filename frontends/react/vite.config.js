@@ -2,7 +2,7 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
 export default defineConfig({
-  base: '/examples/react/hello-world/',
+  base: '/examples/react/',
   plugins: [react()],
   server: {
     proxy: {
