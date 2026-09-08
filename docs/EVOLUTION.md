@@ -32,3 +32,18 @@ For each future revision:
 
 These future capabilities are not claimed by the current demo. Do not fabricate
 missing widgets or use a grid before the real component exists.
+
+## RPC waiting indicator proposal
+
+Record for future library work, not implemented in Hello World: adopt the legacy
+hider pattern as a declarative RPC option instead of repeating pending bindings
+on every input. Target a form or explicit container, with a page-wide option.
+Separate immediate interaction protection from a delayed visual overlay (legacy
+lockScreen defaults to 200 ms), with optional message/progress. Release protection
+on success, error and cancellation; overlapping requests must not unlock each
+other. Cover keyboard interaction and focus as well as pointer input.
+
+This should be reusable outside Genro ASGI. When Orders returns, preserve equal
+observable behavior across React, Vue and Pages while allowing idiomatic shared
+form abstractions in every implementation. The archived React and Vue versions
+explicitly bind disabled to busy; their input disabling was application code.
