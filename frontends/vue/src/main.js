@@ -6,6 +6,7 @@ import BackgroundColor from './examples/background-color.vue'
 import FontSize from './examples/font-size.vue'
 import FontFamily from './examples/font-family.vue'
 import FontStyle from './examples/font-style.vue'
+import LocalScope from './examples/local-scope.vue'
 
 const examples = {
   'hello-world': App,
@@ -15,6 +16,7 @@ const examples = {
   'font-size': FontSize,
   'font-family': FontFamily,
   'font-style': FontStyle,
+  'local-scope': LocalScope,
 }
 
 const exampleId = window.location.pathname.split('/').filter(Boolean).at(-1)

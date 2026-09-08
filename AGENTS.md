@@ -25,7 +25,7 @@ JavaScript/controller and adapter code needed to understand the full application
 
 Rosetta navigation, example selection and source links belong in the shared pure
 HTML frame, outside all framework page recipes/components. Each framework renders
-only the selected example in an iframe. Hello World and the six cumulative binding examples are active; Orders
+only the selected example in an iframe. Hello World, six cumulative binding examples and Local scope are active; Orders
 is preserved in standby/orders and must not reappear until the owner requests it.
 A two-statement Hello World main() does not need artificial helper methods.
 

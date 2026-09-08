@@ -7,6 +7,7 @@ import BackgroundColor from './examples/background-color.jsx'
 import FontSize from './examples/font-size.jsx'
 import FontFamily from './examples/font-family.jsx'
 import FontStyle from './examples/font-style.jsx'
+import LocalScope from './examples/local-scope.jsx'
 
 const examples = {
   'hello-world': App,
@@ -16,6 +17,7 @@ const examples = {
   'font-size': FontSize,
   'font-family': FontFamily,
   'font-style': FontStyle,
+  'local-scope': LocalScope,
 }
 
 const exampleId = window.location.pathname.split('/').filter(Boolean).at(-1)

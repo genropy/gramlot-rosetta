@@ -11,3 +11,10 @@ h1 { font-size: 24px; margin: 0 0 16px; }
 label.demo-output { color: #555; font-size: 0.85em; font-weight: 600; }
 label.demo-output input { font: 14px/1.5 system-ui, sans-serif; color: #223044; border: 1px solid #c8c8c8; border-radius: 3px; padding: 3px 6px; min-width: 0; width: 100%; }
 gnr-textbox.demo-output { --field-bg: transparent; }
+
+.scoped-example { display: block; max-width: 440px; min-width: 0; }
+.native-scope { border: 1px solid #c8c8c8; padding: 12px; }
+.sample-title { color: #555; font-size: 12px; font-weight: 600; }
+.compact-controls { gap: 8px; margin: 12px 0; max-width: none; }
+.native-controls { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; }
+.native-controls input, .native-controls select { max-width: 100%; min-width: 0; }

@@ -7,4 +7,5 @@ EXAMPLES = {
     'font-size': 'Font size',
     'font-family': 'Font family',
     'font-style': 'Font style',
+    'local-scope': 'Local scope',
 }

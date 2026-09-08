@@ -1,10 +1,13 @@
 # Demo Rosetta
 
-The active comparison is **Hello World** in React, Vue and Genro Pages, hosted by
-FastAPI. One shared **plain HTML frame** owns implementation navigation, example
+The active comparison is an eight-example gallery in React, Vue, Pages Python
+and Pages JS, hosted by FastAPI. One shared **plain HTML frame** owns implementation navigation, example
 selection and View source. Each framework renders only the example in its iframe.
 
-The page itself contains exactly a heading and a div saying **Hello World**.
+Examples progress from Hello World to editable text and visual controls. The
+eighth, [Local scope](http://127.0.0.1:8026/pages/local-scope/), groups the full
+Font style example in a compact box. Pages uses `datapath="sample"` and relative
+bindings; React and Vue use component-local state.
 Orders is on standby: its previous code, fixtures, specification and tests are
 preserved in [standby/orders](standby/orders/README.md), outside active routes/tests.
 

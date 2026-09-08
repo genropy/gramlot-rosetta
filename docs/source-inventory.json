@@ -145,12 +145,12 @@
       },
       {
         "file": "shared/example.css",
-        "nonblank_lines": 12,
-        "bytes": 890
+        "nonblank_lines": 18,
+        "bytes": 1334
       }
     ],
-    "nonblank_lines": 24,
-    "bytes": 1481
+    "nonblank_lines": 30,
+    "bytes": 1925
   },
   "shared_source_viewer": {
     "files": [
@@ -177,8 +177,8 @@
     "files": [
       {
         "file": "frontends/react/src/main.jsx",
-        "nonblank_lines": 25,
-        "bytes": 875
+        "nonblank_lines": 27,
+        "bytes": 956
       },
       {
         "file": "frontends/react/index.html",
@@ -196,15 +196,15 @@
         "bytes": 351
       }
     ],
-    "nonblank_lines": 68,
-    "bytes": 1830
+    "nonblank_lines": 70,
+    "bytes": 1911
   },
   "vue_setup": {
     "files": [
       {
         "file": "frontends/vue/src/main.js",
-        "nonblank_lines": 20,
-        "bytes": 757
+        "nonblank_lines": 22,
+        "bytes": 838
       },
       {
         "file": "frontends/vue/index.html",
@@ -222,8 +222,8 @@
         "bytes": 318
       }
     ],
-    "nonblank_lines": 62,
-    "bytes": 1667
+    "nonblank_lines": 64,
+    "bytes": 1748
   },
   "pages_setup": {
     "files": [
@@ -291,6 +291,17 @@
     "nonblank_lines": 37,
     "bytes": 2316
   },
+  "react_local-scope_page": {
+    "files": [
+      {
+        "file": "frontends/react/src/examples/local-scope.jsx",
+        "nonblank_lines": 40,
+        "bytes": 2524
+      }
+    ],
+    "nonblank_lines": 40,
+    "bytes": 2524
+  },
   "react_text-color_page": {
     "files": [
       {
@@ -356,6 +367,17 @@
     ],
     "nonblank_lines": 35,
     "bytes": 1773
+  },
+  "vue_local-scope_page": {
+    "files": [
+      {
+        "file": "frontends/vue/src/examples/local-scope.vue",
+        "nonblank_lines": 38,
+        "bytes": 1968
+      }
+    ],
+    "nonblank_lines": 38,
+    "bytes": 1968
   },
   "vue_text-color_page": {
     "files": [
@@ -423,6 +445,17 @@
     "nonblank_lines": 41,
     "bytes": 2481
   },
+  "pages_local-scope_page": {
+    "files": [
+      {
+        "file": "frontends/pages/examples/local-scope.py",
+        "nonblank_lines": 44,
+        "bytes": 2789
+      }
+    ],
+    "nonblank_lines": 44,
+    "bytes": 2789
+  },
   "pages_text-color_page": {
     "files": [
       {
@@ -489,6 +522,17 @@
     "nonblank_lines": 36,
     "bytes": 1958
   },
+  "pages-js_local-scope_page": {
+    "files": [
+      {
+        "file": "frontends/pages-js/examples/local-scope.js",
+        "nonblank_lines": 38,
+        "bytes": 2224
+      }
+    ],
+    "nonblank_lines": 38,
+    "bytes": 2224
+  },
   "pages-js_text-color_page": {
     "files": [
       {
@@ -504,11 +548,11 @@
     "files": [
       {
         "file": "backend/examples.py",
-        "nonblank_lines": 10,
-        "bytes": 337
+        "nonblank_lines": 11,
+        "bytes": 371
       }
     ],
-    "nonblank_lines": 10,
-    "bytes": 337
+    "nonblank_lines": 11,
+    "bytes": 371
   }
 }

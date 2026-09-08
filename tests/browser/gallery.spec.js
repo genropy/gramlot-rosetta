@@ -1,6 +1,6 @@
 import {test, expect} from '@playwright/test';
 import {readFileSync} from 'node:fs';
-const examples = ['editable-text','text-color','background-color','font-size','font-family','font-style'];
+const examples = ['editable-text','text-color','background-color','font-size','font-family','font-style','local-scope'];
 for (const variant of ['react','vue','pages','pages-js']) {
   for (const [stage, example] of examples.entries()) {
     test(`${variant} ${example}: cumulative behavior and actual source`, async ({page}) => {
@@ -70,5 +70,35 @@ for (const variant of ['pages','pages-js']) {
     await editor.getByRole('button',{name:'Apply',exact:true}).click();
     await expect(frame.locator('.demo-output input')).toHaveValue('From Data');
     await expect(frame.getByLabel('Text',{exact:true})).toHaveValue('From Data');
+  });
+}
+
+for (const variant of ['pages','pages-js']) {
+  test(`${variant} local-scope: relative state and formulas stay in sample`, async ({page}) => {
+    await page.goto(`/${variant}/local-scope/`);
+    const frame=page.frameLocator('.example-panel iframe');
+    await frame.getByLabel('Text',{exact:true}).fill('Scoped text');
+    await frame.getByRole('heading').click();
+    await frame.getByRole('slider').fill('28');
+    await frame.getByLabel('Bold',{exact:true}).check();
+    await page.getByRole('button',{name:'Inspector',exact:true}).click();
+    const tree=frame.locator('[data-inspector="data"]');
+    const values=await tree.evaluate(el=>{
+      const bag=el.storeBag;
+      return {
+        text:bag.getItem('sample.text'), size:bag.getItem('sample.size'),
+        sizeCss:bag.getItem('sample.sizeCss'), weight:bag.getItem('sample.weight'),
+        leaked:['text','color','background','size','font','bold','italic','sizeCss','weight','slant']
+          .filter(path=>Boolean(bag.getNode(path))),
+      };
+    });
+    expect(values).toEqual({text:'Scoped text',size:28,sizeCss:'28px',weight:'bold',leaked:[]});
+    await tree.getByText('sample',{exact:true}).click();
+    await tree.getByText('text',{exact:true}).click();
+    const editor=frame.locator('[data-inspector="data-editor"]');
+    await editor.getByRole('textbox',{name:'Value',exact:true}).fill('From sample');
+    await editor.getByRole('button',{name:'Apply',exact:true}).click();
+    await expect(frame.locator('.demo-output input')).toHaveValue('From sample');
+    await expect(frame.getByLabel('Text',{exact:true})).toHaveValue('From sample');
   });
 }

@@ -121,3 +121,14 @@ The inspector edits Data/Source of the running instance; changes do not rewrite
 recipe files. Demo tests exercise Data Apply updating input and readonly output
 in both Python and JS authoring modes. The runtime now supports defaults and verticalSlider, but this gallery revision
 only adopts horizontalSlider; explicit state initialization stays in each recipe.
+
+
+## Local scope (eighth example)
+
+`local-scope` retains every Font style control in a compact titled box. Font style
+remains unchanged. Pages declares `datapath="sample"` on the existing box widget;
+initial data paths and formula destinations begin with `.`, and bindings begin
+with `^.`. Inspector shows text, styles and computed values under `sample`, with
+no equivalent nodes at the root. Editing `sample.text` in Inspector updates both
+text fields. React and Vue keep idiomatic component-local state and native HTML;
+they do not emulate a path store. No database or new library API is involved.
