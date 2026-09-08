@@ -1,0 +1,22 @@
+[project]
+name = "demo-rosetta"
+version = "0.1.0"
+description = "Local Rosetta comparison: React, Vue and Python-authored Genro Pages on FastAPI"
+requires-python = ">=3.12"
+dependencies = ["fastapi>=0.115,<1", "uvicorn>=0.30,<1"]
+
+[project.optional-dependencies]
+test = ["pytest>=8,<10", "httpx>=0.27,<1", "ruff>=0.9,<1"]
+
+pages = ["genro-bag==0.21.1", "genro-tytx[msgpack]==0.15.0", "genro-toolbox==0.14.0"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I"]

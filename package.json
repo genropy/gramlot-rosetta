@@ -1,0 +1,12 @@
+{
+  "name": "demo-rosetta-checks",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "playwright test",
+    "metrics": "python3 scripts/measure.py"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0"
+  }
+}
