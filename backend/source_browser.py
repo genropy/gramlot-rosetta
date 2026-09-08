@@ -34,6 +34,8 @@ class SourceBrowser:
         "client": ("Page bootstrap · JavaScript", "frontends/pages-js/app.js"),
         "host": ("FastAPI host adapter", "backend/pages_host.py"),
     }
+    for name in ("pages", "pages-js"):
+        FILES[name]["tools"] = ("Shared Pages inspector tools", "frontends/pages-common/tools.js")
     SHARED = {
         "editor": ("Live editor", "shared/editor/editor.js"),
         "frame": ("Shared HTML frame", "backend/templates/frame.html"),

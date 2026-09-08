@@ -83,3 +83,26 @@ test('Pages JS edits update the preview and recover after errors', async ({page}
   await page.reload();
   await expect(preview.locator('h1')).toHaveText('Hello World');
 });
+
+for (const variant of ['pages', 'pages-js']) {
+  test(`${variant}: shared inspector opens outside the recipe`, async ({page}) => {
+    await page.goto(`/${variant}/`);
+    const button = page.getByRole('button', {name:'Inspector', exact:true});
+    await expect(button).toBeEnabled();
+    await button.click();
+    const preview = page.frameLocator('.example-panel iframe');
+    await expect(preview.getByText('Actual page Bags · select a node to inspect its value and attributes.')).toBeVisible();
+    await expect(preview.locator('[data-inspector="source"]')).toHaveCount(1);
+    await expect(preview.locator('[data-inspector="data"]')).toHaveCount(1);
+    if (variant === 'pages-js') {
+      const source = page.frameLocator('.source-frame-panel iframe');
+      await source.locator('.cm-content').fill("root.h1('Updated instance');");
+      await source.getByRole('button', {name:'Apply', exact:true}).click();
+      await expect(preview.locator('h1')).toHaveText('Updated instance');
+      await expect(button).toBeEnabled();
+      await button.click();
+      await expect(preview.getByText('Actual page Bags · select a node to inspect its value and attributes.')).toBeVisible();
+      await expect(preview.locator('gnr-palette')).toHaveCount(1);
+    }
+  });
+}

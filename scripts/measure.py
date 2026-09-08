@@ -28,6 +28,7 @@ def report(root):
         'vue_application': ['frontends/vue/src/App.vue'],
         'pages_js_recipe': ['frontends/pages-js/recipe.js'],
         'pages_js_bootstrap': ['frontends/pages-js/app.js'],
+        'shared_pages_tools': ['frontends/pages-common/tools.js'],
         'shared_live_editor': ['shared/editor/editor.js'],
         'pages_recipe': ['frontends/pages/recipe.py'],
         'pages_bootstrap': ['frontends/pages/app.js'],

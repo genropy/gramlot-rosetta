@@ -36,12 +36,23 @@
     "files": [
       {
         "file": "frontends/pages-js/app.js",
-        "nonblank_lines": 31,
-        "bytes": 1325
+        "nonblank_lines": 33,
+        "bytes": 1411
       }
     ],
-    "nonblank_lines": 31,
-    "bytes": 1325
+    "nonblank_lines": 33,
+    "bytes": 1411
+  },
+  "shared_pages_tools": {
+    "files": [
+      {
+        "file": "frontends/pages-common/tools.js",
+        "nonblank_lines": 37,
+        "bytes": 1533
+      }
+    ],
+    "nonblank_lines": 37,
+    "bytes": 1533
   },
   "shared_live_editor": {
     "files": [
@@ -69,23 +80,23 @@
     "files": [
       {
         "file": "frontends/pages/app.js",
-        "nonblank_lines": 19,
-        "bytes": 845
+        "nonblank_lines": 21,
+        "bytes": 927
       }
     ],
-    "nonblank_lines": 19,
-    "bytes": 845
+    "nonblank_lines": 21,
+    "bytes": 927
   },
   "pages_host_adapter": {
     "files": [
       {
         "file": "backend/pages_host.py",
-        "nonblank_lines": 73,
-        "bytes": 3822
+        "nonblank_lines": 84,
+        "bytes": 4553
       }
     ],
-    "nonblank_lines": 73,
-    "bytes": 3822
+    "nonblank_lines": 84,
+    "bytes": 4553
   },
   "pages_browser_adapter": {
     "files": [
@@ -113,8 +124,8 @@
     "files": [
       {
         "file": "backend/templates/frame.html",
-        "nonblank_lines": 39,
-        "bytes": 1431
+        "nonblank_lines": 40,
+        "bytes": 1468
       },
       {
         "file": "shared/frame.css",
@@ -122,8 +133,8 @@
         "bytes": 1197
       }
     ],
-    "nonblank_lines": 51,
-    "bytes": 2628
+    "nonblank_lines": 52,
+    "bytes": 2665
   },
   "shared_style": {
     "files": [
@@ -145,8 +156,8 @@
     "files": [
       {
         "file": "backend/source_browser.py",
-        "nonblank_lines": 99,
-        "bytes": 5144
+        "nonblank_lines": 101,
+        "bytes": 5282
       },
       {
         "file": "backend/templates/sources.html",
@@ -159,8 +170,8 @@
         "bytes": 732
       }
     ],
-    "nonblank_lines": 132,
-    "bytes": 6690
+    "nonblank_lines": 134,
+    "bytes": 6828
   },
   "react_setup": {
     "files": [

@@ -45,6 +45,8 @@ class PagesHost:
         app.add_api_route("/pages/module.js", self.module_script, include_in_schema=False)
         app.add_api_route("/examples/pages-js/hello-world/", self.js_index, include_in_schema=False)
         app.mount("/pages-js", StaticFiles(directory=self.root / "frontends/pages-js"), name="pages-js")
+        app.add_api_route("/pages/inspector-recipe", self.inspector_recipe, include_in_schema=False)
+        app.mount("/pages-common", StaticFiles(directory=self.root / "frontends/pages-common"), name="pages-common")
         for name, directory in self.assets.items():
             app.mount(
                 f"/pages/assets/{name}", StaticFiles(directory=directory),
@@ -53,6 +55,7 @@ class PagesHost:
 
     def index(self):
         imports = {
+            "/_assets/dom/": "/pages/assets/dom/",
             "genro-dom-js": "/pages/assets/dom/index.js",
             "genro-bag-js": "/pages/assets/bag/index.js",
             "#uuid": "/pages/assets/bag/browser-uuid.js",
@@ -64,6 +67,15 @@ class PagesHost:
         importmap = json.dumps({"imports": imports}).replace("<", "\\u003c")
         template = (self.frontend / "index.html").read_text()
         return HTMLResponse(template.replace("__ROSETTA_IMPORTMAP__", importmap))
+
+    def inspector_recipe(self):
+        """Serve the library inspector without involving application recipes."""
+        from genro_pages.inspector import build_inspector
+        from genro_pages.widget_test_builder import WidgetTestBuilder
+        builder = WidgetTestBuilder("inspector")
+        build_inspector(builder.source)
+        return Response(to_tytx(builder.source, transport="json"),
+                        media_type="application/vnd.tytx+json")
 
     def js_index(self):
         """Reuse the runtime shell for an independently authored JavaScript recipe."""

@@ -65,3 +65,9 @@ Reload restores the checked-in recipe; edits are not written to disk. This is a
 local JavaScript playground, not an isolation boundary for untrusted programs.
 Boilerplate exposes the runtime harness, and Common exposes the editor. The outer
 HTML frame continues to contain no script. Other implementations remain read-only.
+
+Both Pages variants expose an Inspector button in the common frame, outside the
+recipe and preview content. A shared Pages bootstrap module mounts the library's
+existing inspector against the running application's Data and Source Bags. It
+rebinds after successful JS Apply and disposes the old inspector with its owner.
+The shared integration is listed under Boilerplate for both Pages variants.

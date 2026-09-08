@@ -1,3 +1,4 @@
+import {attachTools} from '/pages-common/tools.js';
 import {Application, HtmlBuilder} from 'genro-dom-js';
 import {fromTytx} from 'genro-tytx';
 
@@ -9,6 +10,7 @@ async function start() {
     builder.loadSource(fromTytx(await response.text(), 'json'));
     const application = new Application(document.getElementById('root'));
     application.mountBuilder(builder);
+    attachTools(application);
     window.addEventListener('pagehide', event => {
         if (!event.persisted) application.dispose();
     });

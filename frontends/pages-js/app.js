@@ -1,3 +1,4 @@
+import {attachTools} from '/pages-common/tools.js';
 import {Application, HtmlBuilder} from 'genro-dom-js';
 
 let application;
@@ -12,6 +13,7 @@ function render(code) {
         application?.dispose();
         document.getElementById('root').replaceChildren(container);
         application = next;
+        attachTools(application);
     } catch (error) {
         next?.dispose();
         builder.dispose();
