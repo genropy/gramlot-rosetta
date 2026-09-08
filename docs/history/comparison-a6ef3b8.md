@@ -52,20 +52,19 @@ already existed as reusable released features.
 
 | Inventory group | Nonblank lines | UTF-8 bytes |
 | --- | ---: | ---: |
-| react application | 197 | 7085 |
-| vue application | 235 | 6719 |
-| pages recipe | 115 | 5095 |
+| react application | 196 | 7005 |
+| vue application | 234 | 6643 |
+| pages recipe | 84 | 3763 |
 | pages client | 160 | 6351 |
 | pages host adapter | 67 | 3321 |
 | pages browser adapter | 11 | 504 |
-| shared backend | 84 | 4277 |
+| shared backend | 80 | 4033 |
 | shared style | 25 | 1696 |
-| shared source viewer | 117 | 5802 |
 | react setup | 44 | 981 |
 | vue setup | 43 | 936 |
 | pages setup | 15 | 492 |
 
-The Pages recipe is compact, but its recipe plus client controller currently total 275 nonblank lines, before the explicit host/browser adapters. React and Vue totals above include their client entry points. These numbers do not yet demonstrate less total authoring work for Pages.
+The Pages recipe is compact, but its recipe plus client controller currently total 244 nonblank lines, before the explicit host/browser adapters. React and Vue totals above include their client entry points. These numbers do not yet demonstrate less total authoring work for Pages.
 
 Integrated validation passed 16 Python contracts and all 21 common Chromium scenarios. React and Vue production builds passed. Desktop (1100 px) and mobile (390 px) layouts were visually inspected; navigation among variants produced no JavaScript page errors. The shared suite now also checks visible product/price labels and selected-order ARIA state.
 
@@ -102,19 +101,3 @@ The first run of the new label assertion rejected whitespace in Vue/Pages
 templates; the selector now tolerates surrounding whitespace while still requiring
 the actual label. No application behavior was weakened to satisfy that check.
 Screenshots remain local under `.local/screenshots/`.
-
-
-## Readability and source inspection update
-
-The owner requires main() to describe composition through short, documented
-methods. The Pages recipe now follows this rule; increased physical line count
-reflects explicit structure and documentation, not a functional regression.
-The original inventory is retained in history/source-inventory-a6ef3b8.json.
-
-Every demo offers View source in a separate tab. The shared source browser displays
-actual application/controller/adapter files as literal text, includes the shared
-backend/style, and offers plain-text raw files. This shared comparison facility
-is measured separately from application and Pages adapter code.
-
-Validation for the source-inspection update: 24 Python contracts and 24 browser
-scenarios pass, including the original order behavior and three source-view flows.

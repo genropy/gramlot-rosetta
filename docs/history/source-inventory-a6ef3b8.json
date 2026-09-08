@@ -3,8 +3,8 @@
     "files": [
       {
         "file": "frontends/react/src/App.jsx",
-        "nonblank_lines": 189,
-        "bytes": 6877
+        "nonblank_lines": 188,
+        "bytes": 6797
       },
       {
         "file": "frontends/react/src/main.jsx",
@@ -12,15 +12,15 @@
         "bytes": 208
       }
     ],
-    "nonblank_lines": 197,
-    "bytes": 7085
+    "nonblank_lines": 196,
+    "bytes": 7005
   },
   "vue_application": {
     "files": [
       {
         "file": "frontends/vue/src/App.vue",
-        "nonblank_lines": 232,
-        "bytes": 6629
+        "nonblank_lines": 231,
+        "bytes": 6553
       },
       {
         "file": "frontends/vue/src/main.js",
@@ -28,19 +28,19 @@
         "bytes": 90
       }
     ],
-    "nonblank_lines": 235,
-    "bytes": 6719
+    "nonblank_lines": 234,
+    "bytes": 6643
   },
   "pages_recipe": {
     "files": [
       {
         "file": "frontends/pages/recipe.py",
-        "nonblank_lines": 115,
-        "bytes": 5095
+        "nonblank_lines": 84,
+        "bytes": 3763
       }
     ],
-    "nonblank_lines": 115,
-    "bytes": 5095
+    "nonblank_lines": 84,
+    "bytes": 3763
   },
   "pages_client": {
     "files": [
@@ -79,12 +79,12 @@
     "files": [
       {
         "file": "backend/app.py",
-        "nonblank_lines": 84,
-        "bytes": 4277
+        "nonblank_lines": 80,
+        "bytes": 4033
       }
     ],
-    "nonblank_lines": 84,
-    "bytes": 4277
+    "nonblank_lines": 80,
+    "bytes": 4033
   },
   "shared_style": {
     "files": [
@@ -96,27 +96,6 @@
     ],
     "nonblank_lines": 25,
     "bytes": 1696
-  },
-  "shared_source_viewer": {
-    "files": [
-      {
-        "file": "backend/source_browser.py",
-        "nonblank_lines": 76,
-        "bytes": 3860
-      },
-      {
-        "file": "backend/templates/sources.html",
-        "nonblank_lines": 30,
-        "bytes": 1135
-      },
-      {
-        "file": "shared/sources.css",
-        "nonblank_lines": 11,
-        "bytes": 807
-      }
-    ],
-    "nonblank_lines": 117,
-    "bytes": 5802
   },
   "react_setup": {
     "files": [
