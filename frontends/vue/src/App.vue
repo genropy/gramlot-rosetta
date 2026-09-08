@@ -105,7 +105,7 @@ async function resetDemo() {
     const nextOrders = await request('/api/reset', { method: 'POST' })
     orders.value = nextOrders
     selectFirst(nextOrders)
-    feedback.value = 'Demo reset.'
+    feedback.value = ''
   } catch (error) {
     feedback.value = `Could not reset demo: ${errorMessage(error)}`
   } finally {
