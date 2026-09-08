@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "customer": "Ada Studio",
+    "product": "Notebook",
+    "quantity": 2,
+    "unit_price_cents": 1250,
+    "note": "Blue cover",
+    "fulfilled": false
+  },
+  {
+    "id": 2,
+    "customer": "Linus Workshop",
+    "product": "Pencil set",
+    "quantity": 3,
+    "unit_price_cents": 450,
+    "note": "",
+    "fulfilled": true
+  },
+  {
+    "id": 3,
+    "customer": "Grace Lab",
+    "product": "Desk organiser",
+    "quantity": 1,
+    "unit_price_cents": 2890,
+    "note": "Deliver in the morning",
+    "fulfilled": false
+  }
+]
