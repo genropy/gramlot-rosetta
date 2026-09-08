@@ -8,7 +8,7 @@ from fastapi.responses import FileResponse, HTMLResponse, Response
 from fastapi.staticfiles import StaticFiles
 from genro_tytx import to_tytx
 
-from frontends.pages.recipe import HelloWorldPage
+from frontends.pages.recipe import OrdersPage
 
 DEFAULT_CLIENT_MODULES = Path(
     "/Users/gporcari/Sviluppo/genro_ng/meta-genro-modules/sub-projects/"
@@ -39,8 +39,8 @@ class PagesHost:
 
     def mount(self, app):
         """Add the Pages routes and narrowly scoped static asset mounts."""
-        app.add_api_route("/examples/pages/hello-world/", self.index, include_in_schema=False)
-        app.add_api_route("/examples/pages/hello-world/recipe", self.recipe, include_in_schema=False)
+        app.add_api_route("/pages/", self.index, include_in_schema=False)
+        app.add_api_route("/pages/recipe", self.recipe, include_in_schema=False)
         app.add_api_route("/pages/app.js", self.application_script, include_in_schema=False)
         app.add_api_route("/pages/module.js", self.module_script, include_in_schema=False)
         for name, directory in self.assets.items():
@@ -64,8 +64,8 @@ class PagesHost:
         return HTMLResponse(template.replace("__ROSETTA_IMPORTMAP__", importmap))
 
     def recipe(self):
-        builder = HelloWorldPage.source_builder("main")
-        HelloWorldPage().main(builder.source)
+        builder = OrdersPage.source_builder("main")
+        OrdersPage().main(builder.source)
         return Response(
             to_tytx(builder.source, transport="json"),
             media_type="application/vnd.tytx+json",

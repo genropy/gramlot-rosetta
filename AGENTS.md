@@ -20,3 +20,11 @@ and have short docstrings. Do not flatten a page into one long method to reduce
 line count. Prefer readability for a Python author reviewing LLM-generated code.
 Keep actual sources available from each demo implementation, including any Pages
 JavaScript/controller and adapter code needed to understand the full application.
+
+## Common frame and current scope
+
+Rosetta navigation, example selection and source links belong in the shared pure
+HTML frame, outside all framework page recipes/components. Each framework renders
+only the selected example in an iframe. Hello World is the active example; Orders
+is preserved in standby/orders and must not reappear until the owner requests it.
+A two-statement Hello World main() does not need artificial helper methods.

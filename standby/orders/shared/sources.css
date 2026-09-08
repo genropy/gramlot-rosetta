@@ -1,0 +1,11 @@
+.source-browser { max-width: 1360px; margin: auto; }
+.source-browser nav { flex-wrap: wrap; }
+.source-layout { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 18px; }
+.source-layout aside { align-self: start; }
+.source-layout ul { list-style: none; padding: 0; margin: 0; }
+.source-layout li { margin-bottom: 12px; }
+.source-browser a[aria-current="page"] { font-weight: 700; text-decoration-thickness: 2px; }
+.source-panel { min-width: 0; }
+.source-path { overflow-wrap: anywhere; color: #546174; }
+#source-code { overflow: auto; max-height: 75vh; background: #f6f8fa; border: 1px solid #d6dce5; border-radius: 4px; padding: 16px; tab-size: 4; font: 13px/1.6 ui-monospace, SFMono-Regular, Consolas, monospace; }
+@media (max-width: 700px) { .source-layout { grid-template-columns: 1fr; } }

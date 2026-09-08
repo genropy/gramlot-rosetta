@@ -23,17 +23,15 @@ class SourceBrowser:
         },
         "pages": {
             "app": ("Page recipe · Python", "frontends/pages/recipe.py"),
-            "client": ("Page bootstrap · JavaScript", "frontends/pages/app.js"),
+            "client": ("Client controller · JavaScript", "frontends/pages/app.js"),
             "host": ("FastAPI host adapter", "backend/pages_host.py"),
             "shim": ("Browser module adapter", "frontends/pages/module.js"),
             "shell": ("Startup document", "frontends/pages/index.html"),
         },
     }
     SHARED = {
-        "frame": ("Shared HTML frame", "backend/templates/frame.html"),
-        "frame-style": ("Frame style", "shared/frame.css"),
         "backend": ("Shared FastAPI backend", "backend/app.py"),
-        "style": ("Shared example style", "shared/example.css"),
+        "style": ("Shared application style", "shared/style.css"),
     }
     TITLES = {"react": "React", "vue": "Vue", "pages": "Genro Pages"}
 

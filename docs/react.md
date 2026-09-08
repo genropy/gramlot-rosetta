@@ -1,24 +1,9 @@
-# React implementation
+# React Hello World
 
-The React variant is a small Vite application served by the shared FastAPI process at `/react/`. It uses native form controls, React hooks for saved and draft state, and the shared `/shared/style.css` stylesheet.
+App.jsx contains only the Hello World heading and div. Rosetta navigation and source
+links live in backend/templates/frame.html, outside React. Vite serves the built
+example at /examples/react/hello-world/ through the shared FastAPI server.
 
-## Install and build
-
-From `frontends/react`:
-
-```sh
-npm ci
-npm run build
-```
-
-The production output is `frontends/react/dist`. The Vite base is `/react/`, so FastAPI can mount that directory at the matching URL. For development, start the shared FastAPI server on port 8026, then run:
-
-```sh
-npm run dev
-```
-
-Vite proxies `/api` and `/shared` to `http://127.0.0.1:8026`.
-
-## Scope and limitations
-
-This implementation intentionally has no router, grid, editable rows, WebSocket connection, authentication, or client-side validation. Validation messages come from the shared server. Draft edits live only in component state until a successful save, and navigation between the three variants performs a normal page load.
+Run npm ci and npm run build in frontends/react, then scripts/run.sh from the repo.
+For local Vite development, /shared is proxied to port 8026. The original order
+implementation is preserved under standby/orders/frontends/react.

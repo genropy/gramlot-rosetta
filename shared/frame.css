@@ -1,0 +1,10 @@
+.rosetta-frame { max-width: 1200px; margin: auto; }
+.rosetta-header { display: flex; align-items: center; flex-wrap: wrap; gap: 24px; margin-bottom: 20px; }
+.rosetta-header nav { margin: 0; flex-wrap: wrap; }
+.rosetta-header > a { margin-left: auto; }
+.rosetta-frame a[aria-current="page"] { font-weight: 700; text-decoration-thickness: 2px; }
+.rosetta-layout { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 18px; }
+.rosetta-layout aside { align-self: start; }
+.example-panel { min-width: 0; border: 1px solid #d6dce5; border-radius: 6px; background: white; overflow: hidden; }
+.example-panel iframe { display: block; border: 0; width: 100%; min-height: 420px; }
+@media (max-width: 640px) { .rosetta-layout { grid-template-columns: 1fr; } .rosetta-header { gap: 14px; } .rosetta-header > a { margin-left: 0; } }

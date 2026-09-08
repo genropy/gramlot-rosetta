@@ -9,14 +9,14 @@ from backend.app import DemoServer
 
 def test_recipe_is_typed_source_and_shell_has_no_rendered_app():
     client = TestClient(DemoServer().app)
-    response = client.get('/examples/pages/hello-world/recipe')
+    response = client.get('/pages/recipe')
     assert response.status_code == 200
     assert response.headers['content-type'].startswith('application/vnd.tytx+json')
     source = from_tytx(response.text, transport='json')
     assert len(source) > 0
     # UI is transported as source, not HTML accidentally rendered by FastAPI.
     assert '<input' not in response.text
-    shell = client.get('/examples/pages/hello-world/').text
+    shell = client.get('/pages/').text
     assert '<input' not in shell
     assert '/pages/app.js' in shell
     assert importlib.util.find_spec('genro_asgi') is None

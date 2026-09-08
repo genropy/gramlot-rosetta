@@ -24,19 +24,20 @@ def measure(root, names):
 
 def report(root):
     groups = {
-        'react_application': ['frontends/react/src/App.jsx', 'frontends/react/src/main.jsx'],
-        'vue_application': ['frontends/vue/src/App.vue', 'frontends/vue/src/main.js'],
+        'react_application': ['frontends/react/src/App.jsx'],
+        'vue_application': ['frontends/vue/src/App.vue'],
         'pages_recipe': ['frontends/pages/recipe.py'],
-        'pages_client': ['frontends/pages/app.js'],
+        'pages_bootstrap': ['frontends/pages/app.js'],
         'pages_host_adapter': ['backend/pages_host.py'],
         'pages_browser_adapter': ['frontends/pages/module.js'],
         'shared_backend': ['backend/app.py'],
-        'shared_style': ['shared/style.css'],
+        'shared_frame': ['backend/templates/frame.html', 'shared/frame.css'],
+        'shared_style': ['shared/style.css', 'shared/example.css'],
         'shared_source_viewer': ['backend/source_browser.py',
                                  'backend/templates/sources.html', 'shared/sources.css'],
-        'react_setup': ['frontends/react/index.html', 'frontends/react/vite.config.js',
+        'react_setup': ['frontends/react/src/main.jsx', 'frontends/react/index.html', 'frontends/react/vite.config.js',
                         'frontends/react/package.json'],
-        'vue_setup': ['frontends/vue/index.html', 'frontends/vue/vite.config.js',
+        'vue_setup': ['frontends/vue/src/main.js', 'frontends/vue/index.html', 'frontends/vue/vite.config.js',
                       'frontends/vue/package.json'],
         'pages_setup': ['frontends/pages/index.html'],
     }
