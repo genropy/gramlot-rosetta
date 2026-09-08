@@ -96,7 +96,7 @@ for (const variant of ['pages', 'pages-js']) {
     await expect(button).toBeEnabled();
     await button.click();
     const preview = page.frameLocator('.example-panel iframe');
-    await expect(preview.getByText('Edit the running instance. The original recipe is unchanged.')).toBeVisible();
+    await expect(preview.locator('[data-inspector="data-editor"]')).toBeVisible();
     await expect(preview.locator('[data-inspector="source"]')).toHaveCount(1);
     await expect(preview.locator('[data-inspector="data"]')).toHaveCount(1);
     if (variant === 'pages-js') {
@@ -106,7 +106,7 @@ for (const variant of ['pages', 'pages-js']) {
       await expect(preview.locator('h1')).toHaveText('Updated instance');
       await expect(button).toBeEnabled();
       await button.click();
-      await expect(preview.getByText('Edit the running instance. The original recipe is unchanged.')).toBeVisible();
+      await expect(preview.locator('[data-inspector="data-editor"]')).toBeVisible();
       await expect(preview.locator('gnr-palette')).toHaveCount(1);
     }
   });
