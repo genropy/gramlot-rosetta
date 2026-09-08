@@ -107,7 +107,7 @@ function App() {
       </nav>
       <h1>Order editor — React</h1>
       <p className="hint">
-        Quantity totals update after each edit. Selecting another order or resetting the demo discards unsaved changes.
+        Quantity totals update locally; a committed edit (after blur) is guaranteed to be reflected. Selecting another order or resetting the demo discards unsaved changes.
       </p>
 
       <div className="layout">
@@ -132,7 +132,7 @@ function App() {
         <section className="panel" aria-labelledby="editor-heading">
           <h2 id="editor-heading">Order details</h2>
           {selected && draft ? (
-            <form onSubmit={save}>
+            <form noValidate onSubmit={save}>
               <label className="field">
                 Customer
                 <input
