@@ -27,3 +27,22 @@ hiding the supporting implementation.
 The previous order comparison is preserved in
 ../standby/orders/baseline-COMPARISON.md. Its measurements do not describe the
 active Hello World demo.
+
+## Comparison principle
+
+Compare semantics first: how each implementation describes page structure,
+state, reactive dependencies, events and server interactions. Syntax differences
+and raw line counts alone do not establish simplicity.
+
+Attribute source to its responsibility:
+
+- Individual page: its content, specific state, rules and interactions.
+- Shared application context: startup, navigation, reusable components and
+  cross-page policies such as RPC waiting behavior.
+- Library and host integration: runtime bootstrap and adapters.
+
+Show these responsibilities explicitly in the source viewer and measurements.
+Shared code has an initial and maintenance cost, but must not be counted again
+for each page. A page-specific helper still belongs to the page even if placed
+in another file. Every framework may use idiomatic abstractions; compare the
+same observable behavior and explain the semantics behind the authored code.
