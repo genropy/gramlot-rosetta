@@ -19,8 +19,8 @@ for (const variant of ['react', 'vue', 'pages']) {
       await page.goto(`/${variant}/`);
       await expect(page.getByTestId('order-1')).toContainText('Ada Studio');
       await expect(await input(page, 'customer')).toHaveValue('Ada Studio');
-      await expect(page.getByText(/^Product:?$/)).toBeVisible();
-      await expect(page.getByText(/^Unit price:?$/)).toBeVisible();
+      await expect(page.getByText(/^\s*Product:?\s*$/)).toBeVisible();
+      await expect(page.getByText(/^\s*Unit price:?\s*$/)).toBeVisible();
       await expect(page.getByTestId('order-1')).toHaveAttribute('aria-pressed', 'true');
     });
 
