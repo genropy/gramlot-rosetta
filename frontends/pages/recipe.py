@@ -40,12 +40,14 @@ class OrdersPage(WebPage):
         editor = layout.section(
             class_="panel", datapath="order", **{"aria-labelledby": "editor-heading"}
         )
-        editor.h2("Selected order", id="editor-heading")
+        editor.h2("Order details", id="editor-heading")
         form = editor.div()
-        form.p("Product: ").span("^.selected.product", **{"data-testid": "product"})
-        form.p("Unit price: ").span(
-            "^.selected.unit_price", **{"data-testid": "unit-price"}
-        )
+        product = form.p()
+        product.span("Product: ")
+        product.span("^.selected.product", **{"data-testid": "product"})
+        unit_price = form.p()
+        unit_price.span("Unit price: ")
+        unit_price.span("^.selected.unit_price", **{"data-testid": "unit-price"})
         form.textBox(
             value="^.selected.customer", lbl="Customer", disabled="^.pending",
             width="100%", **{"data-testid": "customer"},
@@ -72,7 +74,9 @@ class OrdersPage(WebPage):
             unitPrice="^.selected.unit_price_cents",
             _on_start=True,
         )
-        form.p("^.selected.total", class_="total", **{"data-testid": "total"})
+        total = form.p(class_="total")
+        total.span("Total: ")
+        total.span("^.selected.total", **{"data-testid": "total"})
         actions = form.div(class_="actions")
         actions.button(
             "Save", class_="primary", disabled="^.pending",

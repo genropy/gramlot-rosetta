@@ -149,7 +149,7 @@ class OrdersController {
                 action: 'genro.controller.select(order_id);',
                 order_id: order.id,
                 disabled: '^order.pending',
-                'aria-pressed': order.id === this.selectedId,
+                'aria-pressed': String(order.id === this.selectedId),
                 'data-testid': `order-${order.id}`,
             });
         }
