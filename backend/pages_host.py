@@ -1,9 +1,12 @@
 """FastAPI adapter for the Python-authored Genro Pages comparison."""
+import importlib.util
 import json
 import os
 from pathlib import Path
 
 import genro_pages
+from fastapi import HTTPException
+from backend.examples import EXAMPLES
 from fastapi.responses import FileResponse, HTMLResponse, Response
 from fastapi.staticfiles import StaticFiles
 from genro_tytx import to_tytx
@@ -39,11 +42,11 @@ class PagesHost:
 
     def mount(self, app):
         """Add the Pages routes and narrowly scoped static asset mounts."""
-        app.add_api_route("/examples/pages/hello-world/", self.index, include_in_schema=False)
-        app.add_api_route("/examples/pages/hello-world/recipe", self.recipe, include_in_schema=False)
+        app.add_api_route("/examples/pages/{example}/", self.index, include_in_schema=False)
+        app.add_api_route("/examples/pages/{example}/recipe", self.recipe, include_in_schema=False)
         app.add_api_route("/pages/app.js", self.application_script, include_in_schema=False)
         app.add_api_route("/pages/module.js", self.module_script, include_in_schema=False)
-        app.add_api_route("/examples/pages-js/hello-world/", self.js_index, include_in_schema=False)
+        app.add_api_route("/examples/pages-js/{example}/", self.js_index, include_in_schema=False)
         app.mount("/pages-js", StaticFiles(directory=self.root / "frontends/pages-js"), name="pages-js")
         app.add_api_route("/pages/inspector-recipe", self.inspector_recipe, include_in_schema=False)
         app.mount("/pages-common", StaticFiles(directory=self.root / "frontends/pages-common"), name="pages-common")
@@ -53,7 +56,9 @@ class PagesHost:
                 name=f"pages-{name}",
             )
 
-    def index(self):
+    def index(self, example: str = "hello-world"):
+        if example not in EXAMPLES:
+            raise HTTPException(404, "Unknown example.")
         imports = {
             "/_assets/dom/": "/pages/assets/dom/",
             "genro-dom-js": "/pages/assets/dom/index.js",
@@ -77,14 +82,22 @@ class PagesHost:
         return Response(to_tytx(builder.source, transport="json"),
                         media_type="application/vnd.tytx+json")
 
-    def js_index(self):
+    def js_index(self, example: str):
         """Reuse the runtime shell for an independently authored JavaScript recipe."""
-        response = self.index()
+        response = self.index(example)
         return HTMLResponse(response.body.decode().replace('/pages/app.js', '/pages-js/app.js'))
 
-    def recipe(self):
-        builder = HelloWorldPage.source_builder("main")
-        HelloWorldPage().main(builder.source)
+    def recipe(self, example: str):
+        if example not in EXAMPLES:
+            raise HTTPException(404, "Unknown example.")
+        page_class = HelloWorldPage
+        if example != "hello-world":
+            spec = importlib.util.spec_from_file_location("example", self.frontend / "examples" / f"{example}.py")
+            module = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(module)
+            page_class = module.ExamplePage
+        builder = page_class.source_builder("main")
+        page_class().main(builder.source)
         return Response(
             to_tytx(builder.source, transport="json"),
             media_type="application/vnd.tytx+json",

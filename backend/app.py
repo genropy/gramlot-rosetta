@@ -6,6 +6,8 @@ from fastapi import FastAPI, HTTPException
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 
+from html import escape
+from backend.examples import EXAMPLES
 from backend.source_browser import SourceBrowser
 
 
@@ -19,6 +21,7 @@ class DemoServer:
         self.app = FastAPI(title="Demo Rosetta", version="0.2.0")
         self.app.add_api_route("/", self.index, include_in_schema=False)
         self.app.add_api_route("/{variant}/", self.get_demo, include_in_schema=False)
+        self.app.add_api_route("/{variant}/{example}/", self.get_demo, include_in_schema=False)
         self.source_browser = SourceBrowser(self.root)
         self.app.add_api_route("/sources/{variant}", self.source_browser.get_page,
                                include_in_schema=False)
@@ -26,8 +29,8 @@ class DemoServer:
         for name in ("react", "vue"):
             build = self.root / "frontends" / name / "dist"
             if build.is_dir():
-                self.app.mount(f"/examples/{name}/hello-world",
-                               StaticFiles(directory=build, html=True), name=name)
+                self.app.mount(f"/examples/{name}/assets", StaticFiles(directory=build / "assets"), name=name)
+                self.app.add_api_route(f"/examples/{name}/{{example}}/", self.frontend_document(name), include_in_schema=False)
         if pages:
             self.mount_pages()
 
@@ -35,17 +38,28 @@ class DemoServer:
         """Start with the Python-authored Hello World example."""
         return RedirectResponse("/pages/")
 
-    def get_demo(self, variant: str):
+    def get_demo(self, variant: str, example: str = "hello-world"):
         """Fill the common HTML document with the chosen framework's URLs."""
-        if variant not in self.TITLES:
+        if variant not in self.TITLES or example not in EXAMPLES:
             raise HTTPException(404, "Unknown implementation.")
         template = (self.root / "backend/templates/frame.html").read_text()
         return HTMLResponse(template.format_map({
             "variant": variant,
+            "example": example,
+            "example_title": EXAMPLES[example],
+            "example_links": ''.join(f'<a href="/{variant}/{key}/"' + (' aria-current="page"' if key == example else '') + f'>{index}. {escape(title)}</a>' for index, (key, title) in enumerate(EXAMPLES.items(), 1)),
             "title": self.TITLES[variant],
             **{f"{name}_current": 'aria-current="page"' if name == variant else ''
                for name in self.TITLES},
         }))
+
+    def frontend_document(self, variant):
+        """Serve a shared frontend entry for each allowlisted example."""
+        def document(example: str):
+            if example not in EXAMPLES:
+                raise HTTPException(404, "Unknown example.")
+            return HTMLResponse((self.root / "frontends" / variant / "dist/index.html").read_text())
+        return document
 
     def mount_pages(self):
         """Connect the optional Pages host without requiring it for React/Vue."""

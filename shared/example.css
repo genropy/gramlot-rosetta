@@ -3,3 +3,8 @@ body { margin: 0; padding: 24px; }
 h1 { font-size: 24px; margin: 0 0 16px; }
 
 .description { font-style: italic; margin-bottom: 16px; }
+.controls { display: flex; flex-direction: column; gap: 12px; margin: 20px 0; max-width: 360px; }
+.controls label { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.controls input, .controls select { font: inherit; max-width: 65%; }
+.demo-output { display: flex; align-items: center; gap: 4px; }
+.hint { color: #546174; font-size: 13px; }

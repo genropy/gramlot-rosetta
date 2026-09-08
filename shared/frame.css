@@ -11,3 +11,4 @@
 
 @media (min-width: 641px) and (max-width: 1100px) { .rosetta-layout { grid-template-columns: 180px minmax(0, 1fr); } .source-frame-panel { grid-column: 2; } }
 @media (max-width: 1100px) { .example-panel iframe { height: 300px; } .source-frame-panel iframe { height: 650px; } }
+nav[aria-label="Examples"] { display: flex; flex-direction: column; gap: 12px; }

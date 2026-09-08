@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Rosetta · {title} · Hello World</title>
+  <title>Rosetta · {title} · {example_title}</title>
   <link rel="stylesheet" href="/shared/style.css">
   <link rel="stylesheet" href="/shared/frame.css">
 </head>
@@ -12,27 +12,27 @@
     <header class="rosetta-header">
       <strong>Demo Rosetta</strong>
       <nav aria-label="Implementations">
-        <a href="/react/" {react_current}>React</a>
-        <a href="/vue/" {vue_current}>Vue</a>
-        <a href="/pages/" {pages_current}>Pages Python</a>
-        <a href="/pages-js/" {pages-js_current}>Pages JS</a>
+        <a href="/react/{example}/" {react_current}>React</a>
+        <a href="/vue/{example}/" {vue_current}>Vue</a>
+        <a href="/pages/{example}/" {pages_current}>Pages Python</a>
+        <a href="/pages-js/{example}/" {pages-js_current}>Pages JS</a>
       </nav>
       <span id="pages-tools"></span>
-      <a href="/sources/{variant}" target="_blank" rel="noopener">View source</a>
+      <a href="/sources/{variant}?example={example}" target="_blank" rel="noopener">View source</a>
     </header>
     <div class="rosetta-layout">
       <aside class="panel">
         <h2>Examples</h2>
         <nav aria-label="Examples">
-          <a href="/{variant}/" aria-current="page">1. Hello World</a>
+          {example_links}
         </nav>
         <p class="meta">Orders is on standby.</p>
       </aside>
       <section class="example-panel" aria-label="Current example">
-        <iframe title="Hello World · {title}" src="/examples/{variant}/hello-world/"></iframe>
+        <iframe title="{example_title} · {title}" src="/examples/{variant}/{example}/"></iframe>
       </section>
       <section class="source-frame-panel" aria-label="Current source">
-        <iframe title="Source · {title}" src="/sources/{variant}"></iframe>
+        <iframe title="Source · {title}" src="/sources/{variant}?example={example}"></iframe>
       </section>
     </div>
   </main>
