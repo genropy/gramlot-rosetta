@@ -7,20 +7,20 @@ for (const variant of ['react','vue','pages','pages-js']) {
       const errors=[]; page.on('pageerror', e=>errors.push(e.message));
       await page.goto(`/${variant}/${example}/`);
       const frame=page.frameLocator('.example-panel iframe');
-      const output=frame.locator('.demo-output').locator('span').last();
-      await expect(output).toHaveText('Hello World');
+      const output=frame.locator('.demo-output input');
+      await expect(output).toHaveValue('Hello World');
       const input=frame.getByLabel('Text', {exact:true});
       await input.fill('Hello People');
-      await expect(output).toHaveText('Hello World');
+      await expect(output).toHaveValue('Hello World');
       await frame.getByRole('heading').click();
-      await expect(output).toHaveText('Hello People');
+      await expect(output).toHaveValue('Hello People');
       if(stage>=1) {
         await frame.getByLabel('Text color',{exact:true}).fill('#ff0000');
         await expect(output).toHaveCSS('color','rgb(255, 0, 0)');
       }
       if(stage>=2) {
         await frame.getByLabel('Background color',{exact:true}).fill('#00ff00');
-        await expect(output).toHaveCSS('background-color','rgb(0, 255, 0)');
+        await expect(['pages','pages-js'].includes(variant) ? frame.locator('.demo-output') : output).toHaveCSS('background-color','rgb(0, 255, 0)');
       }
       if(stage>=3) {
         const slider=frame.getByRole('slider');
@@ -28,7 +28,12 @@ for (const variant of ['react','vue','pages','pages-js']) {
         await expect(output).toHaveCSS('font-size','28px');
       }
       if(stage>=4) {
-        await frame.getByLabel('Font family',{exact:true}).selectOption('monospace');
+        if (['pages','pages-js'].includes(variant)) {
+          await frame.getByLabel('Font family',{exact:true}).fill('monospace');
+          await frame.getByLabel('Font family',{exact:true}).press('Enter');
+        } else {
+          await frame.getByLabel('Font family',{exact:true}).selectOption('monospace');
+        }
         await expect(output).toHaveCSS('font-family','monospace');
       }
       if(stage>=5) {
@@ -49,4 +54,18 @@ for (const variant of ['react','vue','pages','pages-js']) {
       expect(errors).toEqual([]);
     });
   }
+}
+
+for (const variant of ['pages','pages-js']) {
+  test(`${variant}: inspector edits the same Data used by widgets`, async ({page}) => {
+    await page.goto(`/${variant}/editable-text/`);
+    await page.getByRole('button',{name:'Inspector',exact:true}).click();
+    const frame=page.frameLocator('.example-panel iframe');
+    await frame.locator('[data-inspector="data"]').getByText('text',{exact:true}).click();
+    const editor=frame.locator('[data-inspector="data-editor"]');
+    await editor.getByRole('textbox',{name:'Value',exact:true}).fill('From Data');
+    await editor.getByRole('button',{name:'Apply',exact:true}).click();
+    await expect(frame.locator('.demo-output input')).toHaveValue('From Data');
+    await expect(frame.getByLabel('Text',{exact:true})).toHaveValue('From Data');
+  });
 }

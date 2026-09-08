@@ -30,26 +30,14 @@ class ExamplePage(WebPage):
     def controls(self, root):
         """Commit text on blur; update visual controls during interaction."""
         pane = root.div(class_="controls")
+        pane.textBox(value="^text", lbl='Text', updateOn='blur')
+        pane.colorpicker(value="^color", lbl='Text color', updateOn='input')
+        pane.colorpicker(value="^background", lbl='Background color', updateOn='input')
         field = pane.html_label()
-        field.span('Text')
-        field.input(type='text', value='^text', updateOn='blur')
-        field = pane.html_label()
-        field.span('Text color')
-        field.input(type='color', value='^color', updateOn='input')
-        field = pane.html_label()
-        field.span('Background color')
-        field.input(type='color', value='^background', updateOn='input')
-        field = pane.html_label()
-        field.span('Font size')
-        field.input(type='range', value='^size', updateOn='input', min=10, max=48, step=1)
-        field = pane.html_label()
-        field.span('Font family')
-        select = field.select(value="^font", updateOn="change", **{"aria-label": "Font family"})
-        for font in ("system-ui", "serif", "monospace"):
-            select.option(font, value=font)
+        field.span("Font size")
+        field.input(type="range", value="^size", updateOn="input", min=10, max=48, step=1)
+        pane.filteringSelect(value="^font", lbl='Font family', updateOn='change', values="system-ui,serif,monospace")
 
     def preview(self, root):
         """Bind content and styles to the same state shown in Inspector."""
-        output = root.div(class_="demo-output")
-        output.span("MyText: ")
-        output.span("^text", color='^color', background_color='^background', font_size='^sizeCss', font_family='^font')
+        root.textBox(value="^text", readonly=True, lbl="MyText", class_="demo-output", color='^color', background_color='^background', font_size='^sizeCss', font_family='^font')

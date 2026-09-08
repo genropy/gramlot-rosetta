@@ -16,13 +16,9 @@ function header(root) {
 
 function controls(root) {
     const pane = root.div({class: "controls"});
-    { const field = pane.html_label(); field.span("Text");
-      field.input({"type": "text", "value": "^text", "updateOn": "blur"});
-    }
+    pane.textBox({"value": "^text", "lbl": "Text", "updateOn": "blur"});
 }
 
 function preview(root) {
-    const output = root.div({class: "demo-output"});
-    output.span("MyText: ");
-    output.span("^text", {});
+    root.textBox({value: "^text", readonly: true, lbl: "MyText", class: "demo-output"});
 }

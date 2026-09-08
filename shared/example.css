@@ -8,3 +8,6 @@ h1 { font-size: 24px; margin: 0 0 16px; }
 .controls input, .controls select { font: inherit; max-width: 65%; }
 .demo-output { display: flex; align-items: center; gap: 4px; }
 .hint { color: #546174; font-size: 13px; }
+label.demo-output { color: #555; font-size: 0.85em; font-weight: 600; }
+label.demo-output input { font: 14px/1.5 system-ui, sans-serif; color: #223044; border: 1px solid #c8c8c8; border-radius: 3px; padding: 3px 6px; min-width: 0; width: 100%; }
+gnr-textbox.demo-output { --field-bg: transparent; }

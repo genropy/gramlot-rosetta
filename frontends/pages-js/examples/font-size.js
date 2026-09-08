@@ -20,22 +20,14 @@ function header(root) {
 
 function controls(root) {
     const pane = root.div({class: "controls"});
-    { const field = pane.html_label(); field.span("Text");
-      field.input({"type": "text", "value": "^text", "updateOn": "blur"});
-    }
-    { const field = pane.html_label(); field.span("Text color");
-      field.input({"type": "color", "value": "^color", "updateOn": "input"});
-    }
-    { const field = pane.html_label(); field.span("Background color");
-      field.input({"type": "color", "value": "^background", "updateOn": "input"});
-    }
-    { const field = pane.html_label(); field.span("Font size");
-      field.input({"type": "range", "value": "^size", "updateOn": "input", "min": 10, "max": 48, "step": 1});
-    }
+    pane.textBox({"value": "^text", "lbl": "Text", "updateOn": "blur"});
+    pane.colorpicker({"value": "^color", "lbl": "Text color", "updateOn": "input"});
+    pane.colorpicker({"value": "^background", "lbl": "Background color", "updateOn": "input"});
+    const field = pane.html_label();
+    field.span("Font size");
+    field.input({type: "range", value: "^size", updateOn: "input", min: 10, max: 48, step: 1});
 }
 
 function preview(root) {
-    const output = root.div({class: "demo-output"});
-    output.span("MyText: ");
-    output.span("^text", {"color": "^color", "background_color": "^background", "font_size": "^sizeCss"});
+    root.textBox({value: "^text", readonly: true, lbl: "MyText", class: "demo-output", "color": "^color", "background_color": "^background", "font_size": "^sizeCss"});
 }

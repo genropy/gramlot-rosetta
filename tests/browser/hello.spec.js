@@ -21,17 +21,17 @@ for (const variant of Object.keys(files)) {
     await expect(page.locator('script')).toHaveCount(0);
     const example = page.frameLocator('.example-panel iframe');
     await expect(example.locator('h1')).toHaveText('Hello World');
-    await expect(example.locator('.description + div')).toHaveText('MyText: Hello World');
+    await expect(example.locator('.demo-output input')).toHaveValue('Hello World');
     await expect(example.locator('.description')).toHaveText('Display a fixed text. Later examples will let you change it.');
     await expect(example.locator('.description')).toHaveCSS('font-style', 'italic');
     await expect(example.locator('nav')).toHaveCount(0);
-    await expect(example.locator('input')).toHaveCount(0);
+    await expect(example.locator('.demo-output input')).toHaveAttribute('readonly', '');
     await expect(example.getByRole('link', {name:'View source'})).toHaveCount(0);
     expect(apiRequests).toEqual([]);
     expect(errors).toEqual([]);
     await page.setViewportSize({width:390,height:844});
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
-    await expect(example.locator('.description + div')).toBeVisible();
+    await expect(example.locator('.demo-output input')).toBeVisible();
   });
 
   test(`${variant}: source browser starts from the individual page`, async ({page}) => {
@@ -96,7 +96,7 @@ for (const variant of ['pages', 'pages-js']) {
     await expect(button).toBeEnabled();
     await button.click();
     const preview = page.frameLocator('.example-panel iframe');
-    await expect(preview.getByText('Actual page Bags · select a node to inspect its value and attributes.')).toBeVisible();
+    await expect(preview.getByText('Edit the running instance. The original recipe is unchanged.')).toBeVisible();
     await expect(preview.locator('[data-inspector="source"]')).toHaveCount(1);
     await expect(preview.locator('[data-inspector="data"]')).toHaveCount(1);
     if (variant === 'pages-js') {
@@ -106,7 +106,7 @@ for (const variant of ['pages', 'pages-js']) {
       await expect(preview.locator('h1')).toHaveText('Updated instance');
       await expect(button).toBeEnabled();
       await button.click();
-      await expect(preview.getByText('Actual page Bags · select a node to inspect its value and attributes.')).toBeVisible();
+      await expect(preview.getByText('Edit the running instance. The original recipe is unchanged.')).toBeVisible();
       await expect(preview.locator('gnr-palette')).toHaveCount(1);
     }
   });

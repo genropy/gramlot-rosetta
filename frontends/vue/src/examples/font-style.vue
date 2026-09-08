@@ -33,8 +33,5 @@ const italic = ref(false)
     <label><input v-model="bold" type="checkbox"> Bold</label>
     <label><input v-model="italic" type="checkbox"> Italic</label>
   </div>
-  <div class="demo-output">
-    <span>MyText: </span>
-    <span :style="{ color: textColor, backgroundColor, fontSize: `${fontSize}px`, fontFamily, fontWeight: bold ? 'bold' : 'normal', fontStyle: italic ? 'italic' : 'normal' }">{{ text }}</span>
-  </div>
+  <label class="demo-output">MyText<input readonly :value="text" :style="{ color: textColor, backgroundColor, fontSize: `${fontSize}px`, fontFamily, fontWeight: bold ? 'bold' : 'normal', fontStyle: italic ? 'italic' : 'normal' }" /></label>
 </template>

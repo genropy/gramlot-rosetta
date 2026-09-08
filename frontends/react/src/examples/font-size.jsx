@@ -22,7 +22,7 @@ export default function FontSize() {
         <label htmlFor="font-size">Font size</label>
         <input id="font-size" type="range" min="10" max="48" step="1" value={fontSize} onInput={(event) => setFontSize(Number(event.currentTarget.value))} />
       </div>
-      <div className="demo-output"><span>MyText: </span><span style={{ color: textColor, backgroundColor, fontSize }}>{text}</span></div>
+      <label className="demo-output">MyText<input readOnly value={text} style={{ color: textColor, backgroundColor, fontSize }} /></label>
     </>
   )
 }

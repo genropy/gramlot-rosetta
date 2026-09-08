@@ -16,5 +16,5 @@ const textColor = ref('#223044')
     <label for="text-color">Text color</label>
     <input id="text-color" v-model="textColor" type="color" @input="textColor = $event.currentTarget.value">
   </div>
-  <div class="demo-output"><span>MyText: </span><span :style="{ color: textColor }">{{ text }}</span></div>
+  <label class="demo-output">MyText<input readonly :value="text" :style="{ color: textColor }" /></label>
 </template>

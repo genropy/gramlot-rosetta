@@ -33,10 +33,7 @@ export default function FontStyle() {
         <label><input type="checkbox" checked={bold} onChange={(event) => setBold(event.target.checked)} /> Bold</label>
         <label><input type="checkbox" checked={italic} onChange={(event) => setItalic(event.target.checked)} /> Italic</label>
       </div>
-      <div className="demo-output">
-        <span>MyText: </span>
-        <span style={{ color: textColor, backgroundColor, fontSize, fontFamily, fontWeight: bold ? 'bold' : 'normal', fontStyle: italic ? 'italic' : 'normal' }}>{text}</span>
-      </div>
+      <label className="demo-output">MyText<input readOnly value={text} style={{ color: textColor, backgroundColor, fontSize, fontFamily, fontWeight: bold ? 'bold' : 'normal', fontStyle: italic ? 'italic' : 'normal' }} /></label>
     </>
   )
 }

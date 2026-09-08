@@ -19,5 +19,5 @@ const backgroundColor = ref('#ffffff')
     <label for="background-color">Background color</label>
     <input id="background-color" v-model="backgroundColor" type="color" @input="backgroundColor = $event.currentTarget.value">
   </div>
-  <div class="demo-output"><span>MyText: </span><span :style="{ color: textColor, backgroundColor }">{{ text }}</span></div>
+  <label class="demo-output">MyText<input readonly :value="text" :style="{ color: textColor, backgroundColor }" /></label>
 </template>

@@ -16,7 +16,7 @@ export default function TextColor() {
         <label htmlFor="text-color">Text color</label>
         <input id="text-color" type="color" value={textColor} onInput={(event) => setTextColor(event.currentTarget.value)} />
       </div>
-      <div className="demo-output"><span>MyText: </span><span style={{ color: textColor }}>{text}</span></div>
+      <label className="demo-output">MyText<input readOnly value={text} style={{ color: textColor }} /></label>
     </>
   )
 }

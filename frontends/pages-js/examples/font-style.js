@@ -25,32 +25,17 @@ function header(root) {
 
 function controls(root) {
     const pane = root.div({class: "controls"});
-    { const field = pane.html_label(); field.span("Text");
-      field.input({"type": "text", "value": "^text", "updateOn": "blur"});
-    }
-    { const field = pane.html_label(); field.span("Text color");
-      field.input({"type": "color", "value": "^color", "updateOn": "input"});
-    }
-    { const field = pane.html_label(); field.span("Background color");
-      field.input({"type": "color", "value": "^background", "updateOn": "input"});
-    }
-    { const field = pane.html_label(); field.span("Font size");
-      field.input({"type": "range", "value": "^size", "updateOn": "input", "min": 10, "max": 48, "step": 1});
-    }
-    { const field = pane.html_label(); field.span("Font family");
-      const select = field.select({value: "^font", updateOn: "change", "aria-label": "Font family"});
-      for (const font of ["system-ui", "serif", "monospace"]) select.option(font, {value: font});
-    }
-    { const field = pane.html_label(); field.span("Bold");
-      field.input({"type": "checkbox", "value": "^bold", "updateOn": "change"});
-    }
-    { const field = pane.html_label(); field.span("Italic");
-      field.input({"type": "checkbox", "value": "^italic", "updateOn": "change"});
-    }
+    pane.textBox({"value": "^text", "lbl": "Text", "updateOn": "blur"});
+    pane.colorpicker({"value": "^color", "lbl": "Text color", "updateOn": "input"});
+    pane.colorpicker({"value": "^background", "lbl": "Background color", "updateOn": "input"});
+    const field = pane.html_label();
+    field.span("Font size");
+    field.input({type: "range", value: "^size", updateOn: "input", min: 10, max: 48, step: 1});
+    pane.filteringSelect({"value": "^font", "lbl": "Font family", "updateOn": "change", "values": "system-ui,serif,monospace"});
+    pane.checkbox({"value": "^bold", "lbl": "Bold", "updateOn": "change"});
+    pane.checkbox({"value": "^italic", "lbl": "Italic", "updateOn": "change"});
 }
 
 function preview(root) {
-    const output = root.div({class: "demo-output"});
-    output.span("MyText: ");
-    output.span("^text", {"color": "^color", "background_color": "^background", "font_size": "^sizeCss", "font_family": "^font", "font_weight": "^weight", "font_style": "^slant"});
+    root.textBox({value: "^text", readonly: true, lbl: "MyText", class: "demo-output", "color": "^color", "background_color": "^background", "font_size": "^sizeCss", "font_family": "^font", "font_weight": "^weight", "font_style": "^slant"});
 }

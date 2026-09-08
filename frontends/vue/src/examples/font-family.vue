@@ -29,5 +29,5 @@ const fontFamily = ref('system-ui')
       <option value="monospace">monospace</option>
     </select>
   </div>
-  <div class="demo-output"><span>MyText: </span><span :style="{ color: textColor, backgroundColor, fontSize: `${fontSize}px`, fontFamily }">{{ text }}</span></div>
+  <label class="demo-output">MyText<input readonly :value="text" :style="{ color: textColor, backgroundColor, fontSize: `${fontSize}px`, fontFamily }" /></label>
 </template>

@@ -17,16 +17,10 @@ function header(root) {
 
 function controls(root) {
     const pane = root.div({class: "controls"});
-    { const field = pane.html_label(); field.span("Text");
-      field.input({"type": "text", "value": "^text", "updateOn": "blur"});
-    }
-    { const field = pane.html_label(); field.span("Text color");
-      field.input({"type": "color", "value": "^color", "updateOn": "input"});
-    }
+    pane.textBox({"value": "^text", "lbl": "Text", "updateOn": "blur"});
+    pane.colorpicker({"value": "^color", "lbl": "Text color", "updateOn": "input"});
 }
 
 function preview(root) {
-    const output = root.div({class: "demo-output"});
-    output.span("MyText: ");
-    output.span("^text", {"color": "^color"});
+    root.textBox({value: "^text", readonly: true, lbl: "MyText", class: "demo-output", "color": "^color"});
 }

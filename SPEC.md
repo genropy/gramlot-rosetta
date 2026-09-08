@@ -8,8 +8,8 @@ The frame has no JavaScript framework or script of its own.
 ## Active example: Hello World
 
 Each version contains a heading "Hello World", an italic description div
-"Display a fixed text. Later examples will let you change it.", and a div
-"MyText: Hello World". The greeting value will become editable in later examples. No input, dynamic style, order UI or business
+"Display a fixed text. Later examples will let you change it.", and a readonly field
+with label "MyText" and value "Hello World". The greeting value will become editable in later examples. No input, dynamic style, order UI or business
 API calls belong to this first example. A small shared CSS file supplies the same
 basic text appearance to each isolated document.
 
@@ -86,10 +86,10 @@ source file. Each step retains the preceding behavior and adds the named feature
 7. font-style: adds independent Bold and Italic checkboxes, initially false.
 
 React, Vue, Pages Python and Pages JS implement the same observable behavior.
-Pages examples use supported native HTML controls and existing data/style binding;
-no new widgets or lbl implementation are added by the demo. MyText remains a
-separate output label with its explicit colon while the widget-label contract is
-being coordinated. Styling affects the greeting, not its label.
+Pages examples use the library textBox, colorpicker, filteringSelect and checkbox
+widgets with lbl, plus existing data/style binding. No lbl implementation is
+added by the demo. MyText is a separate label without an implicit colon; output
+is a readonly textBox, with an equivalent native readonly field in React/Vue. Styling affects the greeting, not its label.
 
 Pages recipes include a brief Inspector → Data invitation. Numeric pixel size and
 boolean weight/style are converted through existing dataFormula providers, which
@@ -101,5 +101,24 @@ source preserve the example query parameter. The JS editor executes the selected
 example's real recipe; reload restores its original code and state.
 
 Two views sharing state, remote examples, Orders and all database examples remain
-outside this batch. The editable inspector and new widget lbl contract are
-separate library work, not claims made by these examples.
+outside this batch. The editable inspector and widget lbl contract are consumed from the verified
+local library assembly. They are not released dependencies.
+
+
+## Verified widget integration and remaining gaps
+
+The Pages coordinator authorized the current local DOM assembly and inspector.
+The source remains in its owning libraries; Rosetta consumes it without patches.
+All Page sources expose the actual widget declarations with lbl. The font choice
+is an existing filteringSelect limited to the same three families as React/Vue.
+
+horizontalSlider does not yet forward min/max/step to its native shadow input.
+The font-size example therefore keeps the visible native range control and its
+explicit label to preserve the 10..48 step1 contract. This is a recorded DOM gap,
+not hidden application boilerplate. numberTextBox localized readonly formatting
+is also not available and is not demonstrated here.
+
+The inspector edits Data/Source of the running instance; changes do not rewrite
+recipe files. Demo tests exercise Data Apply updating input and readonly output
+in both Python and JS authoring modes. Defaults discussed from legacy remain
+unimplemented by this change; explicit state initialization stays in each recipe.

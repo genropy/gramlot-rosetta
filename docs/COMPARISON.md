@@ -6,9 +6,9 @@ code. Each implementation renders its own isolated document.
 
 | Application source | Nonblank lines | Bytes |
 | --- | ---: | ---: |
-| React App.jsx | 11 | 306 |
-| Vue App.vue | 6 | 250 |
-| Pages recipe.py | 9 | 451 |
+| React App.jsx | 11 | 359 |
+| Vue App.vue | 6 | 299 |
+| Pages recipe.py | 9 | 507 |
 
 These are literal file counts, including imports, declarations and documentation.
 Pages expresses the visible content in three builder calls. Vue expresses it in three
@@ -61,8 +61,9 @@ example separately instead of treating only Hello World as application cost.
 React separates draft text from committed state; Vue likewise commits a draft
 on blur. Pages declares updateOn on the binding. Pages dataFormula declares
 browser-side conversions for CSS size and boolean styles; Python constructs the
-recipe without executing those reactions. All variants use native controls for
-this batch, pending the separately coordinated widget-label feature.
+recipe without executing those reactions. Pages uses the verified widget controls with lbl; React/Vue use native controls.
+The bounded range remains native in all variants until the widget forwards its
+range constraints. Output is a readonly field with separate label in all variants.
 
 The shared editor, inspector bridge, routing and example catalog are integration
 costs, not costs repeated for every example. No conclusion about a framework's

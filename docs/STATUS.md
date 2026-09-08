@@ -11,13 +11,14 @@ Pages JS retains the dark CodeMirror editor with Live, Focus out and Manual
 modes. Both Pages variants retain the library Inspector and include a brief
 invitation to observe Data in the interactive examples.
 
-Validation: both frontend production builds, 15 Python tests, Ruff and 35 browser
+Validation: both frontend production builds, 15 Python tests, Ruff and 37 browser
 tests passed. Browser coverage checks every progressive example's behavior,
 source text, mobile overflow, and existing editor/inspector contracts. A direct
 inspection also verified that the Data tree holds the value committed by input.
 
-No library changes or new widgets were introduced. The widget-only lbl contract
-and editable inspector are being coordinated separately; the demo does not
-pretend they are ready. Native HTML controls exercise the existing binding API.
+No library changes or new widgets were introduced by the demo. Pages now consumes
+the coordinator-verified widget lbl contract and editable inspector from the local
+assembly. textBox/colorpicker/filteringSelect/checkbox replace native controls;
+the range remains native because horizontalSlider lacks min/max/step forwarding.
 Orders remains in standby. Dual-view state sharing, minimal Genro ASGI hosting
 and remote examples are later work.

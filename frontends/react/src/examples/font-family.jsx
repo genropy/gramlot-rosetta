@@ -29,7 +29,7 @@ export default function FontFamily() {
           <option value="monospace">monospace</option>
         </select>
       </div>
-      <div className="demo-output"><span>MyText: </span><span style={{ color: textColor, backgroundColor, fontSize, fontFamily }}>{text}</span></div>
+      <label className="demo-output">MyText<input readOnly value={text} style={{ color: textColor, backgroundColor, fontSize, fontFamily }} /></label>
     </>
   )
 }

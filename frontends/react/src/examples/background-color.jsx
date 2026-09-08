@@ -19,7 +19,7 @@ export default function BackgroundColor() {
         <label htmlFor="background-color">Background color</label>
         <input id="background-color" type="color" value={backgroundColor} onInput={(event) => setBackgroundColor(event.currentTarget.value)} />
       </div>
-      <div className="demo-output"><span>MyText: </span><span style={{ color: textColor, backgroundColor }}>{text}</span></div>
+      <label className="demo-output">MyText<input readOnly value={text} style={{ color: textColor, backgroundColor }} /></label>
     </>
   )
 }

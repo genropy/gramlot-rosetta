@@ -13,5 +13,5 @@ const draft = ref(text.value)
     <label for="text">Text</label>
     <input id="text" v-model="draft" @blur="text = draft">
   </div>
-  <div class="demo-output"><span>MyText: </span><span>{{ text }}</span></div>
+  <label class="demo-output">MyText<input readonly :value="text" /></label>
 </template>

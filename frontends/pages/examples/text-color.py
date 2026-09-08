@@ -26,15 +26,9 @@ class ExamplePage(WebPage):
     def controls(self, root):
         """Commit text on blur; update visual controls during interaction."""
         pane = root.div(class_="controls")
-        field = pane.html_label()
-        field.span('Text')
-        field.input(type='text', value='^text', updateOn='blur')
-        field = pane.html_label()
-        field.span('Text color')
-        field.input(type='color', value='^color', updateOn='input')
+        pane.textBox(value="^text", lbl='Text', updateOn='blur')
+        pane.colorpicker(value="^color", lbl='Text color', updateOn='input')
 
     def preview(self, root):
         """Bind content and styles to the same state shown in Inspector."""
-        output = root.div(class_="demo-output")
-        output.span("MyText: ")
-        output.span("^text", color='^color')
+        root.textBox(value="^text", readonly=True, lbl="MyText", class_="demo-output", color='^color')

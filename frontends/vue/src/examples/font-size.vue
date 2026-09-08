@@ -22,5 +22,5 @@ const fontSize = ref(14)
     <label for="font-size">Font size</label>
     <input id="font-size" v-model.number="fontSize" type="range" min="10" max="48" step="1" @input="fontSize = Number($event.currentTarget.value)">
   </div>
-  <div class="demo-output"><span>MyText: </span><span :style="{ color: textColor, backgroundColor, fontSize: `${fontSize}px` }">{{ text }}</span></div>
+  <label class="demo-output">MyText<input readonly :value="text" :style="{ color: textColor, backgroundColor, fontSize: `${fontSize}px` }" /></label>
 </template>

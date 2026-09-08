@@ -13,7 +13,7 @@ export default function EditableText() {
         <label htmlFor="text">Text</label>
         <input id="text" value={draft} onChange={(event) => setDraft(event.target.value)} onBlur={() => setText(draft)} />
       </div>
-      <div className="demo-output"><span>MyText: </span><span>{text}</span></div>
+      <label className="demo-output">MyText<input readOnly value={text} /></label>
     </>
   )
 }
