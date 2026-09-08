@@ -1,17 +1,17 @@
 # Hello World comparison
 
-The active baseline is a static title and greeting, specified in SPEC.md. The
+The active baseline is a static title, italic description and labeled greeting, specified in SPEC.md. The
 plain HTML frame is shared by all implementations and excluded from application
 code. Each implementation renders its own isolated document.
 
 | Application source | Nonblank lines | Bytes |
 | --- | ---: | ---: |
-| React App.jsx | 9 | 125 |
-| Vue App.vue | 4 | 71 |
-| Pages recipe.py | 10 | 445 |
+| React App.jsx | 11 | 306 |
+| Vue App.vue | 6 | 250 |
+| Pages recipe.py | 9 | 451 |
 
 These are literal file counts, including imports, declarations and documentation.
-Pages expresses the visible content in two builder calls. Vue expresses it in two
+Pages expresses the visible content in three builder calls. Vue expresses it in three
 HTML elements. This small example does not establish an advantage for complex
 pages or authoring with an LLM.
 

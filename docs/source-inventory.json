@@ -3,34 +3,34 @@
     "files": [
       {
         "file": "frontends/react/src/App.jsx",
-        "nonblank_lines": 9,
-        "bytes": 125
+        "nonblank_lines": 11,
+        "bytes": 306
       }
     ],
-    "nonblank_lines": 9,
-    "bytes": 125
+    "nonblank_lines": 11,
+    "bytes": 306
   },
   "vue_application": {
     "files": [
       {
         "file": "frontends/vue/src/App.vue",
-        "nonblank_lines": 4,
-        "bytes": 71
+        "nonblank_lines": 6,
+        "bytes": 250
       }
     ],
-    "nonblank_lines": 4,
-    "bytes": 71
+    "nonblank_lines": 6,
+    "bytes": 250
   },
   "pages_recipe": {
     "files": [
       {
         "file": "frontends/pages/recipe.py",
-        "nonblank_lines": 10,
-        "bytes": 445
+        "nonblank_lines": 9,
+        "bytes": 451
       }
     ],
-    "nonblank_lines": 10,
-    "bytes": 445
+    "nonblank_lines": 9,
+    "bytes": 451
   },
   "pages_bootstrap": {
     "files": [
@@ -101,12 +101,12 @@
       },
       {
         "file": "shared/example.css",
-        "nonblank_lines": 3,
-        "bytes": 160
+        "nonblank_lines": 4,
+        "bytes": 219
       }
     ],
-    "nonblank_lines": 15,
-    "bytes": 751
+    "nonblank_lines": 16,
+    "bytes": 810
   },
   "shared_source_viewer": {
     "files": [

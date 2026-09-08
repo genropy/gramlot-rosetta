@@ -7,8 +7,9 @@ The frame has no JavaScript framework or script of its own.
 
 ## Active example: Hello World
 
-Each version contains a heading with the literal text "Hello World" and a div
-with the literal text "Hello World". No input, dynamic style, order UI or business
+Each version contains a heading "Hello World", an italic description div
+"Display a fixed text. Later examples will let you change it.", and a div
+"MyText: Hello World". The greeting value will become editable in later examples. No input, dynamic style, order UI or business
 API calls belong to this first example. A small shared CSS file supplies the same
 basic text appearance to each isolated document.
 
@@ -18,7 +19,7 @@ the actual individual recipe/component first. Bootstrap, host adapter and common
 HTML frame are separately inspectable and measured as infrastructure.
 
 Python recipes with meaningful complexity use documented composition methods.
-This two-statement example needs no artificial helper hierarchy.
+This small static example needs no artificial helper hierarchy.
 
 ## Standby
 
@@ -45,3 +46,6 @@ application file (recipe.py for Pages). Boilerplate contains framework-specific
 startup and integration files. Common contains files shared by all three
 implementations, never mixed into the page or boilerplate file lists. Tabs are
 plain HTML links; the embedded viewer does not repeat framework navigation.
+
+Use equivalent concise documentation across the three application sources. Avoid
+redundant comments or docstrings that merely repeat the visible code.

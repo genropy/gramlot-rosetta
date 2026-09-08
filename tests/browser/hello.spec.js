@@ -20,7 +20,9 @@ for (const variant of Object.keys(files)) {
     await expect(page.locator('script')).toHaveCount(0);
     const example = page.frameLocator('.example-panel iframe');
     await expect(example.locator('h1')).toHaveText('Hello World');
-    await expect(example.locator('h1 + div')).toHaveText('Hello World');
+    await expect(example.locator('.description + div')).toHaveText('MyText: Hello World');
+    await expect(example.locator('.description')).toHaveText('Display a fixed text. Later examples will let you change it.');
+    await expect(example.locator('.description')).toHaveCSS('font-style', 'italic');
     await expect(example.locator('nav')).toHaveCount(0);
     await expect(example.locator('input')).toHaveCount(0);
     await expect(example.getByRole('link', {name:'View source'})).toHaveCount(0);
@@ -28,7 +30,7 @@ for (const variant of Object.keys(files)) {
     expect(errors).toEqual([]);
     await page.setViewportSize({width:390,height:844});
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
-    await expect(example.locator('h1 + div')).toBeVisible();
+    await expect(example.locator('.description + div')).toBeVisible();
   });
 
   test(`${variant}: source browser starts from the individual page`, async ({page}) => {
