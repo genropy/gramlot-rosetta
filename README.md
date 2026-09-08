@@ -51,7 +51,7 @@ Four codex/* worktrees are preserved under
 No Genro dependency repository is modified by this demo.
 
 Pages JS is available at `/pages-js/`. Its Page tab is a live CodeMirror editor:
-edit the JavaScript recipe and press Apply, or enable Auto update. Edits are not saved to files. Reload
+edit the JavaScript recipe and press Apply, choose Live for each edit, or Focus out when leaving the editor. Edits are not saved to files. Reload
 restores the original recipe. `scripts/setup.sh` builds the local editor bundle;
 run `npm run build:editor` after changing editor code. The runtime and editor are
 listed separately from the authored recipe in the source browser and inventory.

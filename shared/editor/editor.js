@@ -12,13 +12,14 @@ status.setAttribute('role', 'status');
 status.textContent = 'Edit the recipe, then Apply. Changes are not saved.';
 holder.after(status);
 const preview = () => parent.document.querySelector('.example-panel iframe');
-let timer;
+
 const controls = document.createElement('div');
-const toggle = document.createElement('input');
-toggle.type = 'checkbox';
-toggle.setAttribute('role', 'switch');
+const mode = document.createElement('select');
+for (const [value, text] of [['manual', 'Manual'], ['live', 'Live'], ['focusout', 'Focus out']]) {
+    mode.add(new Option(text, value));
+}
 const label = document.createElement('label');
-label.append(toggle, ' Auto update');
+label.append('Update mode ', mode);
 const apply = document.createElement('button');
 apply.type = 'button';
 apply.textContent = 'Apply';
@@ -26,14 +27,12 @@ controls.append(label, apply);
 controls.style.cssText = 'display:flex;align-items:center;gap:24px;margin-bottom:12px';
 holder.before(controls);
 function applyRecipe() {
-    clearTimeout(timer);
     if (!preview()) { status.textContent = 'Open the demo to see the preview.'; return; }
     preview().contentWindow.postMessage({type: 'recipe', code: editor.state.doc.toString()}, location.origin);
 }
 apply.addEventListener('click', applyRecipe);
-toggle.addEventListener('change', () => {
-    clearTimeout(timer);
-    if (toggle.checked) applyRecipe();
+mode.addEventListener('change', () => {
+    if (mode.value === 'live') applyRecipe();
 });
 const editor = new EditorView({
     doc: initial,
@@ -43,11 +42,13 @@ const editor = new EditorView({
             '&': {fontSize: '12px'},
             '.cm-content': {fontFamily: 'ui-monospace, SFMono-Regular, Consolas, monospace'},
         }),
+        EditorView.domEventHandlers({
+            blur() { if (mode.value === 'focusout') applyRecipe(); },
+        }),
         EditorView.updateListener.of(update => {
             if (!update.docChanged) return;
-            clearTimeout(timer);
             status.textContent = 'Unapplied changes. Changes are not saved.';
-            if (toggle.checked) timer = setTimeout(applyRecipe, 250);
+            if (mode.value === 'live') applyRecipe();
         }),
     ],
 });
@@ -55,4 +56,4 @@ window.addEventListener('message', event => {
     if (event.origin !== location.origin || event.source !== preview()?.contentWindow || event.data?.type !== 'recipe-result') return;
     status.textContent = event.data.error ? `Error: ${event.data.error}` : 'Preview updated. Changes are not saved.';
 });
-window.addEventListener('pagehide', () => { clearTimeout(timer); editor.destroy(); });
+window.addEventListener('pagehide', () => editor.destroy());

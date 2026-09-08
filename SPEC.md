@@ -57,9 +57,9 @@ DOM JS's fluent builder directly; it is not generated from the Python recipe.
 The same Hello World content and shared visual contracts apply.
 
 The Page source tab uses a locally bundled CodeMirror editor for this variant.
-Manual mode is the default: Apply executes the current recipe. Auto update is
-optional; enabling it applies the current text, then subsequent edits execute
-after 250 ms without typing. Turning it off cancels any scheduled update. Syntax
+Manual mode is the default: Apply executes the current recipe. Live executes on
+every document change, without a typing delay. Focus out executes when the editor
+loses focus. Switching to Live also applies the current text. Syntax
 and execution errors are displayed while the last successful preview is retained.
 Reload restores the checked-in recipe; edits are not written to disk. This is a
 local JavaScript playground, not an isolation boundary for untrusted programs.
