@@ -27,3 +27,17 @@ For every future revision:
 - Richer remote calls/push and lifecycle handling, compared as separate capabilities.
 
 Current measurements must not claim these behaviors or their prospective benefits.
+
+## Agreed directions from the owner's follow-up discussion
+
+Pending implementation, distinct from the current order/source-view baseline:
+
+- Three progressive pages in every frontend: static Hello World; text input bound
+  to the greeting; then existing slider/color/font controls bound to its style.
+- A second, minimal genro-asgi HTTP host with the same frontends and API, creating
+  six frontend/server combinations without duplicating application code.
+- The intended reusable FastAPI adapter belongs in the Pages library distribution;
+  Rosetta should consume it. The current demo host is evidence for that extraction,
+  not its final packaging or an application-level copy to perpetuate.
+- Evaluate whether a Python author can understand and safely modify LLM-generated
+  pages, not just their line count. Documented composition methods are required.

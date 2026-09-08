@@ -19,7 +19,8 @@ Prerequisites: Python 3.12, uv, Node compatible with Vite 8 (tested with Node
 
 Open [React](http://127.0.0.1:8026/react/),
 [Vue](http://127.0.0.1:8026/vue/), or
-[Genro Pages](http://127.0.0.1:8026/pages/). Each page links to the others.
+[Genro Pages](http://127.0.0.1:8026/pages/). Each page links to the others. **View source** opens a separate tab with the
+actual application and supporting files, preserving your unsaved draft.
 Set `ROSETTA_PORT` to change the port. The server binds to loopback.
 
 Try changing Quantity and leaving the field, editing Customer, saving, then

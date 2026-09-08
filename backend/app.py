@@ -14,6 +14,8 @@ from fastapi.responses import JSONResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, ConfigDict, StrictBool, StrictInt, StrictStr
 
+from backend.source_browser import SourceBrowser
+
 
 class OrderChanges(BaseModel):
     model_config = ConfigDict(extra="forbid")
@@ -64,6 +66,9 @@ class DemoServer:
         self.app.add_api_route("/api/orders", self.get_orders, methods=["GET"])
         self.app.add_api_route("/api/orders/{order_id}", self.save_order, methods=["PUT"])
         self.app.add_api_route("/api/reset", self.reset_orders, methods=["POST"])
+        self.source_browser = SourceBrowser(self.root)
+        self.app.add_api_route("/sources/{variant}", self.source_browser.get_page,
+                               include_in_schema=False)
         self.app.mount("/shared", StaticFiles(directory=self.root / "shared"), name="shared")
         for name in ("react", "vue"):
             build = self.root / "frontends" / name / "dist"

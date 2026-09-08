@@ -104,6 +104,7 @@ function App() {
         <a href="/react/" aria-current="page">React</a>
         <a href="/vue/">Vue</a>
         <a href="/pages/">Genro Pages</a>
+        <a href="/sources/react" target="_blank" rel="noopener">View source</a>
       </nav>
       <h1>Order editor — React</h1>
       <p className="hint">

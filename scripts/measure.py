@@ -32,6 +32,8 @@ def report(root):
         'pages_browser_adapter': ['frontends/pages/module.js'],
         'shared_backend': ['backend/app.py'],
         'shared_style': ['shared/style.css'],
+        'shared_source_viewer': ['backend/source_browser.py',
+                                 'backend/templates/sources.html', 'shared/sources.css'],
         'react_setup': ['frontends/react/index.html', 'frontends/react/vite.config.js',
                         'frontends/react/package.json'],
         'vue_setup': ['frontends/vue/index.html', 'frontends/vue/vite.config.js',

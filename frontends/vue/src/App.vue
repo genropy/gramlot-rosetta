@@ -122,6 +122,7 @@ onMounted(loadOrders)
       <a href="/react/">React</a>
       <a href="/vue/" aria-current="page">Vue</a>
       <a href="/pages/">Genro Pages</a>
+      <a href="/sources/vue" target="_blank" rel="noopener">View source</a>
     </nav>
 
     <h1>Vue order editor</h1>

@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{title} · Source · Demo Rosetta</title>
+  <link rel="stylesheet" href="/shared/style.css">
+  <link rel="stylesheet" href="/shared/sources.css">
+</head>
+<body>
+  <main class="source-browser">
+    <nav aria-label="Implementation sources">{implementations}</nav>
+    <h1>{title} · Source</h1>
+    <p class="hint">Actual source files from this checkout. Select and copy the text, or open the raw file. Your demo remains open in its original tab.</p>
+    <div class="source-layout">
+      <aside class="panel">
+        <h2>Files</h2>
+        <nav aria-label="Source files"><ul>{files}</ul></nav>
+        <a href="/{variant}/">Open demo</a>
+      </aside>
+      <section class="panel source-panel" aria-label="Source code">
+        <h2>{label}</h2>
+        <p class="source-path">{filename}</p>
+        <a href="{raw_url}">Open raw source</a>
+        <pre id="source-code" tabindex="0" aria-label="Source text"><code>{source}</code></pre>
+      </section>
+    </div>
+  </main>
+</body>
+</html>

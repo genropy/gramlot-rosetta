@@ -63,3 +63,15 @@ results. Count application code separately from shared backend/styles, adapters,
 setup and tests; never present line count as proof of readability or a winner.
 Future grid or other capabilities are separate specification revisions applied to
 all implementations. Pending parity is explicit; do not compare mismatched scope.
+
+## Source inspection and readability
+
+Each implementation offers View source in a separate tab, preserving the current
+unsaved draft. A shared source browser displays actual, selectable source text and
+allows switching between React, Vue, Pages, and their supporting files. Pages must
+show its Python recipe, client controller and host adapter, not only the shortest
+file. Shared backend and style are also available. Only explicitly listed demo
+files are exposed; displayed code is literal text, never executed as markup.
+
+Python page recipes use a compositional main() and small, documented methods for
+coherent responsibilities. Readability takes precedence over minimizing lines.
