@@ -19,6 +19,9 @@ for (const variant of ['react', 'vue', 'pages']) {
       await page.goto(`/${variant}/`);
       await expect(page.getByTestId('order-1')).toContainText('Ada Studio');
       await expect(await input(page, 'customer')).toHaveValue('Ada Studio');
+      await expect(page.getByText(/^Product:?$/)).toBeVisible();
+      await expect(page.getByText(/^Unit price:?$/)).toBeVisible();
+      await expect(page.getByTestId('order-1')).toHaveAttribute('aria-pressed', 'true');
     });
 
     test('local calculation, isolated draft and selection', async ({page}) => {
@@ -29,6 +32,8 @@ for (const variant of ['react', 'vue', 'pages']) {
       await edit(page, 'customer', 'Unsaved name');
       await expect(page.getByTestId('order-1')).toContainText('Ada Studio');
       await page.getByTestId('order-2').click();
+      await expect(page.getByTestId('order-2')).toHaveAttribute('aria-pressed', 'true');
+      await expect(page.getByTestId('order-1')).toHaveAttribute('aria-pressed', 'false');
       await expect(await input(page, 'customer')).toHaveValue('Linus Workshop');
       await page.getByTestId('order-1').click();
       await expect(await input(page, 'customer')).toHaveValue('Ada Studio');
@@ -63,6 +68,10 @@ for (const variant of ['react', 'vue', 'pages']) {
       await edit(page, 'quantity', '0');
       await page.getByTestId('save').click();
       await expect(page.getByTestId('feedback')).toContainText('Quantity must be an integer from 1 to 100.');
+      await edit(page, 'quantity', '1.5');
+      await page.getByTestId('save').click();
+      await expect(page.getByTestId('feedback')).toContainText('Invalid quantity value.');
+      await expect(await input(page, 'quantity')).toHaveValue('1.5');
       await edit(page, 'quantity', '3');
       await page.getByTestId('save').click();
       await expect(page.getByTestId('feedback')).toHaveText('Order saved.');
@@ -83,10 +92,11 @@ for (const variant of ['react', 'vue', 'pages']) {
 
     test('pending save prevents duplicate submission and selection races', async ({page}) => {
       let release;
+      let submissions = 0;
       const gate = new Promise(resolve => { release = resolve; });
-      await page.route('**/api/orders/1', async route => { await gate; await route.continue(); });
+      await page.route('**/api/orders/1', async route => { submissions++; await gate; await route.continue(); });
       await edit(page, 'customer', 'Pending buyer');
-      await page.getByTestId('save').click();
+      await page.getByTestId('save').dblclick();
       await expect(page.getByTestId('save')).toBeDisabled();
       await expect(page.getByTestId('order-2')).toBeDisabled();
       await expect(await input(page, 'customer')).toBeDisabled();
@@ -94,9 +104,11 @@ for (const variant of ['react', 'vue', 'pages']) {
       await expect(await input(page, 'note')).toBeDisabled();
       await expect(await input(page, 'fulfilled')).toBeDisabled();
       await expect(page.getByTestId('reset')).toBeDisabled();
+      expect(submissions).toBe(1);
       release();
       await expect(page.getByTestId('feedback')).toHaveText('Order saved.');
       await expect(page.getByTestId('order-2')).toBeEnabled();
+      expect(submissions).toBe(1);
     });
 
     test('initial load failure has visible error and reset retries', async ({page}) => {
