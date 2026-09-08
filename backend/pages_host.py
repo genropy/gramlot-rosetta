@@ -1,4 +1,5 @@
 """FastAPI adapter for the Python-authored Genro Pages comparison."""
+import hashlib
 import importlib.util
 import json
 import os
@@ -36,9 +37,22 @@ class PagesHost:
                 self.client_modules / "node_modules" / "@msgpack" / "msgpack" / "dist.esm"
             ),
         }
+        self.assets.update({
+            "python": self.frontend,
+            "javascript": self.root / "frontends/pages-js",
+            "tools": self.root / "frontends/pages-common",
+        })
         for directory in (*self.assets.values(), self.frontend):
             if not directory.is_dir():
                 raise ValueError(f"Missing Pages asset directory: {directory}")
+
+        digest = hashlib.sha256()
+        for name, directory in sorted(self.assets.items()):
+            for path in sorted(directory.rglob("*")):
+                if path.is_file() and path.suffix in {".js", ".mjs", ".css", ".html"}:
+                    digest.update(f"{name}/{path.relative_to(directory)}".encode())
+                    digest.update(path.read_bytes())
+        self.runtime_prefix = f"/pages/runtime/{digest.hexdigest()[:16]}"
 
     def mount(self, app):
         """Add the Pages routes and narrowly scoped static asset mounts."""
@@ -51,6 +65,8 @@ class PagesHost:
         app.add_api_route("/pages/inspector-recipe", self.inspector_recipe, include_in_schema=False)
         app.mount("/pages-common", StaticFiles(directory=self.root / "frontends/pages-common"), name="pages-common")
         for name, directory in self.assets.items():
+            app.mount(f"{self.runtime_prefix}/{name}", StaticFiles(directory=directory),
+                      name=f"runtime-{name}")
             app.mount(
                 f"/pages/assets/{name}", StaticFiles(directory=directory),
                 name=f"pages-{name}",
@@ -69,9 +85,17 @@ class PagesHost:
             "@msgpack/msgpack": "/pages/assets/msgpack/index.mjs",
             "module": "/pages/module.js",
         }
+        imports = {key: value.replace("/pages/assets/", self.runtime_prefix + "/")
+                   for key, value in imports.items()}
+        imports.update({
+            "/pages/assets/": self.runtime_prefix + "/",
+            "/pages-common/": self.runtime_prefix + "/tools/",
+            "module": self.runtime_prefix + "/python/module.js",
+        })
         importmap = json.dumps({"imports": imports}).replace("<", "\\u003c")
         template = (self.frontend / "index.html").read_text()
-        return HTMLResponse(template.replace("__ROSETTA_IMPORTMAP__", importmap))
+        document = template.replace("__ROSETTA_IMPORTMAP__", importmap)
+        return HTMLResponse(document.replace('/pages/app.js', self.runtime_prefix + '/python/app.js'))
 
     def inspector_recipe(self):
         """Serve the library inspector without involving application recipes."""
@@ -85,7 +109,7 @@ class PagesHost:
     def js_index(self, example: str):
         """Reuse the runtime shell for an independently authored JavaScript recipe."""
         response = self.index(example)
-        return HTMLResponse(response.body.decode().replace('/pages/app.js', '/pages-js/app.js'))
+        return HTMLResponse(response.body.decode().replace(self.runtime_prefix + '/python/app.js', self.runtime_prefix + '/javascript/app.js'))
 
     def recipe(self, example: str):
         if example not in EXAMPLES:

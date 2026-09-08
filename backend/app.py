@@ -19,6 +19,12 @@ class DemoServer:
     def __init__(self, root=None, pages=True):
         self.root = Path(root) if root else Path(__file__).resolve().parents[1]
         self.app = FastAPI(title="Demo Rosetta", version="0.2.0")
+        @self.app.middleware("http")
+        async def development_cache(request, call_next):
+            response = await call_next(request)
+            response.headers["Cache-Control"] = "no-cache, must-revalidate"
+            return response
+
         self.app.add_api_route("/", self.index, include_in_schema=False)
         self.app.add_api_route("/{variant}/", self.get_demo, include_in_schema=False)
         self.app.add_api_route("/{variant}/{example}/", self.get_demo, include_in_schema=False)

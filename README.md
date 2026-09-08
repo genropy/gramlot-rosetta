@@ -60,3 +60,9 @@ The example menu now offers seven cumulative, independently authored pages in
 each of the four variants. Start with `/pages/editable-text/` or explore the
 complete set of controls at `/pages/font-style/`. Switching implementation keeps
 the example selected. See SPEC.md for update events and initial values.
+
+Runtime asset URLs include a content-derived revision prefix covering the DOM,
+Bag, TYTX, Pages modules and demo bootstrap. Import-map prefix mappings keep
+transitive/relative imports in that same revision. Development responses require
+cache revalidation. Restart the demo after updating a dependency snapshot so the
+revision is recomputed; already open pages keep their current runtime and state.

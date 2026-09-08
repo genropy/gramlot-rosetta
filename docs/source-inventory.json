@@ -91,12 +91,12 @@
     "files": [
       {
         "file": "backend/pages_host.py",
-        "nonblank_lines": 97,
-        "bytes": 5219
+        "nonblank_lines": 120,
+        "bytes": 6510
       }
     ],
-    "nonblank_lines": 97,
-    "bytes": 5219
+    "nonblank_lines": 120,
+    "bytes": 6510
   },
   "pages_browser_adapter": {
     "files": [
@@ -113,12 +113,12 @@
     "files": [
       {
         "file": "backend/app.py",
-        "nonblank_lines": 61,
-        "bytes": 3566
+        "nonblank_lines": 66,
+        "bytes": 3813
       }
     ],
-    "nonblank_lines": 61,
-    "bytes": 3566
+    "nonblank_lines": 66,
+    "bytes": 3813
   },
   "shared_frame": {
     "files": [
