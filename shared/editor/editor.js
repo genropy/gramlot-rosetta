@@ -1,5 +1,6 @@
 import {EditorView, basicSetup} from 'codemirror';
 import {javascript} from '@codemirror/lang-javascript';
+import {oneDark} from '@codemirror/theme-one-dark';
 
 const source = document.getElementById('source-code');
 const initial = source.textContent;
@@ -37,7 +38,11 @@ toggle.addEventListener('change', () => {
 const editor = new EditorView({
     doc: initial,
     parent: holder,
-    extensions: [basicSetup, javascript(), EditorView.lineWrapping,
+    extensions: [basicSetup, javascript(), oneDark, EditorView.lineWrapping,
+        EditorView.theme({
+            '&': {fontSize: '12px'},
+            '.cm-content': {fontFamily: 'ui-monospace, SFMono-Regular, Consolas, monospace'},
+        }),
         EditorView.updateListener.of(update => {
             if (!update.docChanged) return;
             clearTimeout(timer);
