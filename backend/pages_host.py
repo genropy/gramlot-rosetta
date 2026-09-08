@@ -14,10 +14,7 @@ from genro_tytx import to_tytx
 from backend.examples import EXAMPLES
 from frontends.pages.recipe import HelloWorldPage
 
-DEFAULT_CLIENT_MODULES = Path(
-    "/Users/gporcari/Sviluppo/genro_ng/meta-genro-modules/sub-projects/"
-    "genro-pages/temp/client-releases-20260908"
-)
+DEFAULT_CLIENT_MODULES = Path(__file__).resolve().parents[1] / ".local/dependencies/client"
 
 
 class PagesHost:

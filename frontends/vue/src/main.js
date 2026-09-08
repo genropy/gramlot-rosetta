@@ -8,6 +8,8 @@ import FontFamily from './examples/font-family.vue'
 import FontStyle from './examples/font-style.vue'
 import LocalScope from './examples/local-scope.vue'
 
+import RepeatedPanels from './examples/repeated-panels.vue'
+
 const examples = {
   'hello-world': App,
   'editable-text': EditableText,
@@ -17,6 +19,7 @@ const examples = {
   'font-family': FontFamily,
   'font-style': FontStyle,
   'local-scope': LocalScope,
+  'repeated-panels': RepeatedPanels,
 }
 
 const exampleId = window.location.pathname.split('/').filter(Boolean).at(-1)

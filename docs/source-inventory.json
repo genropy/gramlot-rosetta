@@ -37,11 +37,22 @@
       {
         "file": "frontends/pages-js/app.js",
         "nonblank_lines": 35,
-        "bytes": 1598
+        "bytes": 1592
       }
     ],
     "nonblank_lines": 35,
-    "bytes": 1598
+    "bytes": 1592
+  },
+  "shared_pages_builder": {
+    "files": [
+      {
+        "file": "frontends/pages-common/builder.js",
+        "nonblank_lines": 6,
+        "bytes": 310
+      }
+    ],
+    "nonblank_lines": 6,
+    "bytes": 310
   },
   "shared_pages_tools": {
     "files": [
@@ -81,22 +92,22 @@
       {
         "file": "frontends/pages/app.js",
         "nonblank_lines": 22,
-        "bytes": 980
+        "bytes": 974
       }
     ],
     "nonblank_lines": 22,
-    "bytes": 980
+    "bytes": 974
   },
   "pages_host_adapter": {
     "files": [
       {
         "file": "backend/pages_host.py",
-        "nonblank_lines": 120,
-        "bytes": 6510
+        "nonblank_lines": 117,
+        "bytes": 6448
       }
     ],
-    "nonblank_lines": 120,
-    "bytes": 6510
+    "nonblank_lines": 117,
+    "bytes": 6448
   },
   "pages_browser_adapter": {
     "files": [
@@ -145,19 +156,19 @@
       },
       {
         "file": "shared/example.css",
-        "nonblank_lines": 18,
-        "bytes": 1334
+        "nonblank_lines": 46,
+        "bytes": 3146
       }
     ],
-    "nonblank_lines": 30,
-    "bytes": 1925
+    "nonblank_lines": 58,
+    "bytes": 3737
   },
   "shared_source_viewer": {
     "files": [
       {
         "file": "backend/source_browser.py",
-        "nonblank_lines": 109,
-        "bytes": 5889
+        "nonblank_lines": 112,
+        "bytes": 6163
       },
       {
         "file": "backend/templates/sources.html",
@@ -170,15 +181,15 @@
         "bytes": 732
       }
     ],
-    "nonblank_lines": 142,
-    "bytes": 7435
+    "nonblank_lines": 145,
+    "bytes": 7709
   },
   "react_setup": {
     "files": [
       {
         "file": "frontends/react/src/main.jsx",
-        "nonblank_lines": 27,
-        "bytes": 956
+        "nonblank_lines": 29,
+        "bytes": 1054
       },
       {
         "file": "frontends/react/index.html",
@@ -196,15 +207,15 @@
         "bytes": 351
       }
     ],
-    "nonblank_lines": 70,
-    "bytes": 1911
+    "nonblank_lines": 72,
+    "bytes": 2009
   },
   "vue_setup": {
     "files": [
       {
         "file": "frontends/vue/src/main.js",
-        "nonblank_lines": 22,
-        "bytes": 838
+        "nonblank_lines": 24,
+        "bytes": 936
       },
       {
         "file": "frontends/vue/index.html",
@@ -222,8 +233,8 @@
         "bytes": 318
       }
     ],
-    "nonblank_lines": 64,
-    "bytes": 1748
+    "nonblank_lines": 66,
+    "bytes": 1846
   },
   "pages_setup": {
     "files": [
@@ -295,12 +306,23 @@
     "files": [
       {
         "file": "frontends/react/src/examples/local-scope.jsx",
-        "nonblank_lines": 40,
-        "bytes": 2524
+        "nonblank_lines": 35,
+        "bytes": 2411
       }
     ],
-    "nonblank_lines": 40,
-    "bytes": 2524
+    "nonblank_lines": 35,
+    "bytes": 2411
+  },
+  "react_repeated-panels_page": {
+    "files": [
+      {
+        "file": "frontends/react/src/examples/repeated-panels.jsx",
+        "nonblank_lines": 50,
+        "bytes": 3227
+      }
+    ],
+    "nonblank_lines": 50,
+    "bytes": 3227
   },
   "react_text-color_page": {
     "files": [
@@ -372,12 +394,34 @@
     "files": [
       {
         "file": "frontends/vue/src/examples/local-scope.vue",
-        "nonblank_lines": 38,
-        "bytes": 1968
+        "nonblank_lines": 33,
+        "bytes": 1895
       }
     ],
-    "nonblank_lines": 38,
-    "bytes": 1968
+    "nonblank_lines": 33,
+    "bytes": 1895
+  },
+  "vue_repeated-panel_page": {
+    "files": [
+      {
+        "file": "frontends/vue/src/examples/repeated-panel.vue",
+        "nonblank_lines": 34,
+        "bytes": 1933
+      }
+    ],
+    "nonblank_lines": 34,
+    "bytes": 1933
+  },
+  "vue_repeated-panels_page": {
+    "files": [
+      {
+        "file": "frontends/vue/src/examples/repeated-panels.vue",
+        "nonblank_lines": 16,
+        "bytes": 761
+      }
+    ],
+    "nonblank_lines": 16,
+    "bytes": 761
   },
   "vue_text-color_page": {
     "files": [
@@ -394,165 +438,187 @@
     "files": [
       {
         "file": "frontends/pages/examples/background-color.py",
-        "nonblank_lines": 29,
-        "bytes": 1538
+        "nonblank_lines": 13,
+        "bytes": 887
       }
     ],
-    "nonblank_lines": 29,
-    "bytes": 1538
+    "nonblank_lines": 13,
+    "bytes": 887
   },
   "pages_editable-text_page": {
     "files": [
       {
         "file": "frontends/pages/examples/editable-text.py",
-        "nonblank_lines": 25,
-        "bytes": 1236
+        "nonblank_lines": 11,
+        "bytes": 629
       }
     ],
-    "nonblank_lines": 25,
-    "bytes": 1236
+    "nonblank_lines": 11,
+    "bytes": 629
   },
   "pages_font-family_page": {
     "files": [
       {
         "file": "frontends/pages/examples/font-family.py",
-        "nonblank_lines": 35,
-        "bytes": 2002
+        "nonblank_lines": 17,
+        "bytes": 1319
       }
     ],
-    "nonblank_lines": 35,
-    "bytes": 2002
+    "nonblank_lines": 17,
+    "bytes": 1319
   },
   "pages_font-size_page": {
     "files": [
       {
         "file": "frontends/pages/examples/font-size.py",
-        "nonblank_lines": 33,
-        "bytes": 1820
+        "nonblank_lines": 16,
+        "bytes": 1155
       }
     ],
-    "nonblank_lines": 33,
-    "bytes": 1820
+    "nonblank_lines": 16,
+    "bytes": 1155
   },
   "pages_font-style_page": {
     "files": [
       {
         "file": "frontends/pages/examples/font-style.py",
-        "nonblank_lines": 41,
-        "bytes": 2481
+        "nonblank_lines": 21,
+        "bytes": 1766
       }
     ],
-    "nonblank_lines": 41,
-    "bytes": 2481
+    "nonblank_lines": 21,
+    "bytes": 1766
   },
   "pages_local-scope_page": {
     "files": [
       {
         "file": "frontends/pages/examples/local-scope.py",
-        "nonblank_lines": 44,
-        "bytes": 2789
+        "nonblank_lines": 24,
+        "bytes": 2115
       }
     ],
-    "nonblank_lines": 44,
-    "bytes": 2789
+    "nonblank_lines": 24,
+    "bytes": 2115
+  },
+  "pages_repeated-panels_page": {
+    "files": [
+      {
+        "file": "frontends/pages/examples/repeated-panels.py",
+        "nonblank_lines": 32,
+        "bytes": 3032
+      }
+    ],
+    "nonblank_lines": 32,
+    "bytes": 3032
   },
   "pages_text-color_page": {
     "files": [
       {
         "file": "frontends/pages/examples/text-color.py",
-        "nonblank_lines": 27,
-        "bytes": 1363
+        "nonblank_lines": 12,
+        "bytes": 736
       }
     ],
-    "nonblank_lines": 27,
-    "bytes": 1363
+    "nonblank_lines": 12,
+    "bytes": 736
   },
   "pages-js_background-color_page": {
     "files": [
       {
         "file": "frontends/pages-js/examples/background-color.js",
-        "nonblank_lines": 24,
-        "bytes": 1005
+        "nonblank_lines": 8,
+        "bytes": 696
       }
     ],
-    "nonblank_lines": 24,
-    "bytes": 1005
+    "nonblank_lines": 8,
+    "bytes": 696
   },
   "pages-js_editable-text_page": {
     "files": [
       {
         "file": "frontends/pages-js/examples/editable-text.js",
-        "nonblank_lines": 20,
-        "bytes": 687
+        "nonblank_lines": 6,
+        "bytes": 421
       }
     ],
-    "nonblank_lines": 20,
-    "bytes": 687
+    "nonblank_lines": 6,
+    "bytes": 421
   },
   "pages-js_font-family_page": {
     "files": [
       {
         "file": "frontends/pages-js/examples/font-family.js",
-        "nonblank_lines": 30,
-        "bytes": 1463
+        "nonblank_lines": 12,
+        "bytes": 1114
       }
     ],
-    "nonblank_lines": 30,
-    "bytes": 1463
+    "nonblank_lines": 12,
+    "bytes": 1114
   },
   "pages-js_font-size_page": {
     "files": [
       {
         "file": "frontends/pages-js/examples/font-size.js",
-        "nonblank_lines": 28,
-        "bytes": 1270
+        "nonblank_lines": 11,
+        "bytes": 939
       }
     ],
-    "nonblank_lines": 28,
-    "bytes": 1270
+    "nonblank_lines": 11,
+    "bytes": 939
   },
   "pages-js_font-style_page": {
     "files": [
       {
         "file": "frontends/pages-js/examples/font-style.js",
-        "nonblank_lines": 36,
-        "bytes": 1958
+        "nonblank_lines": 16,
+        "bytes": 1569
       }
     ],
-    "nonblank_lines": 36,
-    "bytes": 1958
+    "nonblank_lines": 16,
+    "bytes": 1569
   },
   "pages-js_local-scope_page": {
     "files": [
       {
         "file": "frontends/pages-js/examples/local-scope.js",
-        "nonblank_lines": 38,
-        "bytes": 2224
+        "nonblank_lines": 19,
+        "bytes": 1943
       }
     ],
-    "nonblank_lines": 38,
-    "bytes": 2224
+    "nonblank_lines": 19,
+    "bytes": 1943
+  },
+  "pages-js_repeated-panels_page": {
+    "files": [
+      {
+        "file": "frontends/pages-js/examples/repeated-panels.js",
+        "nonblank_lines": 29,
+        "bytes": 2844
+      }
+    ],
+    "nonblank_lines": 29,
+    "bytes": 2844
   },
   "pages-js_text-color_page": {
     "files": [
       {
         "file": "frontends/pages-js/examples/text-color.js",
-        "nonblank_lines": 22,
-        "bytes": 822
+        "nonblank_lines": 7,
+        "bytes": 538
       }
     ],
-    "nonblank_lines": 22,
-    "bytes": 822
+    "nonblank_lines": 7,
+    "bytes": 538
   },
   "shared_example_catalog": {
     "files": [
       {
         "file": "backend/examples.py",
-        "nonblank_lines": 11,
-        "bytes": 371
+        "nonblank_lines": 12,
+        "bytes": 413
       }
     ],
-    "nonblank_lines": 11,
-    "bytes": 371
+    "nonblank_lines": 12,
+    "bytes": 413
   }
 }

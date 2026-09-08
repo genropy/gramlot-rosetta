@@ -14,26 +14,21 @@ const italic = ref(false)
 
 <template>
   <h1>Local scope</h1>
-  <div class="description">Keep text and style together in a compact, titled box.</div>
+  <div class="description">Arrange text and style controls in two columns inside a labeled box.</div>
   <section class="scoped-example native-scope" aria-label="Text sample">
       <div class="sample-title">Text sample</div>
       <div class="controls compact-controls native-controls">
-    <label for="text">Text</label>
-    <input id="text" v-model="draft" @blur="text = draft">
-    <label for="text-color">Text color</label>
-    <input id="text-color" v-model="textColor" type="color" @input="textColor = $event.currentTarget.value">
-    <label for="background-color">Background color</label>
-    <input id="background-color" v-model="backgroundColor" type="color" @input="backgroundColor = $event.currentTarget.value">
-    <label for="font-size">Font size</label>
-    <input id="font-size" v-model.number="fontSize" type="range" min="10" max="48" step="1" @input="fontSize = Number($event.currentTarget.value)">
-    <label for="font-family">Font family</label>
-    <select id="font-family" v-model="fontFamily">
+    <label>Text<input id="text" v-model="draft" @blur="text = draft"></label>
+    <label>Text color<input id="text-color" v-model="textColor" type="color" @input="textColor = $event.currentTarget.value"></label>
+    <label>Background color<input id="background-color" v-model="backgroundColor" type="color" @input="backgroundColor = $event.currentTarget.value"></label>
+    <label>Font size<input id="font-size" v-model.number="fontSize" type="range" min="10" max="48" step="1" @input="fontSize = Number($event.currentTarget.value)"></label>
+    <label>Font family<select aria-label="Font family" id="font-family" v-model="fontFamily">
       <option value="system-ui">system-ui</option>
       <option value="serif">serif</option>
       <option value="monospace">monospace</option>
-    </select>
-    <label><input v-model="bold" type="checkbox"> Bold</label>
-    <label><input v-model="italic" type="checkbox"> Italic</label>
+    </select></label>
+    <label>Bold<input v-model="bold" type="checkbox"></label>
+    <label>Italic<input v-model="italic" type="checkbox"></label>
   </div>
   <label class="demo-output">MyText<input readonly :value="text" :style="{ color: textColor, backgroundColor, fontSize: `${fontSize}px`, fontFamily, fontWeight: bold ? 'bold' : 'normal', fontStyle: italic ? 'italic' : 'normal' }" /></label>
   </section>

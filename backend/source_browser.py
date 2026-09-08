@@ -37,6 +37,7 @@ class SourceBrowser:
         "host": ("FastAPI host adapter", "backend/pages_host.py"),
     }
     for name in ("pages", "pages-js"):
+        FILES[name]["builder"] = ("Shared Pages builder", "frontends/pages-common/builder.js")
         FILES[name]["tools"] = ("Shared Pages inspector tools", "frontends/pages-common/tools.js")
     SHARED = {
         "editor": ("Live editor", "shared/editor/editor.js"),
@@ -67,6 +68,8 @@ class SourceBrowser:
                             if key != "app"},
             "common": self.SHARED,
         }
+        if variant == "vue" and example == "repeated-panels":
+            groups["page"]["panel"] = ("Repeated panel · Vue SFC", "frontends/vue/src/examples/repeated-panel.vue")
         if section not in groups:
             raise HTTPException(404, "Unknown source section.")
         if file:

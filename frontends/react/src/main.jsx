@@ -9,6 +9,8 @@ import FontFamily from './examples/font-family.jsx'
 import FontStyle from './examples/font-style.jsx'
 import LocalScope from './examples/local-scope.jsx'
 
+import RepeatedPanels from './examples/repeated-panels.jsx'
+
 const examples = {
   'hello-world': App,
   'editable-text': EditableText,
@@ -18,6 +20,7 @@ const examples = {
   'font-family': FontFamily,
   'font-style': FontStyle,
   'local-scope': LocalScope,
+  'repeated-panels': RepeatedPanels,
 }
 
 const exampleId = window.location.pathname.split('/').filter(Boolean).at(-1)

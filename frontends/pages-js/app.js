@@ -1,10 +1,10 @@
 import {attachTools} from '/pages-common/tools.js';
 import {Application} from 'genro-dom-js';
-import {GalleryBuilder} from '/pages/assets/pages/gallery.js';
+import {RosettaBuilder} from '/pages-common/builder.js';
 
 let application;
 function render(code) {
-    const builder = new GalleryBuilder('main');
+    const builder = new RosettaBuilder('main');
     let next;
     try {
         builder.main = new Function('root', code);

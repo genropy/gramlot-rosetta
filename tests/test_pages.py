@@ -25,7 +25,8 @@ def test_recipe_is_typed_source_and_shell_has_no_rendered_app():
 
 def test_existing_runtime_assets_available_under_pages_mount():
     client = TestClient(DemoServer().app)
-    for path in ('dom/index.js', 'dom/collections/inputs.js', 'bag/index.js',
+    for path in ('dom/index.js', 'dom/collections/inputs.js', 'dom/collections/forms.js',
+                 'dom/forms/controller.js', 'tools/builder.js', 'bag/index.js',
                  'bag/browser-uuid.js', 'tytx/index.js'):
         response = client.get(f'/pages/assets/{path}')
         assert response.status_code == 200, path

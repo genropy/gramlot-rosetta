@@ -8,4 +8,5 @@ EXAMPLES = {
     'font-family': 'Font family',
     'font-style': 'Font style',
     'local-scope': 'Local scope',
+    'repeated-panels': 'Repeated panels',
 }

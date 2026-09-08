@@ -16,5 +16,37 @@ gnr-textbox.demo-output { --field-bg: transparent; }
 .native-scope { border: 1px solid #c8c8c8; padding: 12px; }
 .sample-title { color: #555; font-size: 12px; font-weight: 600; }
 .compact-controls { gap: 8px; margin: 12px 0; max-width: none; }
-.native-controls { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; }
+.native-controls { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; }
 .native-controls input, .native-controls select { max-width: 100%; min-width: 0; }
+
+.native-controls label { flex-direction: column; align-items: flex-start; gap: 4px; min-width: 0; color: #555; font-size: 12px; font-weight: 600; }
+.native-controls input, .native-controls select { box-sizing: border-box; font: 14px system-ui; }
+.native-controls input:not([type=color]):not([type=checkbox]), .native-controls select { width: 100%; }
+
+.native-controls label:has(#text) { grid-column: 1 / -1; }
+
+.native-controls .wide-field { grid-column: 1 / -1; }
+.scoped-example + .scoped-example { margin-top: 16px; }
+
+.common-settings { display: block; max-width: 440px; margin-bottom: 16px; }
+[data-label-position] .panel-content { min-width: 0; flex: 1; }
+[data-label-position].scoped-example,
+[data-label-position] label { display: flex; gap: 4px; }
+[data-label-position="L"].scoped-example,
+[data-label-position="L"] label { flex-direction: row; align-items: center; }
+[data-label-position="R"].scoped-example,
+[data-label-position="R"] label { flex-direction: row-reverse; align-items: center; }
+[data-label-position^="T"].scoped-example,
+[data-label-position^="T"] label { flex-direction: column; align-items: stretch; }
+[data-label-position^="B"].scoped-example,
+[data-label-position^="B"] label { flex-direction: column-reverse; align-items: stretch; }
+[data-label-position$="L"] label > span,
+[data-label-position$="L"] > .sample-title { text-align: left; }
+[data-label-position$="C"] label > span,
+[data-label-position$="C"] > .sample-title { text-align: center; }
+[data-label-position$="R"] label > span,
+[data-label-position$="R"] > .sample-title { text-align: right; }
+[data-label-position] label > input,
+[data-label-position] label > select { min-width: 0; }
+[data-label-position] label > input[type=color],
+[data-label-position] label > input[type=checkbox] { align-self: flex-start; }

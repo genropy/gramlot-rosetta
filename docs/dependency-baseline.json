@@ -7,32 +7,37 @@
   },
   "genro_asgi_installed": false,
   "pages": {
-    "path": "/Users/gporcari/Sviluppo/genro_ng/meta-genro-modules/sub-projects/genro-pages/src",
+    "path": ".local/dependencies/genro-pages/src",
     "files": 39,
-    "sha256": "014bde248c9c2354f675d6448108150ec3c39c1de7db00a4b92400d7083f3ceb",
-    "revision": "25a8f9bfb3398eca85c0127ecef8733935dbf7a5",
-    "dirty": true
+    "sha256": "b79a5a6618475ea46800b0fcea9838ef20062934656363c27babadd7f0756f36",
+    "revision": "0683f5dca8ea04b7047fed56e68317b27b9aa745",
+    "dirty": false
   },
   "builders": {
-    "path": "/Users/gporcari/Documents/ChatGPT/genro-pages/worktrees/genro-builders/src",
+    "path": ".local/dependencies/genro-builders/src",
     "files": 103,
-    "sha256": "3125a0846e3dda4b6cd14368ba9cbf4434ff4bf9982a07d7e9cdd4ad218b76d1",
-    "revision": "c6e4684914db4f3fd72c8f53b39ca270bfb6d89e",
-    "dirty": true
+    "sha256": "771a2ff9eae868348fd8b05e4386617f6760c0ed869489ebe8d1d35cba3b28c9",
+    "revision": "25ae61950717afae10e1d43d8318f272122202ac",
+    "dirty": false
   },
   "dom": {
-    "path": "/Users/gporcari/Sviluppo/genro_ng/meta-genro-modules/sub-projects/genro-pages/temp/client-releases-20260908/genro-dom-js/src",
-    "files": 22,
-    "sha256": "04e39b11f3f961a4b509cc6f31c37f9d49bc31c2f6f8c4a56f9f8e0f83b66faa"
+    "path": ".local/dependencies/client/genro-dom-js/src",
+    "files": 33,
+    "sha256": "2773d03115394c94893148bab9359e969b901ba015c8d05b1ff1f36da01ed872"
   },
   "bag_js": {
-    "path": "/Users/gporcari/Sviluppo/genro_ng/meta-genro-modules/sub-projects/genro-pages/temp/client-releases-20260908/node_modules/genro-bag-js/src",
+    "path": ".local/dependencies/client/genro-dom-js/node_modules/genro-bag-js/src",
     "files": 12,
     "sha256": "34059d370a90f7f2ac206e3cad1409e484f77a754840aa60ba6d93b6ad87bc4e"
   },
   "tytx_js": {
-    "path": "/Users/gporcari/Sviluppo/genro_ng/meta-genro-modules/sub-projects/genro-pages/temp/client-releases-20260908/node_modules/genro-tytx/js/src",
+    "path": ".local/dependencies/client/genro-dom-js/node_modules/genro-tytx/js/src",
     "files": 9,
     "sha256": "6783b67836fdbf9e5fca202f45e913568885b53fad51d8a4372f3dcc0e57d2ec"
+  },
+  "public_preview": {
+    "pages": "0683f5dca8ea04b7047fed56e68317b27b9aa745",
+    "builders": "25ae61950717afae10e1d43d8318f272122202ac",
+    "dom": "d888cefbb4dfb65868148afb2e00cabe84b4de08"
   }
 }

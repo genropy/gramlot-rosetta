@@ -18,8 +18,8 @@ URLs are /examples/{variant}/hello-world/. View source opens a separate tab show
 the actual individual recipe/component first. Bootstrap, host adapter and common
 HTML frame are separately inspectable and measured as infrastructure.
 
-Python recipes with meaningful complexity use documented composition methods.
-This small static example needs no artificial helper hierarchy.
+Examples through Font style use a single Python main() or top-level JavaScript.
+Local scope also uses one main(); Repeated panels introduces only the reused text_panel helper.
 
 ## Standby
 
@@ -120,15 +120,42 @@ is also not available and is not demonstrated here.
 The inspector edits Data/Source of the running instance; changes do not rewrite
 recipe files. Demo tests exercise Data Apply updating input and readonly output
 in both Python and JS authoring modes. The runtime now supports defaults and verticalSlider, but this gallery revision
-only adopts horizontalSlider; explicit state initialization stays in each recipe.
+adopts horizontalSlider; widget defaults initialize absent data nodes in each recipe.
 
 
 ## Local scope (eighth example)
 
 `local-scope` retains every Font style control in a compact titled box. Font style
-remains unchanged. Pages declares `datapath="sample"` on the existing box widget;
+remains unchanged. Pages uses an explicit `labledBox(label="Text sample")` containing a
+`formlet(columns=2)` with labels above the fields. React and Vue use an equivalent
+two-column CSS grid. Pages declares `datapath="sample"` on the labeled box;
 initial data paths and formula destinations begin with `.`, and bindings begin
 with `^.`. Inspector shows text, styles and computed values under `sample`, with
 no equivalent nodes at the root. Editing `sample.text` in Inspector updates both
 text fields. React and Vue keep idiomatic component-local state and native HTML;
 they do not emulate a path store. No database or new library API is involved.
+
+Pages input examples initialize their data through widget defaults, preserving
+existing values. Local scope declares derived formulas directly in main().
+Its text field spans both formlet columns via grid_column="1 / -1"; colors,
+size/family and bold/italic occupy paired rows. React/Vue mirror this layout.
+
+
+## Repeated panels (ninth example)
+
+Six instances repeat the Local scope panel, including defaults and formlet layout.
+Python calls text_panel in range(6); Pages JS calls textPanel in a for loop.
+Each container selects panels.panel_0 through panels.panel_5 and all internal
+bindings remain relative. React maps to a TextPanel component with local state;
+Vue uses v-for with a separate SFC, also exposed under Page in the source viewer.
+The example is autonomous and does not import Local scope. Browser checks verify
+that editing text, size, bold and color in one instance leaves the other five
+unchanged and that Pages stores six independent branches without root leakage.
+
+
+Repeated panels starts with Common settings. A label-position selector defaults
+to TL and offers L, R, TL, TC, TR, BL, BC and BR. Pages panel captions and widget
+labels bind lbl_position to the absolute ^common.position path; individual data
+and formulas remain relative. React/Vue lift position to the parent and pass it
+as a prop, with native CSS positioning. Browser checks exercise all eight choices
+and verify that local text and style edits survive the shared presentation change.
