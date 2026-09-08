@@ -1,5 +1,7 @@
 # Demo Rosetta
 
+**Guida dettagliata in italiano:** [installazione, manuale inglese/italiano e prove](docs/guida-installazione-it.md) · [HTML stampabile](docs/guida-installazione-it.html).
+
 The active comparison is a nine-example gallery in React, Vue, Pages Python
 and Pages JS, hosted by FastAPI. One shared **plain HTML frame** owns implementation navigation, example
 selection and View source. Each framework renders only the example in its iframe.
