@@ -35,6 +35,8 @@ for (const variant of Object.keys(files)) {
     await page.goto(`/${variant}/`);
     const embedded = page.frameLocator('.source-frame-panel iframe');
     await expect(embedded.locator('#source-code')).toHaveText(readFileSync(files[variant], 'utf8'));
+    await expect(embedded.getByRole('navigation', {name:'Source files'}).getByRole('link')).toHaveCount(0);
+    await embedded.getByRole('link', {name:'Common',exact:true}).click();
     await embedded.getByRole('link', {name:'Shared HTML frame',exact:true}).click();
     await expect(embedded.locator('#source-code')).toHaveText(readFileSync('backend/templates/frame.html', 'utf8'));
     await expect(page.frameLocator('.example-panel iframe').locator('h1')).toHaveText('Hello World');
@@ -42,11 +44,13 @@ for (const variant of Object.keys(files)) {
     await page.getByRole('link', {name:'View source',exact:true}).click();
     const source = await popup;
     await expect(source.locator('#source-code')).toHaveText(readFileSync(files[variant], 'utf8'));
+    await source.getByRole('link', {name:'Common',exact:true}).click();
     await source.getByRole('link', {name:'Shared HTML frame',exact:true}).click();
     await expect(source.locator('#source-code')).toHaveText(readFileSync('backend/templates/frame.html', 'utf8'));
-    await source.getByRole('navigation', {name:'Implementation sources'})
-      .getByRole('link', {name:'Genro Pages',exact:true}).click();
-    await expect(source.locator('#source-code')).toHaveText(readFileSync(files.pages, 'utf8'));
+    await source.getByRole('link', {name:'Boilerplate',exact:true}).click();
+    await expect(source.getByRole('link', {name:'Shared HTML frame',exact:true})).toHaveCount(0);
+    await source.getByRole('link', {name:'Page',exact:true}).click();
+    await expect(source.locator('#source-code')).toHaveText(readFileSync(files[variant], 'utf8'));
     await source.close();
     await expect(page.frameLocator('.example-panel iframe').locator('h1')).toHaveText('Hello World');
   });

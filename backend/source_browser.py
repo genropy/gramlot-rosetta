@@ -40,11 +40,22 @@ class SourceBrowser:
     def __init__(self, root):
         self.root = Path(root).resolve()
 
-    def get_page(self, variant: str, file: str = "app", raw: bool = False):
+    def get_page(self, variant: str, file: str = "", raw: bool = False, section: str = "page"):
         """Display one allowlisted file, or return its exact plain-text contents."""
         if variant not in self.FILES:
             raise HTTPException(404, "Unknown implementation.")
-        files = {**self.FILES[variant], **self.SHARED}
+        groups = {
+            "page": {"app": self.FILES[variant]["app"]},
+            "boilerplate": {key: value for key, value in self.FILES[variant].items()
+                            if key != "app"},
+            "common": self.SHARED,
+        }
+        if section not in groups:
+            raise HTTPException(404, "Unknown source section.")
+        if file:
+            section = next((name for name, group in groups.items() if file in group), section)
+        files = groups[section]
+        file = file or next(iter(files))
         if file not in files:
             raise HTTPException(404, "Unknown source file.")
         label, filename = files[file]
@@ -61,20 +72,22 @@ class SourceBrowser:
             "variant": escape(variant),
             "filename": escape(filename),
             "label": escape(label),
-            "implementations": self.get_implementation_links(variant),
-            "files": self.get_file_links(variant, files, file),
+            "tabs": self.get_section_links(variant, section),
+            "files": self.get_file_links(variant, files, file) if len(files) > 1 else "",
             "raw_url": escape(f"/sources/{variant}?{urlencode({'file': file, 'raw': 'true'})}"),
             "source": escape(source),
         }
         # One formatting pass: placeholders in the source itself stay literal.
         return HTMLResponse(template.format_map(values), headers=headers)
 
-    def get_implementation_links(self, selected):
-        """Offer the same source view for each framework."""
+    def get_section_links(self, variant, selected):
+        """Separate page authorship from framework setup and shared context."""
         return "".join(
-            f'<a href="/sources/{name}"'
+            f'<a href="/sources/{variant}?section={name}"'
             + (' aria-current="page"' if name == selected else '')
-            + f'>{escape(title)}</a>' for name, title in self.TITLES.items()
+            + f'>{label}</a>'
+            for name, label in (("page", "Page"), ("boilerplate", "Boilerplate"),
+                                ("common", "Common"))
         )
 
     def get_file_links(self, variant, files, selected):

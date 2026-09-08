@@ -39,3 +39,9 @@ second iframe: alongside the example on wide screens and below it on narrower
 screens. Source navigation stays within that pane and does not replace the live
 example. The standalone source link remains available. No frontend-specific code
 or parent JavaScript is required for this layout.
+
+Source inspection opens on the Page tab and displays only the selected page's
+application file (recipe.py for Pages). Boilerplate contains framework-specific
+startup and integration files. Common contains files shared by all three
+implementations, never mixed into the page or boilerplate file lists. Tabs are
+plain HTML links; the embedded viewer does not repeat framework navigation.

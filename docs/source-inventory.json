@@ -112,22 +112,22 @@
     "files": [
       {
         "file": "backend/source_browser.py",
-        "nonblank_lines": 78,
-        "bytes": 3987
+        "nonblank_lines": 91,
+        "bytes": 4632
       },
       {
         "file": "backend/templates/sources.html",
-        "nonblank_lines": 30,
-        "bytes": 1160
+        "nonblank_lines": 22,
+        "bytes": 796
       },
       {
         "file": "shared/sources.css",
-        "nonblank_lines": 18,
-        "bytes": 1065
+        "nonblank_lines": 10,
+        "bytes": 732
       }
     ],
-    "nonblank_lines": 126,
-    "bytes": 6212
+    "nonblank_lines": 123,
+    "bytes": 6160
   },
   "react_setup": {
     "files": [
