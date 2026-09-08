@@ -124,17 +124,17 @@
     "files": [
       {
         "file": "backend/templates/frame.html",
-        "nonblank_lines": 40,
-        "bytes": 1505
+        "nonblank_lines": 42,
+        "bytes": 1551
       },
       {
         "file": "shared/frame.css",
-        "nonblank_lines": 13,
-        "bytes": 1278
+        "nonblank_lines": 16,
+        "bytes": 1387
       }
     ],
-    "nonblank_lines": 53,
-    "bytes": 2783
+    "nonblank_lines": 58,
+    "bytes": 2938
   },
   "shared_style": {
     "files": [

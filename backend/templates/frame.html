@@ -17,7 +17,6 @@
         <a href="/pages/{example}/" {pages_current}>Pages Python</a>
         <a href="/pages-js/{example}/" {pages-js_current}>Pages JS</a>
       </nav>
-      <span id="pages-tools"></span>
       <a href="/sources/{variant}?example={example}" target="_blank" rel="noopener">View source</a>
     </header>
     <div class="rosetta-layout">
@@ -28,9 +27,12 @@
         </nav>
         <p class="meta">Orders is on standby.</p>
       </aside>
+      <div class="example-column">
       <section class="example-panel" aria-label="Current example">
         <iframe title="{example_title} · {title}" src="/examples/{variant}/{example}/"></iframe>
       </section>
+      <div id="pages-tools"></div>
+      </div>
       <section class="source-frame-panel" aria-label="Current source">
         <iframe title="Source · {title}" src="/sources/{variant}?example={example}"></iframe>
       </section>
