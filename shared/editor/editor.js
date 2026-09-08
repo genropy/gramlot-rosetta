@@ -8,10 +8,32 @@ source.before(holder);
 source.hidden = true;
 const status = document.createElement('p');
 status.setAttribute('role', 'status');
-status.textContent = 'Edit the recipe to update the preview. Changes are not saved.';
+status.textContent = 'Edit the recipe, then Apply. Changes are not saved.';
 holder.after(status);
 const preview = () => parent.document.querySelector('.example-panel iframe');
 let timer;
+const controls = document.createElement('div');
+const toggle = document.createElement('input');
+toggle.type = 'checkbox';
+toggle.setAttribute('role', 'switch');
+const label = document.createElement('label');
+label.append(toggle, ' Auto update');
+const apply = document.createElement('button');
+apply.type = 'button';
+apply.textContent = 'Apply';
+controls.append(label, apply);
+controls.style.cssText = 'display:flex;align-items:center;gap:24px;margin-bottom:12px';
+holder.before(controls);
+function applyRecipe() {
+    clearTimeout(timer);
+    if (!preview()) { status.textContent = 'Open the demo to see the preview.'; return; }
+    preview().contentWindow.postMessage({type: 'recipe', code: editor.state.doc.toString()}, location.origin);
+}
+apply.addEventListener('click', applyRecipe);
+toggle.addEventListener('change', () => {
+    clearTimeout(timer);
+    if (toggle.checked) applyRecipe();
+});
 const editor = new EditorView({
     doc: initial,
     parent: holder,
@@ -19,10 +41,8 @@ const editor = new EditorView({
         EditorView.updateListener.of(update => {
             if (!update.docChanged) return;
             clearTimeout(timer);
-            timer = setTimeout(() => {
-                if (!preview()) { status.textContent = 'Open the demo to see the live preview.'; return; }
-                preview().contentWindow.postMessage({type: 'recipe', code: update.state.doc.toString()}, location.origin);
-            }, 250);
+            status.textContent = 'Unapplied changes. Changes are not saved.';
+            if (toggle.checked) timer = setTimeout(applyRecipe, 250);
         }),
     ],
 });

@@ -47,12 +47,12 @@
     "files": [
       {
         "file": "shared/editor/editor.js",
-        "nonblank_lines": 32,
-        "bytes": 1537
+        "nonblank_lines": 52,
+        "bytes": 2284
       }
     ],
-    "nonblank_lines": 32,
-    "bytes": 1537
+    "nonblank_lines": 52,
+    "bytes": 2284
   },
   "pages_recipe": {
     "files": [
