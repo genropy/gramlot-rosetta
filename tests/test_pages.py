@@ -41,9 +41,9 @@ def test_runtime_prefix_covers_transitive_modules_and_revalidates():
     client = TestClient(DemoServer().app)
     response = client.get('/examples/pages/hello-world/')
     imports = json.loads(re.search(r'<script type="importmap">(.*?)</script>', response.text).group(1))['imports']
-    assert imports['genro-dom-js'].startswith('/pages/runtime/')
-    assert imports['/_assets/dom/'] == imports['genro-dom-js'].removesuffix('index.js')
-    assert imports['/pages/assets/'] in imports['genro-dom-js']
+    assert imports['gramlot-dom'].startswith('/pages/runtime/')
+    assert imports['/_assets/dom/'] == imports['gramlot-dom'].removesuffix('index.js')
+    assert imports['/pages/assets/'] in imports['gramlot-dom']
     color_url = imports['/_assets/dom/'] + 'collections/colorpicker.js'
     assert 'WidgetLabel' in client.get(color_url).text
     assert client.get(color_url).headers['cache-control'] == 'no-cache, must-revalidate'

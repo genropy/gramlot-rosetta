@@ -1,4 +1,4 @@
-# Demo Rosetta
+# Gramlot Rosetta
 
 This is an independent comparison repository, not a Genro library.
 Read SPEC.md before changing an implementation. Keep the same behavior and fixtures
@@ -42,3 +42,9 @@ page. Allow idiomatic reuse in every framework under the same behavior contract.
 
 Examples are autonomous: each owns all its state and behavior and must not import
 another example. Use concise documented methods without a build_ prefix.
+
+## Gramlot migration
+
+Read docs/GRAMLOT-MIGRATION.md and README.md for current setup. Python and browser
+sources come from one Gramlot checkout. Legacy Pages/DOM setup notes are historical.
+Keep /pages and /pages-js route identifiers stable; visible labels use Gramlot.

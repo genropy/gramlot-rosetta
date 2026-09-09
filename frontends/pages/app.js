@@ -1,5 +1,5 @@
 import {attachTools} from '/pages-common/tools.js';
-import {Application} from 'genro-dom-js';
+import {Application} from 'gramlot-dom';
 import {RosettaBuilder} from '/pages-common/builder.js';
 import {fromTytx} from 'genro-tytx';
 

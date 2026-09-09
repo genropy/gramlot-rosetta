@@ -1,9 +1,9 @@
-from genro_pages.page import WebPage
-from genro_pages.widget_test_builder import WidgetTestBuilder
+from gramlot.builder import GramlotBuilder
+from gramlot.page import WebPage
 
 
 class ExamplePage(WebPage):
-    source_builder = WidgetTestBuilder
+    source_builder = GramlotBuilder
 
     def main(self, root):
         root.h1('Local scope')

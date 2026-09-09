@@ -14,11 +14,11 @@ from backend.source_browser import SourceBrowser
 class DemoServer:
     """Serve the comparison frame separately from every framework's application."""
 
-    TITLES = {"react": "React", "vue": "Vue", "pages": "Pages Python", "pages-js": "Pages JS"}
+    TITLES = {"react": "React", "vue": "Vue", "pages": "Gramlot Python", "pages-js": "Gramlot JS"}
 
     def __init__(self, root=None, pages=True):
         self.root = Path(root) if root else Path(__file__).resolve().parents[1]
-        self.app = FastAPI(title="Demo Rosetta", version="0.2.0")
+        self.app = FastAPI(title="Gramlot Rosetta", version="0.2.0")
         @self.app.middleware("http")
         async def development_cache(request, call_next):
             response = await call_next(request)

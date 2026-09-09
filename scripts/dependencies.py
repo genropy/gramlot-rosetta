@@ -30,18 +30,22 @@ def git_state(root):
 
 
 def report():
-    pages = Path(os.environ['ROSETTA_PAGES_SOURCE']).resolve()
-    builders = Path(os.environ['ROSETTA_BUILDERS_SOURCE']).resolve()
-    modules = Path(os.environ['ROSETTA_CLIENT_MODULES']).resolve()
+    import gramlot
+
+    from backend.pages_host import PagesHost
+    root = Path(__file__).resolve().parents[1]
+    host = PagesHost(root)
+    import genro_builders
     return {
         "python_packages": {name: importlib.metadata.version(name) for name in
-                            ('fastapi', 'genro-bag', 'genro-tytx', 'genro-toolbox')},
+                            ('fastapi', 'genro-builders', 'genro-bag', 'genro-tytx', 'genro-toolbox')},
         "genro_asgi_installed": importlib.util.find_spec('genro_asgi') is not None,
-        "pages": {**source_digest(pages, ['*.py']), **git_state(pages)},
-        "builders": {**source_digest(builders, ['*.py']), **git_state(builders)},
-        "dom": source_digest(modules / 'genro-dom-js' / 'src', ['*.js']),
-        "bag_js": source_digest((modules / 'genro-bag-js' / 'src').resolve(), ['*.js']),
-        "tytx_js": source_digest((modules / 'genro-tytx' / 'js' / 'src').resolve(), ['*.js']),
+        "gramlot": source_digest(Path(gramlot.__file__).resolve().parent, ['*.py']),
+        "builders": source_digest(Path(genro_builders.__file__).resolve().parent, ['*.py']),
+        "builders_origin": importlib.metadata.distribution('genro-builders').read_text('direct_url.json'),
+        "source_override": os.environ.get('ROSETTA_GRAMLOT_ROOT'),
+        "assets": {name: source_digest(directory, ['*.js', '*.mjs', '*.css'])
+                   for name, directory in host.assets.items()},
     }
 
 

@@ -1,31 +1,17 @@
 #!/usr/bin/env bash
-# Fetch the immutable Genro preview used by all four Rosetta variants.
+# Gramlot is not published yet: consume a reviewed local wheel, or explicit source.
 set -euo pipefail
 repo_root="$(cd "$(dirname "$0")/.." && pwd)"
-dependency_root="$repo_root/.local/dependencies"
-mkdir -p "$dependency_root/client"
-checkout() {
-  local repository="$1" revision="$2" destination="$3"
-  if [[ -e "$destination" ]]; then
-    if [[ "$(git -C "$destination" rev-parse HEAD)" != "$revision" ]] ||
-       [[ -n "$(git -C "$destination" status --porcelain)" ]]; then
-      echo "Existing checkout differs from preview: $destination. Preserve it before retrying." >&2
-      exit 1
-    fi
-  else
-    git clone "https://github.com/genropy/$repository.git" "$destination"
-    git -C "$destination" checkout --detach "$revision"
+cd "$repo_root"
+uv pip install --python .venv/bin/python 'genro-builders==0.23.2'
+if [[ -n "${ROSETTA_GRAMLOT_ROOT:-}" ]]; then
+  test -f "$ROSETTA_GRAMLOT_ROOT/src/gramlot/builder.py"
+  npm ci --prefix "$ROSETTA_GRAMLOT_ROOT/js/dom" --ignore-scripts --no-audit --no-fund
+else
+  wheel="${ROSETTA_GRAMLOT_WHEEL:-$repo_root/.local/packages/gramlot-0.1.0a1-py3-none-any.whl}"
+  if [[ ! -f "$wheel" ]]; then
+    echo "Set ROSETTA_GRAMLOT_WHEEL to the new Gramlot wheel; it is not published yet." >&2
+    exit 1
   fi
-}
-checkout genro-pages 0683f5dca8ea04b7047fed56e68317b27b9aa745 "$dependency_root/genro-pages"
-checkout genro-builders 25ae61950717afae10e1d43d8318f272122202ac "$dependency_root/genro-builders"
-checkout genro-dom-js d888cefbb4dfb65868148afb2e00cabe84b4de08 "$dependency_root/client/genro-dom-js"
-npm ci --prefix "$dependency_root/client/genro-dom-js" --ignore-scripts --no-audit --no-fund
-for entry in node_modules genro-bag-js genro-tytx; do
-  case "$entry" in
-    node_modules) target="$dependency_root/client/genro-dom-js/node_modules" ;;
-    *) target="$dependency_root/client/genro-dom-js/node_modules/$entry" ;;
-  esac
-  link="$dependency_root/client/$entry"
-  if [[ ! -e "$link" && ! -L "$link" ]]; then ln -s "$target" "$link"; fi
-done
+  uv pip install --python .venv/bin/python --force-reinstall "$wheel"
+fi

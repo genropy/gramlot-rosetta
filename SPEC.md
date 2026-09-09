@@ -49,9 +49,9 @@ plain HTML links; the embedded viewer does not repeat framework navigation.
 Use equivalent concise documentation across the three application sources. Avoid
 redundant comments or docstrings that merely repeat the visible code.
 
-## Pages JS live recipe
+## Gramlot JS live recipe
 
-Pages JS is a fourth implementation at /pages-js/. Its authored recipe.js uses
+Gramlot JS is a fourth implementation at /pages-js/. Its authored recipe.js uses
 DOM JS's fluent builder directly; it is not generated from the Python recipe.
 The same Hello World content and shared visual contracts apply.
 
@@ -85,7 +85,7 @@ source file. Each step retains the preceding behavior and adds the named feature
 6. font-family: adds system-ui, serif and monospace choices; initially system-ui.
 7. font-style: adds independent Bold and Italic checkboxes, initially false.
 
-React, Vue, Pages Python and Pages JS implement the same observable behavior.
+React, Vue, Gramlot Python and Gramlot JS implement the same observable behavior.
 Pages examples use the library textBox, colorpicker, filteringSelect and checkbox
 widgets with lbl, plus existing data/style binding. No lbl implementation is
 added by the demo. MyText is a separate label without an implicit colon; output
@@ -144,7 +144,7 @@ size/family and bold/italic occupy paired rows. React/Vue mirror this layout.
 ## Repeated panels (ninth example)
 
 Six instances repeat the Local scope panel, including defaults and formlet layout.
-Python calls text_panel in range(6); Pages JS calls textPanel in a for loop.
+Python calls text_panel in range(6); Gramlot JS calls textPanel in a for loop.
 Each container selects panels.panel_0 through panels.panel_5 and all internal
 bindings remain relative. React maps to a TextPanel component with local state;
 Vue uses v-for with a separate SFC, also exposed under Page in the source viewer.

@@ -46,7 +46,7 @@ class SourceBrowser:
         "backend": ("Shared FastAPI backend", "backend/app.py"),
         "style": ("Shared example style", "shared/example.css"),
     }
-    TITLES = {"react": "React", "vue": "Vue", "pages": "Pages Python", "pages-js": "Pages JS"}
+    TITLES = {"react": "React", "vue": "Vue", "pages": "Gramlot Python", "pages-js": "Gramlot JS"}
 
     def __init__(self, root):
         self.root = Path(root).resolve()

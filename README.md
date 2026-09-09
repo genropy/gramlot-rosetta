@@ -1,9 +1,9 @@
-# Demo Rosetta
+# Gramlot Rosetta
 
-**Guida dettagliata in italiano:** [installazione, manuale inglese/italiano e prove](docs/guida-installazione-it.md) · [HTML stampabile](docs/guida-installazione-it.html).
+**Historical Pages installation guide (superseded by the Run section below):** [installazione, manuale inglese/italiano e prove](docs/guida-installazione-it.md) · [HTML stampabile](docs/guida-installazione-it.html).
 
-The active comparison is a nine-example gallery in React, Vue, Pages Python
-and Pages JS, hosted by FastAPI. One shared **plain HTML frame** owns implementation navigation, example
+The active comparison is a nine-example gallery in React, Vue, Gramlot Python
+and Gramlot JS, hosted by FastAPI. One shared **plain HTML frame** owns implementation navigation, example
 selection and View source. Each framework renders only the example in its iframe.
 
 Examples progress from Hello World to editable text and visual controls. The
@@ -28,16 +28,28 @@ Open [Pages](http://127.0.0.1:8026/pages/), [React](http://127.0.0.1:8026/react/
 [Vue](http://127.0.0.1:8026/vue/). View source opens the individual page source first;
 the common HTML frame, bootstrap and host adapter are separately inspectable.
 
-Setup fetches the exact public Genro preview commits into `.local/dependencies/`:
-Pages `0683f5d`, Builders `25ae619` and DOM JS `d888cef`. DOM's lockfile pins Bag JS
-v0.4.0 and TYTX v0.15.0. No pre-existing sibling checkout is required. Re-running
-setup preserves the pinned source checkouts and refuses to overwrite local changes.
+Rosetta now consumes the **installed Gramlot wheel**, including its browser assets,
+and public Builders 0.23.2. It no longer fetches Pages, DOM JS or the Builders
+preview. Gramlot is not published yet: supply the wheel before setup:
 
-The FastAPI environment deliberately has **no genro-asgi installed**: Pages and
-Builders are loaded from their fetched sources, while this demo supplies the host
-adapter. This is still an experimental integration, not a released Pages/FastAPI
-adapter distribution. `ROSETTA_PAGES_SOURCE`, `ROSETTA_BUILDERS_SOURCE` and
-`ROSETTA_CLIENT_MODULES` remain explicit development overrides.
+```sh
+ROSETTA_GRAMLOT_WHEEL=/absolute/path/gramlot-0.1.0a1-py3-none-any.whl ./scripts/setup.sh
+```
+
+On this development checkout the reviewed wheel is also retained at
+`.local/packages/gramlot-0.1.0a1-py3-none-any.whl` for repeatable local setup.
+A new clone needs the artifact; the old alpha with WidgetTestBuilder is not
+compatible with these recipes.
+
+The FastAPI environment deliberately has **no genro-asgi installed**. Gramlot now
+has no ASGI dependency or extra, so setup installs the wheel normally, including
+its dependencies. No `--no-deps` workaround is needed. A separate future
+application repository will own Genro ASGI integration.
+
+For source development only, set `ROSETTA_GRAMLOT_ROOT` to the new Gramlot checkout
+before setup and run. Its Python and JS must come from the same root. Builders
+always comes from the environment's public package; old Builders/Pages/client
+source overrides are no longer used.
 ROSETTA_WITH_PAGES=0 runs only the other two frontends. ROSETTA_PORT changes the port.
 
 ## Verify
@@ -58,10 +70,12 @@ Hello World. See [SPEC.md](SPEC.md), [comparison](docs/COMPARISON.md) and
 measured separately. Readability takes precedence over minimizing line count.
 
 The public repository is [genropy/demo-rosetta](https://github.com/genropy/demo-rosetta).
+The product/package name is Gramlot Rosetta. The existing remote and local directory
+remain demo-rosetta; no GitHub rename has been performed. See [migration checks](docs/GRAMLOT-MIGRATION.md).
 Historical local provenance remains in the documentation; new installations use
-the pinned public dependencies above. Setup does not modify sibling repositories.
+the wheel and public dependencies above. Setup does not modify sibling repositories.
 
-Pages JS is available at `/pages-js/`. Its Page tab is a live CodeMirror editor:
+Gramlot JS is available at `/pages-js/`. Its Page tab is a live CodeMirror editor:
 edit the JavaScript recipe and press Apply, choose Live for each edit, or Focus out when leaving the editor. Edits are not saved to files. Reload
 restores the original recipe. `scripts/setup.sh` builds the local editor bundle;
 run `npm run build:editor` after changing editor code. The runtime and editor are

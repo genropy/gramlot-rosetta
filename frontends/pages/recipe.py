@@ -1,9 +1,9 @@
-from genro_pages.page import WebPage
-from genro_pages.widget_test_builder import WidgetTestBuilder
+from gramlot.builder import GramlotBuilder
+from gramlot.page import WebPage
 
 
 class HelloWorldPage(WebPage):
-    source_builder = WidgetTestBuilder
+    source_builder = GramlotBuilder
 
     def main(self, root):
         """Show a static greeting; later examples will make its text editable."""

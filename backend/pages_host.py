@@ -5,16 +5,14 @@ import json
 import os
 from pathlib import Path
 
-import genro_pages
+import gramlot
 from fastapi import HTTPException
 from fastapi.responses import FileResponse, HTMLResponse, Response
 from fastapi.staticfiles import StaticFiles
-from genro_tytx import to_tytx
+from gramlot.transport import to_tytx
 
 from backend.examples import EXAMPLES
 from frontends.pages.recipe import HelloWorldPage
-
-DEFAULT_CLIENT_MODULES = Path(__file__).resolve().parents[1] / ".local/dependencies/client"
 
 
 class PagesHost:
@@ -22,18 +20,30 @@ class PagesHost:
 
     def __init__(self, root):
         self.root = Path(root).resolve()
-        configured = os.environ.get("ROSETTA_CLIENT_MODULES")
-        self.client_modules = Path(configured).resolve() if configured else DEFAULT_CLIENT_MODULES
+        configured = os.environ.get("ROSETTA_GRAMLOT_ROOT")
+        package = Path(gramlot.__file__).resolve().parent
         self.frontend = self.root / "frontends" / "pages"
-        self.assets = {
-            "dom": self.client_modules / "genro-dom-js" / "src",
-            "bag": self.client_modules / "genro-bag-js" / "src",
-            "tytx": self.client_modules / "genro-tytx" / "js" / "src",
-            "pages": Path(genro_pages.__file__).resolve().parents[2] / "js" / "src",
-            "msgpack": (
-                self.client_modules / "node_modules" / "@msgpack" / "msgpack" / "dist.esm"
-            ),
-        }
+        if configured:
+            source = Path(configured).resolve()
+            if package != source / "src/gramlot":
+                raise ValueError("Gramlot Python and browser sources must use ROSETTA_GRAMLOT_ROOT")
+            modules = source / "js/dom/node_modules"
+            self.assets = {
+                "dom": source / "js/dom/src",
+                "bag": modules / "genro-bag-js/src",
+                "tytx": modules / "genro-tytx/js/src",
+                "pages": source / "js/pages/src",
+                "msgpack": modules / "@msgpack/msgpack/dist.esm",
+            }
+        else:
+            resources = package / "resources"
+            self.assets = {
+                "dom": resources / "gramlot-dom/src",
+                "bag": resources / "genro-bag-js/src",
+                "tytx": resources / "genro-tytx/js/src",
+                "pages": resources / "pages",
+                "msgpack": resources / "genro-tytx/js/node_modules/@msgpack/msgpack/dist.esm",
+            }
         self.assets.update({
             "python": self.frontend,
             "javascript": self.root / "frontends/pages-js",
@@ -74,7 +84,7 @@ class PagesHost:
             raise HTTPException(404, "Unknown example.")
         imports = {
             "/_assets/dom/": "/pages/assets/dom/",
-            "genro-dom-js": "/pages/assets/dom/index.js",
+            "gramlot-dom": "/pages/assets/dom/index.js",
             "genro-bag-js": "/pages/assets/bag/index.js",
             "#uuid": "/pages/assets/bag/browser-uuid.js",
             "genro-tytx": "/pages/assets/tytx/index.js",
@@ -96,10 +106,10 @@ class PagesHost:
 
     def inspector_recipe(self):
         """Serve the library inspector without involving application recipes."""
-        from genro_pages.inspector import build_inspector
-        from genro_pages.widget_test_builder import WidgetTestBuilder
-        builder = WidgetTestBuilder("inspector")
-        build_inspector(builder.source)
+        from gramlot.builder import GramlotBuilder
+        from gramlot.inspector import build_inspector
+        builder = GramlotBuilder("inspector")
+        build_inspector(builder.root)
         return Response(to_tytx(builder.source, transport="json"),
                         media_type="application/vnd.tytx+json")
 
@@ -118,7 +128,7 @@ class PagesHost:
             spec.loader.exec_module(module)
             page_class = module.ExamplePage
         builder = page_class.source_builder("main")
-        page_class().main(builder.source)
+        page_class().main(builder.root)
         return Response(
             to_tytx(builder.source, transport="json"),
             media_type="application/vnd.tytx+json",

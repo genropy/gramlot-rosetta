@@ -18,10 +18,10 @@ root.div('^result', {class:'save-result'});
 
 function pythonRecipe() {
   return execFileSync('.venv/bin/python', ['-c', `
-from genro_tytx import to_tytx
-from genro_pages.widget_test_builder import WidgetTestBuilder
-builder = WidgetTestBuilder('main')
-root = builder.source
+from gramlot.transport import to_tytx
+from gramlot.builder import GramlotBuilder
+builder = GramlotBuilder('main')
+root = builder.root
 root.data('draft.contact.name', 'Alice')
 root.data('result', '')
 form = root.form(formId='contact', datapath='draft')

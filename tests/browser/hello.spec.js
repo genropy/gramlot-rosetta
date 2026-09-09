@@ -59,7 +59,7 @@ for (const variant of Object.keys(files)) {
   });
 }
 
-test('Pages JS edits update the preview and recover after errors', async ({page}) => {
+test('Gramlot JS edits update the preview and recover after errors', async ({page}) => {
   await page.goto('/pages-js/');
   const source = page.frameLocator('.source-frame-panel iframe');
   const preview = page.frameLocator('.example-panel iframe');
