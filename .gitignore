@@ -12,3 +12,15 @@ test-results/
 
 # macOS metadata
 .DS_Store
+
+# Ephemeral approved wheel for container builds
+.build/
+
+# Host-only deployment state
+.env
+.env.*
+!**/.env.example
+**/current-image
+**/.deploy.lock
+
+.framework/

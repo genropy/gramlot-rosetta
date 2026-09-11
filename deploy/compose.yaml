@@ -1,0 +1,15 @@
+name: gramlot-rosetta
+services:
+  rosetta:
+    image: ${APP_IMAGE:?Set an immutable ghcr.io/genropy/gramlot-rosetta digest}
+    ports:
+      - "127.0.0.1:${APP_PORT:-19181}:8000"
+    restart: unless-stopped
+    read_only: true
+    tmpfs:
+      - /tmp:size=64m,mode=1777
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    cpus: 1.0
+    mem_limit: 768m
+    stop_grace_period: 30s

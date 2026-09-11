@@ -1,0 +1,99 @@
+name: Verify, publish and deploy
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: gramlot-rosetta-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      packages: write
+    outputs:
+      image: ${{ steps.image.outputs.image }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate immutable artifact configuration
+        env:
+          ARTIFACT_REF: ${{ vars.FRAMEWORK_REF }}
+          WHEEL_SHA: ${{ vars.GRAMLOT_WHEEL_SHA256 }}
+        run: |
+          [[ "$ARTIFACT_REF" =~ ^[0-9a-f]{40}$ && "$WHEEL_SHA" =~ ^[0-9a-f]{64}$ ]] || { echo 'Configure the private artifact commit and wheel SHA256'; exit 1; }
+      - name: Read private framework artifact
+        uses: actions/checkout@v4
+        with:
+          repository: genropy/gramlot-site
+          ref: ${{ vars.FRAMEWORK_REF }}
+          path: .framework
+          sparse-checkout: .packages/gramlot
+          ssh-key: ${{ secrets.FRAMEWORK_READ_KEY }}
+          persist-credentials: false
+      - name: Verify and stage the wheel
+        env:
+          WHEEL_SHA: ${{ vars.GRAMLOT_WHEEL_SHA256 }}
+        run: |
+          mkdir -p .build
+          cp .framework/.packages/gramlot/gramlot-0.1.0a1-py3-none-any.whl .build/
+          printf '%s  %s\n' "$WHEEL_SHA" .build/gramlot-0.1.0a1-py3-none-any.whl | sha256sum -c -
+          rm -rf .framework
+      - env:
+          WHEEL_SHA: ${{ vars.GRAMLOT_WHEEL_SHA256 }}
+        run: docker build --platform linux/amd64 --build-arg "GRAMLOT_WHEEL_SHA256=$WHEEL_SHA" -t gramlot-rosetta:verified .
+      - run: |
+          docker run -d --name site-check --read-only --tmpfs /tmp:size=64m --cap-drop ALL --security-opt no-new-privileges -p 127.0.0.1:18048:8000 gramlot-rosetta:verified
+          python deploy/check-container.py http://127.0.0.1:18048
+          npm ci --no-audit --no-fund
+          npx playwright install --with-deps chromium
+          ROSETTA_URL=http://127.0.0.1:18048 npm test
+      - if: always()
+        run: docker logs site-check || true
+      - if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: printf '%s' "$GH_TOKEN" | docker login ghcr.io -u "$GITHUB_ACTOR" --password-stdin
+      - id: image
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        run: |
+          tag="ghcr.io/genropy/gramlot-rosetta:sha-${GITHUB_SHA}"
+          docker tag gramlot-rosetta:verified "$tag"
+          docker push "$tag"
+          image="$(docker inspect --format '{{index .RepoDigests 0}}' "$tag")"
+          [[ "$image" =~ ^ghcr.io/genropy/gramlot-rosetta@sha256:[0-9a-f]{64}$ ]]
+          echo "image=$image" >> "$GITHUB_OUTPUT"
+  deploy:
+    permissions:
+      contents: read
+      packages: read
+    needs: verify
+    if: vars.DEPLOY_ENABLED == 'true' && github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    environment: production
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy the verified digest
+        env:
+          REGISTRY_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+          DESTINATION: ${{ vars.DEPLOY_SSH_DESTINATION }}
+          IMAGE: ${{ needs.verify.outputs.image }}
+        run: |
+          set -euo pipefail
+          [[ "$DESTINATION" =~ ^[a-z_][a-z0-9_-]*@[a-zA-Z0-9.-]+$ ]]
+          [[ -n "$SSH_KEY" && -n "$KNOWN_HOSTS" ]]
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/deploy_key
+          printf '%s\n' "$KNOWN_HOSTS" > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/deploy_key ~/.ssh/known_hosts
+          printf '%s' "$REGISTRY_TOKEN" | ssh -i ~/.ssh/deploy_key -o BatchMode=yes -o StrictHostKeyChecking=yes "$DESTINATION" "$IMAGE $GITHUB_ACTOR"
+      - if: always()
+        run: rm -f ~/.ssh/deploy_key
