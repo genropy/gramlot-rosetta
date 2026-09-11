@@ -44,6 +44,12 @@ there. Setup does not modify sibling sources. Python and JS always come from the
 same installed package; the former run-time PYTHONPATH override is retired.
 Rebuild/reinstall after framework changes, then restart Rosetta and reload.
 
+Setup also builds the installed Gramlot browser resources into a content-versioned
+bundle under `shared/gramlot/`. Development continues to use the adapter's source
+modules. Set `GRAMLOT_ROSETTA_MODE=production` when starting the server to use the
+shared bundle, immutable versioned asset URLs and response compression; startup
+fails clearly if the production bundle is missing.
+
 NiceGUI uses its native `ui.page` and `ui.run_with` integration under
 `/examples/nicegui`; it owns its browser connection. See the
 [official FastAPI example](https://github.com/zauberzeug/nicegui/blob/main/examples/fastapi/main.py).

@@ -5,7 +5,8 @@
   "scripts": {
     "test": "playwright test",
     "metrics": "python3 scripts/measure.py",
-    "build:editor": "esbuild shared/editor/editor.js --bundle --format=esm --outfile=shared/editor/dist/editor.js"
+    "build:editor": "esbuild shared/editor/editor.js --bundle --format=esm --outfile=shared/editor/dist/editor.js",
+    "build:gramlot": "node scripts/build-gramlot.mjs"
   },
   "devDependencies": {
     "@codemirror/lang-css": "^6.3.1",

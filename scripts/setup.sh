@@ -14,5 +14,6 @@ for variant in react vue; do
 done
 if [[ "${ROSETTA_WITH_PAGES:-1}" != "0" ]]; then
   ./scripts/setup-dependencies.sh
+  npm run build:gramlot
 fi
 printf '%s\n' 'Ready. Run scripts/run.sh.'

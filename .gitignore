@@ -24,3 +24,4 @@ test-results/
 **/.deploy.lock
 
 .framework/
+shared/gramlot/

@@ -1,16 +1,17 @@
 """Host Rosetta's common HTML frame and the independent Hello World examples."""
-import os
 import json
+import os
 from html import escape
 from pathlib import Path
 
 from fastapi import FastAPI, HTTPException
-from fastapi.responses import HTMLResponse, RedirectResponse, FileResponse
+from fastapi.middleware.gzip import GZipMiddleware
+from fastapi.responses import FileResponse, HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 
-from backend.examples import EXAMPLES, DESCRIPTIONS
+from backend.examples import DESCRIPTIONS, EXAMPLES
+from backend.lesson_notes import LESSON_COMPARISONS, LESSON_NOTES
 from backend.source_browser import SourceBrowser
-from backend.lesson_notes import LESSON_NOTES, LESSON_COMPARISONS
 
 
 class DemoServer:
@@ -18,8 +19,15 @@ class DemoServer:
 
     TITLES = {"react": "React", "vue": "Vue", "pages": "Gramlot Python", "pages-js": "Gramlot JS", "nicegui": "NiceGUI"}
 
-    def __init__(self, root=None, pages=True, nicegui=False):
+    def __init__(self, root=None, pages=True, nicegui=False, production=None):
         self.root = Path(root) if root else Path(__file__).resolve().parents[1]
+        self.production = (os.environ.get("GRAMLOT_ROSETTA_MODE") == "production"
+                           if production is None else production)
+        self.production_assets = None
+        if self.production and pages:
+            from backend.production_assets import ProductionGramlotAssets
+            asset_root = os.environ.get("GRAMLOT_ROSETTA_ASSETS", self.root / "shared/gramlot")
+            self.production_assets = ProductionGramlotAssets(asset_root)
         self.app = FastAPI(title="Gramlot Rosetta", version="0.2.0")
         @self.app.middleware("http")
         async def development_cache(request, call_next):
@@ -30,8 +38,15 @@ class DemoServer:
                 headers = dict(response.headers)
                 headers.pop("content-length", None)
                 response = HTMLResponse(body, headers=headers)
-            response.headers["Cache-Control"] = "no-cache, must-revalidate"
+            if (self.production_assets and response.status_code in (200, 206, 304)
+                    and request.url.path.startswith(self.production_assets.base_url)):
+                response.headers["Cache-Control"] = "public, max-age=31536000, immutable"
+            else:
+                response.headers["Cache-Control"] = "no-cache, must-revalidate"
             return response
+
+        if self.production:
+            self.app.add_middleware(GZipMiddleware, minimum_size=500)
 
         self.app.add_api_route('/service-worker.js', self.service_worker, include_in_schema=False)
         self.app.add_api_route("/builder/", self.visual_builder, include_in_schema=False)
@@ -43,6 +58,10 @@ class DemoServer:
         self.source_browser = SourceBrowser(self.root)
         self.app.add_api_route("/sources/{variant}", self.source_browser.get_page,
                                include_in_schema=False)
+        if self.production_assets:
+            self.app.mount(self.production_assets.base_url.rstrip('/'),
+                           StaticFiles(directory=self.production_assets.version_directory),
+                           name="gramlot-production")
         self.app.mount("/shared", StaticFiles(directory=self.root / "shared"), name="shared")
         for name in ("react", "vue"):
             build = self.root / "frontends" / name / "dist"
@@ -60,7 +79,10 @@ class DemoServer:
             raise HTTPException(503, 'The visual builder requires the Gramlot runtime.')
         template = (self.root / 'shared/builder/index.html').read_text()
         imports = self.pages_host.pages.runtime.import_map()
-        return HTMLResponse(template.replace('__IMPORTS__', json.dumps({'imports': imports}).replace('<', r'\u003c')))
+        entry = (self.production_assets.entry('builder-app') if self.production_assets
+                 else '/shared/builder/app.js')
+        return HTMLResponse(template.replace('__IMPORTS__', json.dumps({'imports': imports}).replace('<', r'\u003c'))
+                            .replace('__ENTRY__', entry))
 
     def service_worker(self):
         return FileResponse(self.root / 'shared/pwa/service-worker.js',
@@ -176,7 +198,7 @@ class DemoServer:
     def mount_pages(self):
         """Connect the optional Pages host without requiring it for React/Vue."""
         from backend.pages_host import PagesHost
-        self.pages_host = PagesHost(self.root)
+        self.pages_host = PagesHost(self.root, self.production_assets)
         self.pages_host.mount(self.app)
 
 
