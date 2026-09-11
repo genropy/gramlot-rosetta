@@ -1,0 +1,10 @@
+{
+  "title": "Another application",
+  "prefix": "/other",
+  "pages": {
+    "welcome": {
+      "label": "Welcome",
+      "source": "pages/Welcome.jsx"
+    }
+  }
+}

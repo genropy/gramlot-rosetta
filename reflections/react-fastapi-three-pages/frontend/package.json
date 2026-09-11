@@ -1,0 +1,15 @@
+{
+  "name": "three-pages",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "vite build --base=/page/"
+  },
+  "dependencies": {
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  },
+  "devDependencies": {
+    "vite": "^8.2.2"
+  }
+}

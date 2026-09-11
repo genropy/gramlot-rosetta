@@ -1,33 +1,13 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App.jsx'
-import EditableText from './examples/editable-text.jsx'
-import TextColor from './examples/text-color.jsx'
-import BackgroundColor from './examples/background-color.jsx'
-import FontSize from './examples/font-size.jsx'
-import FontFamily from './examples/font-family.jsx'
-import FontStyle from './examples/font-style.jsx'
-import LocalScope from './examples/local-scope.jsx'
+import DataBinding from './DataBinding.jsx'
+import InputWidgets from './InputWidgets.jsx'
+import ContactBox from './ContactBox.jsx'
+import RepeatedContacts from './RepeatedContacts.jsx'
+import ContactColors from './ContactColors.jsx'
 
-import RepeatedPanels from './examples/repeated-panels.jsx'
+const lessons = {'hello-world': App, 'data-binding': DataBinding, 'input-widgets': InputWidgets, 'contact-box': ContactBox, 'repeated-contacts': RepeatedContacts, 'contact-colors': ContactColors}
+const Lesson = lessons[location.pathname.split('/').filter(Boolean).at(-1)] || App
 
-const examples = {
-  'hello-world': App,
-  'editable-text': EditableText,
-  'text-color': TextColor,
-  'background-color': BackgroundColor,
-  'font-size': FontSize,
-  'font-family': FontFamily,
-  'font-style': FontStyle,
-  'local-scope': LocalScope,
-  'repeated-panels': RepeatedPanels,
-}
-
-const exampleId = window.location.pathname.split('/').filter(Boolean).at(-1)
-const Example = examples[exampleId] ?? App
-
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <Example />
-  </StrictMode>,
-)
+createRoot(document.getElementById('root')).render(<StrictMode><Lesson /></StrictMode>)

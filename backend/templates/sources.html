@@ -9,13 +9,11 @@
 </head>
 <body>
   <main class="source-browser">
-    <nav class="source-tabs" aria-label="Source sections">{tabs}</nav>
     <nav aria-label="Source files"><ul class="source-files">{files}</ul></nav>
     <section class="source-panel" aria-label="Source code">
       <h1>{label}</h1>
       <p class="source-path">{filename}</p>
-      <pre id="source-code" tabindex="0" aria-label="Source text"><code>{source}</code></pre>
-      <a href="{raw_url}">Open raw source</a>
+      <pre id="source-code" data-editable="{editable}" data-language="{language}" tabindex="0" aria-label="Source text"><code>{source}</code></pre>
     </section>
   </main>
   {editor_script}

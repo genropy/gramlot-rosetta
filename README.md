@@ -1,110 +1,98 @@
 # Gramlot Rosetta
 
-**Historical Pages installation guide (superseded by the Run section below):** [installazione, manuale inglese/italiano e prove](docs/guida-installazione-it.md) · [HTML stampabile](docs/guida-installazione-it.html).
+A progressive comparison of Gramlot Python, Gramlot JS, React, Vue and NiceGUI.
+The current lessons are **Hello World**, **Input widgets** (six fields in a responsive layout) and **Data binding** (a labelled textbox
+updates a shared message and its heading), with the example on
+the left and its actual source in CodeMirror on the right. On narrow screens,
+source follows the preview. Explanations stay outside the executable examples.
 
-The active comparison is a nine-example gallery in React, Vue, Gramlot Python
-and Gramlot JS, hosted by FastAPI. One shared **plain HTML frame** owns implementation navigation, example
-selection and View source. Each framework renders only the example in its iframe.
-
-Examples progress from Hello World to editable text and visual controls. The
-eighth, [Local scope](http://127.0.0.1:8026/pages/local-scope/), groups the full
-Font style example in a compact box. Pages uses `datapath="sample"` and relative
-bindings; React and Vue use component-local state.
-Orders is on standby: its previous code, fixtures, specification and tests are
-preserved in [standby/orders](standby/orders/README.md), outside active routes/tests.
+Choose an implementation using the five tabs. Python, JSX, Vue and supporting
+sources are read-only. Only the Gramlot JS Page source is editable: **Run** applies
+the recipe; **Reset** restores the original code and page. A failed recipe leaves
+the last successful preview visible. Reload discards edits; nothing writes to disk.
+The left navigation groups Overview and Simple examples. Overview contains an
+introduction, reusable setup for each version and shared infrastructure. Lesson
+panes show only their authored page code. All five implementations render a semantic h1 with the same greeting.
 
 ## Run
 
-Prerequisites: Python 3.12, uv, Node compatible with Vite 8 and npm.
+Requires Python 3.12+, uv and Node compatible with Vite 8.
 
 ```sh
-git clone https://github.com/genropy/demo-rosetta.git
-cd demo-rosetta
-./scripts/setup.sh
+git clone https://github.com/genropy/gramlot-rosetta.git
+cd gramlot-rosetta
+ROSETTA_GRAMLOT_WHEEL=/absolute/path/gramlot-0.1.0a1-py3-none-any.whl ./scripts/setup.sh
 ./scripts/run.sh
 ```
 
-Open [Pages](http://127.0.0.1:8026/pages/), [React](http://127.0.0.1:8026/react/), or
-[Vue](http://127.0.0.1:8026/vue/). View source opens the individual page source first;
-the common HTML frame, bootstrap and host adapter are separately inspectable.
+Open [Rosetta](http://127.0.0.1:8026/). `ROSETTA_PORT` changes the port.
+The development checkout retains the current wheel in `.local/packages/` as the
+setup fallback. A new clone needs a wheel built from the current Gramlot sources;
+the earlier alpha with the same version number lacks the FastAPI adapter.
+NiceGUI and the other Python dependencies are recorded in `requirements.lock`.
 
-Rosetta now consumes the **installed Gramlot wheel**, including its browser assets,
-and public Builders 0.23.2. It no longer fetches Pages, DOM JS or the Builders
-preview. Gramlot is not published yet: supply the wheel before setup:
+Gramlot Python uses `gramlot.contrib.fastapi.mount_gramlot`, which discovers
+`frontends/pages/pages/hello-world.py`. The library owns recipe serialization,
+startup and runtime asset delivery. Rosetta adds shared presentation CSS to the
+adapter's HTML response without replacing its startup. The JS laboratory reuses
+the adapter's import map and installed runtime with its own execution harness.
+There is no copied Gramlot runtime or Genro ASGI dependency.
 
-```sh
-ROSETTA_GRAMLOT_WHEEL=/absolute/path/gramlot-0.1.0a1-py3-none-any.whl ./scripts/setup.sh
-```
+`ROSETTA_GRAMLOT_ROOT=/path/to/gramlot ./scripts/setup.sh` can instead build and
+install that checkout, provided its browser resources have already been prepared
+there. Setup does not modify sibling sources. Python and JS always come from the
+same installed package; the former run-time PYTHONPATH override is retired.
+Rebuild/reinstall after framework changes, then restart Rosetta and reload.
 
-On this development checkout the reviewed wheel is also retained at
-`.local/packages/gramlot-0.1.0a1-py3-none-any.whl` for repeatable local setup.
-A new clone needs the artifact; the old alpha with WidgetTestBuilder is not
-compatible with these recipes.
-
-The FastAPI environment deliberately has **no genro-asgi installed**. Gramlot now
-has no ASGI dependency or extra, so setup installs the wheel normally, including
-its dependencies. No `--no-deps` workaround is needed. A separate future
-application repository will own Genro ASGI integration.
-
-For source development only, set `ROSETTA_GRAMLOT_ROOT` to the new Gramlot checkout
-before setup and run. Its Python and JS must come from the same root. Builders
-always comes from the environment's public package; old Builders/Pages/client
-source overrides are no longer used.
-ROSETTA_WITH_PAGES=0 runs only the other two frontends. ROSETTA_PORT changes the port.
+NiceGUI uses its native `ui.page` and `ui.run_with` integration under
+`/examples/nicegui`; it owns its browser connection. See the
+[official FastAPI example](https://github.com/zauberzeug/nicegui/blob/main/examples/fastapi/main.py).
+This first static lesson makes no performance or reactivity comparison claim.
 
 ## Verify
 
-With a separate demo server running:
+With Rosetta running in another terminal:
 
 ```sh
 PLAYWRIGHT_BROWSERS_PATH=/tmp/demo-rosetta-browsers npx playwright install chromium
 ./scripts/check.sh
+.venv/bin/python scripts/dependencies.py
 .venv/bin/python scripts/measure.py
 ```
 
-ROSETTA_URL selects another server for browser checks. Active tests cover the shared
-HTML frame, isolated Hello World content, mobile layout and literal source display.
-The previous order tests are preserved under standby/orders/tests, not run against
-Hello World. See [SPEC.md](SPEC.md), [comparison](docs/COMPARISON.md) and
-[evolution](docs/EVOLUTION.md). Application code and comparison infrastructure are
-measured separately. Readability takes precedence over minimizing line count.
+`ROSETTA_URL` selects a different server for browser tests. The checks cover all
+five implementations, exact source display, read-only editors, JS Run/Reset/error
+recovery, NiceGUI connectivity, inactive lessons and the narrow-screen layout.
+Source inventory covers the active lesson and shared code; it does not measure
+runtime download size or use line counts as a framework quality score.
 
-The public repository is [genropy/demo-rosetta](https://github.com/genropy/demo-rosetta).
-The product/package name is Gramlot Rosetta. The existing remote and local directory
-remain demo-rosetta; no GitHub rename has been performed. See [migration checks](docs/GRAMLOT-MIGRATION.md).
-Historical local provenance remains in the documentation; new installations use
-the wheel and public dependencies above. Setup does not modify sibling repositories.
+## Preserved work
 
-Gramlot JS is available at `/pages-js/`. Its Page tab is a live CodeMirror editor:
-edit the JavaScript recipe and press Apply, choose Live for each edit, or Focus out when leaving the editor. Edits are not saved to files. Reload
-restores the original recipe. `scripts/setup.sh` builds the local editor bundle;
-run `npm run build:editor` after changing editor code. The runtime and editor are
-listed separately from the authored recipe in the source browser and inventory.
+The previous eight later lessons remain in `frontends/*/examples`, excluded from
+active routing and frontend builds. Their former browser suite and specification
+are preserved in [standby/progressive](standby/progressive/README.md). They need
+review against current APIs before returning one teaching step at a time.
+[Orders](standby/orders/README.md) remains parked.
+[Reflections](reflections/README.md) contains the independent FastAPI experiments.
 
-The example menu includes seven cumulative binding pages plus Local scope and Repeated panels in
-each of the four variants. Start with `/pages/editable-text/` or explore the
-complete set of controls at `/pages/font-style/`. Switching implementation keeps
-the example selected. See SPEC.md for update events and initial values.
+Keep Gramlot recipes in one `main()` or top-level JS until actual reuse or
+complexity justifies helper routines. See [SPEC.md](SPEC.md) for the active contract
+and [migration record](docs/GRAMLOT-MIGRATION.md) for provenance. Older comparison
+and evolution documents describe previous snapshots, not this lesson's results.
 
-Runtime asset URLs include a content-derived revision prefix covering the DOM,
-Bag, TYTX, Pages modules and demo bootstrap. Import-map prefix mappings keep
-transitive/relative imports in that same revision. Development responses require
-cache revalidation. Restart the demo after updating a dependency snapshot so the
-revision is recomputed; already open pages keep their current runtime and state.
+The navigation tree is compact. Drag either vertical divider to resize the tree
+or the live example/code panes; arrow keys also work, double-click resets, and
+widths are remembered locally. A small magnifying glass below Gramlot examples
+opens the Inspector. Source stays in the code pane without separate open/raw links.
 
-The pinned DOM preview includes the form runtime previously checked in the local
-`forms-client-20260908` snapshot. Both Pages variants select `inputs`, `layout` and `forms` through the
-shared Rosetta builder, exposed under Boilerplate. Recipes can use `labledBox`,
-`validate_*` and Bag-backed memory forms; this enables the runtime without adding
-new comparison examples. These capabilities are experimental local library work,
-not a released dependency. Restart the server and reload open pages after switching
-snapshots. The browser form integration check covers Python serialization and
-native JavaScript, invalid-save blocking, memory save and baseline restore.
+## Install as a Chrome app
 
-The same layout collection now includes `formlet`: fixed columns or responsive
-`col_min_width`, spacing, relative scope and shared field/label defaults. The two
-form integration tests also check its two-to-one-column responsive behavior.
-Wrapping mode and legacy formbuilder/database adapters are not included.
+Start Rosetta, then open its URL in Chrome. Use Install app when shown, or Chrome's
+installation action in the address bar/menu. Rosetta opens in a standalone window
+with its own icon. Keep the same hostname and port for the installed app.
 
-[Repeated panels](http://127.0.0.1:8026/pages/repeated-panels/) repeats the eighth
-example six times, using idiomatic composition in each frontend.
+The installation is a web app, not a bundled Python distribution. Its FastAPI
+server must remain running, including for Python and NiceGUI examples. When the
+server is unavailable, the app offers a retry page. Recipes and runtime assets
+are fetched from the server on each load rather than cached for offline execution.
+Localhost and 127.0.0.1 work locally; a hosted installation requires HTTPS.

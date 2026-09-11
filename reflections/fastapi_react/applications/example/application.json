@@ -1,0 +1,18 @@
+{
+  "title": "Three pages",
+  "prefix": "/page",
+  "pages": {
+    "hello": {
+      "label": "Hello",
+      "source": "pages/Hello.jsx"
+    },
+    "alfa": {
+      "label": "Alfa",
+      "source": "pages/Alfa.jsx"
+    },
+    "beta": {
+      "label": "Beta",
+      "source": "pages/Beta.jsx"
+    }
+  }
+}

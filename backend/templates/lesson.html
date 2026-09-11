@@ -1,0 +1,29 @@
+    <section class="lesson-intro">
+      <p class="eyebrow">Lesson {lesson_number} · First steps</p>
+      <h1>{example_title}</h1>
+      <p>{description}</p>
+    </section>
+    <nav class="implementations" aria-label="Implementations">
+      <a href="/pages/{example}/" {pages_current}>Gramlot Python</a>
+      <a href="/pages-js/{example}/" {pages-js_current}>Gramlot JS</a>
+      <a href="/react/{example}/" {react_current}>React</a>
+      <a href="/vue/{example}/" {vue_current}>Vue</a>
+      <a href="/nicegui/{example}/" {nicegui_current}>NiceGUI</a>
+    </nav>
+    <div class="rosetta-layout">
+      <section class="example-panel" aria-label="Current example">
+        <h2>{example_label} · {title}</h2>
+        <iframe title="{example_title} · {title}" src="/examples/{variant}/{example}/"></iframe>
+      </section>
+      <div class="splitter example-splitter" role="separator" tabindex="0" aria-label="Resize example and code" aria-orientation="vertical"></div>
+      <section class="source-frame-panel" aria-label="Current source">
+        <h2>Code</h2>
+        <iframe title="Source · {title}" src="/sources/{variant}?example={example}"></iframe>
+      </section>
+    </div>
+    {inspector_tool}
+    <section class="lesson-note" aria-label="How it works">
+      <h2>How it works · {title}</h2>
+      <p>{lesson_note}</p>
+    </section>
+    {lesson_comparison}

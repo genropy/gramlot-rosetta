@@ -1,0 +1,29 @@
+/* Contact presentation shared by all five implementations. */
+.contact-box {
+  border:1px solid #d3d8df;
+  border-radius:6px;
+  overflow:hidden;
+  width:100%;
+  max-width:340px;
+  box-sizing:border-box;
+}
+.contact-box > h2,
+.contact-box::part(label) {
+  margin:0;
+  padding:4px;
+  color:white;
+  text-align:center;
+  font:600 11px/1.5 system-ui,sans-serif;
+}
+.contact-box::part(box) { gap:0; }
+.contact-box > .input-fields,
+.contact-fields { padding:5px; gap:4px 10px; }
+.contact-cards { gap:12px; padding:7px; width:100%; box-sizing:border-box; }
+.contact-cards:not(gnr-formlet) {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));
+}
+.contact-cards > .contact-box { max-width:none; }
+
+.contact-box > h2,
+.contact-box:not([label_background])::part(label) { background:#29384d; }

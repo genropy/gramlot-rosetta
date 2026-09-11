@@ -1,0 +1,15 @@
+{
+  "name": "fastapi-react-shared",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node common/build.mjs"
+  },
+  "dependencies": {
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  },
+  "devDependencies": {
+    "vite": "^8.2.2"
+  }
+}

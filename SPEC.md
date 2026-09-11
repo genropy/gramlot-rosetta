@@ -1,161 +1,163 @@
-# Rosetta specification — progressive binding gallery
+# Rosetta specification — Hello World teaching restart
 
-The comparison frame is ordinary HTML shared by React, Vue and Genro Pages.
-It owns implementation navigation, example selection and View source. Each
-framework renders only the selected application inside an independent iframe.
-The frame has no JavaScript framework or script of its own.
+Owner-approved scope, September 11, 2026. This supersedes the earlier progressive
+gallery contract preserved in standby/progressive/previous-SPEC.md.
 
-## Active example: Hello World
+## Active lesson and presentation
 
-Each version contains a heading "Hello World", an italic description div
-"Display a fixed text. Later examples will let you change it.", and a readonly field
-with label "MyText" and value "Hello World". The greeting value will become editable in later examples. No input, dynamic style, order UI or business
-API calls belong to this first example. A small shared CSS file supplies the same
-basic text appearance to each isolated document.
+Hello World and Data binding are active in Gramlot Python, Gramlot JS, React, Vue and NiceGUI.
+In the first lesson, each renders one h1 containing "Hello World". No editable field, sample label,
+style controls, binding or business API belongs to this first lesson. Teaching
+explanations belong in the shared frame, outside the executable recipe.
 
-The existing /react/, /vue/ and /pages/ URLs display the common frame. Example
-URLs are /examples/{variant}/hello-world/. View source opens a separate tab showing
-the actual individual recipe/component first. Bootstrap, host adapter and common
-HTML frame are separately inspectable and measured as infrastructure.
+The shared plain HTML frame selects an implementation. Each live example runs in
+its own iframe, beside a source iframe; the source stacks below at narrow widths.
+The frame itself does not depend on any compared frontend. Gramlot may expose its
+standard inspector as a library tool; it is not authored in the Hello World recipe.
 
-Examples through Font style use a single Python main() or top-level JavaScript.
-Local scope also uses one main(); Repeated panels introduces only the reused text_panel helper.
+CodeMirror displays the exact executed page source with language highlighting.
+All sources are read-only except Gramlot JS's Page recipe. Run explicitly applies
+that recipe; Reset restores both original code and preview. Invalid code reports
+an error and retains the last successful preview. Reload discards local edits.
+Supporting source tabs remain read-only, including Gramlot JS Boilerplate/Common.
 
-## Standby
+The master page has a left navigation tree: Overview contains Introduction, the
+five implementation boilerplates and Shared infrastructure. Simple examples
+contains Hello World and Data binding. Lesson source panes show only authored recipe/component
+code; supporting code is accessed through Overview, never through lesson tabs.
+Raw source is available without interpreting markup or permitting arbitrary files.
 
-Orders is removed from active navigation, routes and tests. Its authored files,
-previous specification and tests are preserved under standby/orders from the
-working f3ad84f baseline. Reintroduce it only when requested, as a separate example
-inside the same HTML frame, stripping its previous comparison navigation.
+## Authoring and hosting
 
-## Later agreed directions, not part of this baseline
+Gramlot Python uses Page(WebPage) with a single main() and one h1 declaration.
+Gramlot JS uses one top-level root.h1 statement. Keep future recipes compact until
+real reuse or complexity warrants a helper; do not split trivial examples.
+React uses a functional component; Vue uses an SFC; NiceGUI declares the same
+heading in its page function. Common styling stays outside all five examples.
 
-A minimal genro-asgi host should eventually run the
-same frontend examples. The intended FastAPI adapter should ship with Pages;
-this consumer demo does not establish that packaging yet. See docs/EVOLUTION.md.
+Gramlot's installed optional FastAPI adapter discovers pages/ and owns Python
+recipe execution, typed transport and runtime delivery. Rosetta adds only shared
+presentation CSS to its generated HTML. Gramlot JS reuses the same adapter assets
+and import map but owns a small local editing harness. NiceGUI is mounted through
+its native FastAPI integration. Framework code is never copied into the consumer.
 
-The shared HTML frame always displays the selected implementation's source in a
-second iframe: alongside the example on wide screens and below it on narrower
-screens. Source navigation stays within that pane and does not replace the live
-example. The standalone source link remains available. No frontend-specific code
-or parent JavaScript is required for this layout.
+Keep /pages and /pages-js identifiers stable. Only hello-world and data-binding are accepted by the
+comparison, example and source routes. Later lesson files remain preserved, but
+React and Vue must not import them into the active build. Former lesson tests are
+retained under standby/progressive/tests until those lessons are reintroduced.
+Orders and standalone reflections stay outside active routes.
 
-Source inspection opens on the Page tab and displays only the selected page's
-application file (recipe.py for Pages). Boilerplate contains framework-specific
-startup and integration files. Common contains files shared by all three
-implementations, never mixed into the page or boilerplate file lists. Tabs are
-plain HTML links; the embedded viewer does not repeat framework navigation.
+## Acceptance
 
-Use equivalent concise documentation across the three application sources. Avoid
-redundant comments or docstrings that merely repeat the visible code.
+Verify all five headings and sources, CodeMirror permissions, desktop adjacency,
+narrow-screen stacking, JS explicit execution/reset/error recovery/reload,
+NiceGUI's browser connection, adapter-owned source/assets, and rejection of
+inactive lessons and unlisted source paths. Keep page, integration and editor
+costs distinct; this static lesson is not a performance comparison.
 
-## Gramlot JS live recipe
+## Presentation refinement
 
-Gramlot JS is a fourth implementation at /pages-js/. Its authored recipe.js uses
-DOM JS's fluent builder directly; it is not generated from the Python recipe.
-The same Hello World content and shared visual contracts apply.
+The left tree uses compact rows. Desktop navigation and example/code columns have
+pointer- and keyboard-operated separators; widths persist locally, and double-click
+restores defaults. Narrow screens stack content and hide the corresponding handles.
+The master uses a small framework-independent script for these presentation controls.
 
-The Page source tab uses a locally bundled CodeMirror editor for this variant.
-Manual mode is the default: Apply executes the current recipe. Live executes on
-every document change, without a typing delay. Focus out executes when the editor
-loses focus. Switching to Live also applies the current text. Syntax
-and execution errors are displayed while the last successful preview is retained.
-Reload restores the checked-in recipe; edits are not written to disk. This is a
-local JavaScript playground, not an isolation boundary for untrusted programs.
-Boilerplate exposes the runtime harness, and Common exposes the editor. The outer
-HTML frame continues to contain no script. Other implementations remain read-only.
+Gramlot's inspector is opened by a discreet magnifying-glass button immediately
+below the live iframe. The library launcher is hidden in the example; Rosetta
+invokes that current instance without copying or changing framework code.
+Open source and Open raw links are removed from the UI; code remains in CodeMirror.
+The raw endpoint remains available for tooling and exact-source verification.
 
-Both Pages variants expose an Inspector button in the common frame, outside the
-recipe and preview content. A shared Pages bootstrap module mounts the library's
-existing inspector against the running application's Data and Source Bags. It
-rebinds after successful JS Apply and disposes the old inspector with its owner.
-The shared integration is listed under Boilerplate for both Pages variants.
+The Inspector floating window is mounted in the master document, so its movement
+and resizing are bounded by the page viewport rather than the example iframe.
+It retains the example's application and typed Bags. Run/Reset or frame reload
+dispose the old tool; reopening inspects the current example instance.
 
+## Lesson 02 — Data binding
 
-## First binding batch (implemented)
+Two independent heading/textbox pairs are stacked vertically, each initialized
+to "Hello World". Live updates its heading on input; On focus out commits when
+focus leaves the field. Gramlot uses separate Data fields and reactive bindings,
+with live=True only on the first textbox; the second uses the default.
+React uses two states with change/blur handlers, Vue two refs with v-model/blur,
+and NiceGUI a per-page dictionary with value binding/blur handling.
+Text is displayed literally, including markup characters. The source pane shows
+the exact recipe, editable only for Gramlot JS, with Run and Reset for both pairs.
 
-Every example is autonomous, with complete state, controls and logic in its own
-source file. Each step retains the preceding behavior and adds the named feature:
+## Lesson 03 — Input widgets
 
-1. hello-world: unchanged static introduction.
-2. editable-text: text input commits when it loses focus.
-3. text-color: adds an input-event text color picker, initially #223044.
-4. background-color: adds an input-event background picker, initially #ffffff.
-5. font-size: adds a continuous slider from 10 to 48 px, initially 14.
-6. font-family: adds system-ui, serif and monospace choices; initially system-ui.
-7. font-style: adds independent Bold and Italic checkboxes, initially false.
+Input widgets is active in all five implementations. Six labelled fields (Name,
+Quantity, Date, Time, Updates, Notes) demonstrate text, number, date, time, checkbox
+and multiline editing. Gramlot uses a responsive formlet and separate Data bindings;
+React/Vue use CSS Grid and local state, NiceGUI uses a grid and per-page state.
+Fields start empty, Updates starts unchecked. No submission or persistence is added.
+Date/time editors use local browser controls; Gramlot retains its typed Data values,
+while React/Vue/NiceGUI retain native date/time strings for this UI-only comparison.
 
-React, Vue, Gramlot Python and Gramlot JS implement the same observable behavior.
-Pages examples use the library textBox, colorpicker, filteringSelect and checkbox
-widgets with lbl, plus existing data/style binding. No lbl implementation is
-added by the demo. MyText is a separate label without an implicit colon; output
-is a readonly textBox, with an equivalent native readonly field in React/Vue. Styling affects the greeting, not its label.
+Owner refinement: the Input widgets lesson uses two fixed columns in all versions.
+The Gramlot null checkbox uses a compact outlined box with a small gray dash.
 
-Pages recipes include a brief Inspector → Data invitation. Numeric pixel size and
-boolean weight/style are converted through existing dataFormula providers, which
-run in the browser; Python only constructs their serialized declarations.
+## Lesson 04 — Contact box
 
-The routes /{variant}/{example}/ select a page. /{variant}/ remains a Hello World
-alias. Switching variant preserves the selected example. Source tabs and raw
-source preserve the example query parameter. The JS editor executes the selected
-example's real recipe; reload restores its original code and state.
+Contact box is active in all five versions. First name, Last name, Phone and Email
+are grouped under a centered white Contact details label on a dark title bar.
+Gramlot uses labledBox(datapath='contact') and a two-column formlet whose fields
+use relative ^.first_name, ^.last_name, ^.phone and ^.email bindings. Each field
+commits on focus out. Other implementations keep one local contact object.
+No validation, submission or persistence is introduced by this lesson.
 
-Two views sharing state, remote examples, Orders and all database examples remain
-outside this batch. The editable inspector and widget lbl contract are consumed from the verified
-local library assembly. They are not released dependencies.
+## Lesson 05 — Repeated contacts
 
+Contact cards have compact padding and rounded corners. Repeated contacts adds
+six independent copies through a loop, arranged by an outer formlet in Gramlot
+and a responsive grid in the comparison versions. Gramlot box datapaths are
+c1 through c6, while all inner bindings remain relative. Each lesson is autonomous.
+All four fields and focus-out behavior remain the same as Contact box.
 
-## Verified widget integration and remaining gaps
+Repeated contacts extracts the reused card into contact_box (Python) / contactBox
+(JavaScript), with a one-line description. The main loop only calls that helper.
 
-The Pages coordinator authorized the current local DOM assembly and inspector.
-The source remains in its owning libraries; Rosetta consumes it without patches.
-All Page sources expose the actual widget declarations with lbl. The font choice
-is an existing filteringSelect limited to the same three families as React/Vue.
+Contact lessons now use CSS classes in every implementation. Gramlot labledBox
+exposes box/label/content CSS parts; recipes retain structure, binding and label
+placement while shared/contacts.css owns card presentation. Lesson source tabs
+show the executed recipe, Contact styles and Shared field styles. CSS stays
+read-only; only the Gramlot JS app recipe is editable.
 
-horizontalSlider now uses minimum=10, maximum=48, step=1 and
-intermediateChanges=True, with lbl="Font size". Its range and continuous updates
-are verified in the demo for both Python and JavaScript recipes. numberTextBox localized readonly formatting
-is also not available and is not demonstrated here.
+## Lesson 06 — Contact colors
 
-The inspector edits Data/Source of the running instance; changes do not rewrite
-recipe files. Demo tests exercise Data Apply updating input and readonly output
-in both Python and JS authoring modes. The runtime now supports defaults and verticalSlider, but this gallery revision
-adopts horizontalSlider; widget defaults initialize absent data nodes in each recipe.
+Contact colors preserves the six independent cards and adds one Background color
+picker per card, initially white. In Gramlot, the card background and the picker
+share ^.color under each card's datapath. The picker uses live=True. The title bar
+retains its dark styling. React/Vue bind background styles to local state; NiceGUI
+updates the card style on color change. Sources include shared CSS as before.
 
+Owner correction: Contact colors changes the title bar background only. The
+picker starts at #29384d, and the card body remains white. Gramlot binds
+label_background to ^.color.
 
-## Local scope (eighth example)
+Owner correction: shared example CSS is shown once in Overview > Example styles.
+Lesson source panes show only their own recipe; shared CSS tabs are no longer
+repeated across lessons and implementations. Shared infrastructure remains separate.
 
-`local-scope` retains every Font style control in a compact titled box. Font style
-remains unchanged. Pages uses an explicit `labledBox(label="Text sample")` containing a
-`formlet(columns=2)` with labels above the fields. React and Vue use an equivalent
-two-column CSS grid. Pages declares `datapath="sample"` on the labeled box;
-initial data paths and formula destinations begin with `.`, and bindings begin
-with `^.`. Inspector shows text, styles and computed values under `sample`, with
-no equivalent nodes at the root. Editing `sample.text` in Inspector updates both
-text fields. React and Vue keep idiomatic component-local state and native HTML;
-they do not emulate a path store. No database or new library API is involved.
+Each lesson ends with a short English How it works paragraph specific to the
+selected implementation. These explanations stay in the shared frame and describe
+the executed recipe, state ownership and update behavior.
 
-Pages input examples initialize their data through widget defaults, preserving
-existing values. Local scope declares derived formulas directly in main().
-Its text field spans both formlet columns via grid_column="1 / -1"; colors,
-size/family and bold/italic occupy paired rows. React/Vue mirror this layout.
+React, Vue and NiceGUI lessons also include How it compares. Comparisons concern
+the displayed implementations, distinguish built-in semantics from reusable
+application abstractions, and explicitly acknowledge parity where appropriate.
+Do not present syntax length, hidden CSS or hypothetical ecosystem limits as
+semantic advantages.
 
+Comparison principle: distinguish built-in functionality from functionality
+obtainable by writing wrappers, extra components or adding libraries. Equivalent
+results do not imply equal application work. Gramlot helpers that compose widgets
+must not be confused with implementing scope, binding or commit behavior itself.
+Acknowledge features already built into the compared framework as well.
 
-## Repeated panels (ninth example)
+## Visual builder PoC
 
-Six instances repeat the Local scope panel, including defaults and formlet layout.
-Python calls text_panel in range(6); Gramlot JS calls textPanel in a for loop.
-Each container selects panels.panel_0 through panels.panel_5 and all internal
-bindings remain relative. React maps to a TextPanel component with local state;
-Vue uses v-for with a separate SFC, also exposed under Page in the source viewer.
-The example is autonomous and does not import Local scope. Browser checks verify
-that editing text, size, bold and color in one instance leaves the other five
-unchanged and that Pages stores six independent branches without root leakage.
-
-
-Repeated panels starts with Common settings. A label-position selector defaults
-to TL and offers L, R, TL, TC, TR, BL, BC and BR. Pages panel captions and widget
-labels bind lbl_position to the absolute ^common.position path; individual data
-and formulas remain relative. React/Vue lift position to the parent and pass it
-as a prop, with native CSS positioning. Browser checks exercise all eight choices
-and verify that local text and style edits survive the shared presentation change.
+The owner authorized a separate `/builder/` experiment: catalogue drag/drop,
+valid/invalid target borders, Source tree, move/delete/reorder and attribute editing
+against a mounted Source Bag. See docs/VISUAL-BUILDER-POC.md for scope and limits.
+This is not a comparative lesson and does not reactivate other parked PoCs.

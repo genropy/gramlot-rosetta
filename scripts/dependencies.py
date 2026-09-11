@@ -7,7 +7,6 @@ import hashlib
 import importlib.metadata
 import importlib.util
 import json
-import os
 import subprocess
 from pathlib import Path
 
@@ -31,21 +30,20 @@ def git_state(root):
 
 def report():
     import gramlot
-
-    from backend.pages_host import PagesHost
-    root = Path(__file__).resolve().parents[1]
-    host = PagesHost(root)
+    from gramlot.contrib.fastapi.runtime import PACKAGE_ASSET_DIRECTORIES, RuntimeAssets
+    runtime = RuntimeAssets("/examples/pages")
     import genro_builders
     return {
         "python_packages": {name: importlib.metadata.version(name) for name in
-                            ('fastapi', 'genro-builders', 'genro-bag', 'genro-tytx', 'genro-toolbox')},
+                            ('fastapi', 'nicegui', 'gramlot', 'genro-builders', 'genro-bag', 'genro-tytx', 'genro-toolbox')},
         "genro_asgi_installed": importlib.util.find_spec('genro_asgi') is not None,
         "gramlot": source_digest(Path(gramlot.__file__).resolve().parent, ['*.py']),
         "builders": source_digest(Path(genro_builders.__file__).resolve().parent, ['*.py']),
         "builders_origin": importlib.metadata.distribution('genro-builders').read_text('direct_url.json'),
-        "source_override": os.environ.get('ROSETTA_GRAMLOT_ROOT'),
+        "source_override": None,
         "assets": {name: source_digest(directory, ['*.js', '*.mjs', '*.css'])
-                   for name, directory in host.assets.items()},
+                   for name, relative in PACKAGE_ASSET_DIRECTORIES.items()
+                   for directory in [runtime.package_directory / relative]},
     }
 
 

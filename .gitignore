@@ -9,3 +9,6 @@ playwright-report/
 test-results/
 .env
 .local/
+
+# macOS metadata
+.DS_Store

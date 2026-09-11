@@ -3,6 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1d3eb1">
+  <link rel="manifest" href="/shared/pwa/manifest.webmanifest">
+  <link rel="icon" type="image/png" href="/shared/pwa/icon-192.png">
   <title>Rosetta · {title} · {example_title}</title>
   <link rel="stylesheet" href="/shared/style.css">
   <link rel="stylesheet" href="/shared/frame.css">
@@ -10,33 +13,17 @@
 <body>
   <main class="rosetta-frame">
     <header class="rosetta-header">
-      <strong>Gramlot Rosetta</strong>
-      <nav aria-label="Implementations">
-        <a href="/react/{example}/" {react_current}>React</a>
-        <a href="/vue/{example}/" {vue_current}>Vue</a>
-        <a href="/pages/{example}/" {pages_current}>Gramlot Python</a>
-        <a href="/pages-js/{example}/" {pages-js_current}>Gramlot JS</a>
-      </nav>
-      <a href="/sources/{variant}?example={example}" target="_blank" rel="noopener">View source</a>
+      <a class="brand" href="/">Gramlot <span>Rosetta</span></a>
+      <button id="install-app" type="button" hidden>Install app</button>
+      <span class="meta">One idea. Five implementations.</span>
     </header>
-    <div class="rosetta-layout">
-      <aside class="panel">
-        <h2>Examples</h2>
-        <nav aria-label="Examples">
-          {example_links}
-        </nav>
-        <p class="meta">Orders is on standby.</p>
-      </aside>
-      <div class="example-column">
-      <section class="example-panel" aria-label="Current example">
-        <iframe title="{example_title} · {title}" src="/examples/{variant}/{example}/"></iframe>
-      </section>
-      <div id="pages-tools"></div>
-      </div>
-      <section class="source-frame-panel" aria-label="Current source">
-        <iframe title="Source · {title}" src="/sources/{variant}?example={example}"></iframe>
-      </section>
+    <div class="master-layout">
+      <aside class="lesson-tree" aria-label="Course navigation">{navigation}</aside>
+      <div class="splitter tree-splitter" role="separator" tabindex="0" aria-label="Resize navigation" aria-orientation="vertical"></div>
+      <div class="master-content">{content}</div>
     </div>
   </main>
+  <script type="module" src="/shared/frame.js"></script>
+  <script type="module" src="/shared/pwa/install.js"></script>
 </body>
 </html>

@@ -1,52 +1,54 @@
-:root { font: 14px/1.5 system-ui, sans-serif; color: #223044; background: white; }
+@import url("./contacts.css");
+html { font: 16px/1.5 system-ui, sans-serif; color: #172642; background: white; }
 body { margin: 0; padding: 24px; }
-h1 { font-size: 24px; margin: 0 0 16px; }
+h1 { font: 700 30px/1.2 system-ui, sans-serif; margin: 0; color: #172642; }
+body:has(.nicegui-content) { padding: 0; }
+.nicegui-content { padding: 24px; gap: 0; }
 
-.description { font-style: italic; margin-bottom: 16px; }
-.controls { display: flex; flex-direction: column; gap: 12px; margin: 20px 0; max-width: 360px; }
-.controls label { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
-.controls input, .controls select { font: inherit; max-width: 65%; }
-.demo-output { display: flex; align-items: center; gap: 4px; }
-.hint { color: #546174; font-size: 13px; }
-label.demo-output { color: #555; font-size: 0.85em; font-weight: 600; }
-label.demo-output input { font: 14px/1.5 system-ui, sans-serif; color: #223044; border: 1px solid #c8c8c8; border-radius: 3px; padding: 3px 6px; min-width: 0; width: 100%; }
-gnr-textbox.demo-output { --field-bg: transparent; }
+/* Rosetta exposes the library launcher below the live iframe. */
+.gramlot-inspector-launcher { display: none; }
 
-.scoped-example { display: block; max-width: 440px; min-width: 0; }
-.native-scope { border: 1px solid #c8c8c8; padding: 12px; }
-.sample-title { color: #555; font-size: 12px; font-weight: 600; }
-.compact-controls { gap: 8px; margin: 12px 0; max-width: none; }
-.native-controls { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; }
-.native-controls input, .native-controls select { max-width: 100%; min-width: 0; }
+/* The master owns the visible inspector; the lazy source instance stays hidden. */
+gramlot-inspector { display: none; }
 
-.native-controls label { flex-direction: column; align-items: flex-start; gap: 4px; min-width: 0; color: #555; font-size: 12px; font-weight: 600; }
-.native-controls input, .native-controls select { box-sizing: border-box; font: 14px system-ui; }
-.native-controls input:not([type=color]):not([type=checkbox]), .native-controls select { width: 100%; }
+/* A shared gap and native label layout for the first binding lesson. */
+h1 + :is(label, gnr-textbox, .q-field) { margin-top:20px; }
+label:has(> input) { display:flex; flex-direction:column; gap:4px; max-width:280px; }
+label > input { font:inherit; padding:6px 8px; border:1px solid #cbd2dd; border-radius:4px; }
 
-.native-controls label:has(#text) { grid-column: 1 / -1; }
+:is(label, gnr-textbox, .q-field) + h1 { margin-top:32px; }
 
-.native-controls .wide-field { grid-column: 1 / -1; }
-.scoped-example + .scoped-example { margin-top: 16px; }
+.input-fields { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:7px 20px; padding:7px; width:100%; box-sizing:border-box; }
+.input-fields > * { min-width:0; }
+.input-fields > label { display:flex; flex-direction:column; gap:4px; max-width:none; font-size:12px; font-weight:600; }
+.input-fields > label :is(input,textarea) { box-sizing:border-box; max-width:100%; min-width:0; font:16px system-ui; }
+.input-fields textarea { padding:6px 8px; border:1px solid #cbd2dd; border-radius:4px; width:100%; }
+.input-fields input[type=checkbox] { align-self:start; }
 
-.common-settings { display: block; max-width: 440px; margin-bottom: 16px; }
-[data-label-position] .panel-content { min-width: 0; flex: 1; }
-[data-label-position].scoped-example,
-[data-label-position] label { display: flex; gap: 4px; }
-[data-label-position="L"].scoped-example,
-[data-label-position="L"] label { flex-direction: row; align-items: center; }
-[data-label-position="R"].scoped-example,
-[data-label-position="R"] label { flex-direction: row-reverse; align-items: center; }
-[data-label-position^="T"].scoped-example,
-[data-label-position^="T"] label { flex-direction: column; align-items: stretch; }
-[data-label-position^="B"].scoped-example,
-[data-label-position^="B"] label { flex-direction: column-reverse; align-items: stretch; }
-[data-label-position$="L"] label > span,
-[data-label-position$="L"] > .sample-title { text-align: left; }
-[data-label-position$="C"] label > span,
-[data-label-position$="C"] > .sample-title { text-align: center; }
-[data-label-position$="R"] label > span,
-[data-label-position$="R"] > .sample-title { text-align: right; }
-[data-label-position] label > input,
-[data-label-position] label > select { min-width: 0; }
-[data-label-position] label > input[type=color],
-[data-label-position] label > input[type=checkbox] { align-self: flex-start; }
+/* Compact field presentation belongs to the shared lesson theme. */
+gnr-formlet {
+  font:13px/1.25 system-ui,sans-serif;
+  --form-label-font-size:11px;
+  --field-border:#d3d8df;
+  --form-field-radius:2px;
+  gap:6px 16px;
+}
+.input-fields { gap:6px 16px; font:13px/1.25 system-ui,sans-serif; }
+.input-fields > label { font-size:11px; gap:3px; }
+.input-fields > label :is(input,textarea) {
+  font:13px/1.25 system-ui,sans-serif;
+  padding:3px 6px;
+  border:1px solid #d3d8df;
+  border-radius:2px;
+}
+.input-fields > label input:not([type=checkbox]) { min-height:25px; }
+.input-fields .q-field__control,
+.input-fields .q-field__marginal { min-height:38px; height:auto; }
+.input-fields .q-field__native { font:13px/1.25 system-ui,sans-serif; min-height:25px; }
+.input-fields .q-field__label { font-size:11px; }
+.input-fields .q-textarea .q-field__native { min-height:55px; }
+
+.input-fields .q-field__label { top:2px; transform:none; line-height:14px; }
+.input-fields .q-field__native { padding:16px 0 2px; border:0; }
+.input-fields .q-field__control-container { padding-top:0; }
+.input-fields .q-field__bottom { padding-top:2px; min-height:0; }

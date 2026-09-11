@@ -1,8 +1,49 @@
+# Master navigation update — September 11, 2026
+
+The master page now has an expandable left navigation with Overview and Simple
+examples. Overview contains the introduction, five implementation setup pages
+and shared infrastructure; Hello World source panes contain only page code.
+The root opens Overview, and existing lesson URLs remain valid. Verified with
+24 backend tests, 9 Chromium checks and Ruff, plus desktop visual inspection.
+
+# Teaching restart — September 11, 2026
+
+Current state supersedes the older setup and gallery reports below. Only Hello
+World is active, in Gramlot Python/JS, React, Vue and NiceGUI 3.16.0. The source pane
+uses CodeMirror for every variant; only the Gramlot JS recipe supports Run/Reset.
+
+Rebuilt Gramlot from the current canonical checkout, including the new
+`gramlot.contrib.fastapi` adapter, and installed the resulting wheel normally.
+The wheel remains version 0.1.0a1, so its bytes/provenance matter more than its
+version alone. A copy is retained in `.local/packages/` for local setup. New clones
+must supply that current artifact. Python and browser assets come from the installed
+package; run-time source overrides and the consumer's old Python host are retired.
+The library owns discovery, typed recipes and startup. The JS laboratory only
+reuses its runtime/import map. NiceGUI uses native `ui.page`/`ui.run_with`.
+
+The old progressive lesson sources and standalone reflections are preserved.
+Previous gallery tests are parked under standby/progressive/tests. See README.md
+and SPEC.md for the active setup and teaching contract. No remote publication or
+framework source changes are part of this application update.
+
+## Verification of this checkpoint
+
+- 23 backend tests passed, including adapter discovery, typed source and inactive routes.
+- 8 Chromium tests passed across all five alternatives, including a 390px viewport,
+  actual source equality, editor permissions, JS Run/Reset/error recovery/reload,
+  and NiceGUI's native browser connection.
+- Ruff, git diff whitespace checks, dependency reporting and active-source inventory passed.
+- Desktop rendering was also inspected in the in-app browser.
+- Retained Gramlot wheel SHA-256: `09c6bdcbf89996babbdccb9389760f23a67c9870233c623ea6317cdf05f90ff2`.
+
+---
+
 # Repository ownership decision — 2026-09-09
 
-The owner chose to remain under genropy. The remote stays genropy/demo-rosetta;
-Gramlot Rosetta is the product name. No separate organization or repository
-transfer is planned. The migration below is included in the authorized commit
+The owner chose to remain under genropy. On 2026-09-09 the repository was
+renamed from genropy/demo-rosetta to genropy/gramlot-rosetta, and the canonical
+checkout moved to /Users/gporcari/Sviluppo/genro_ng/gramlot-rosetta.
+No separate organization or repository transfer is planned. The migration below is included in the authorized commit
 and push; statements about uncommitted work describe earlier checkpoints.
 
 # Server independence — final package boundary
@@ -56,8 +97,7 @@ the normal dependency setup. No framework code is copied or patched in Rosetta.
 The existing /pages/ and /pages-js/ route identifiers and source directory names
 are retained so bookmarks and source links stay valid. Visible variant names are
 Gramlot Python and Gramlot JS. The application/package is Gramlot Rosetta;
-the repository remote and physical checkout retain demo-rosetta pending a separate
-repository rename. Old dependency folders are preserved but no longer loaded.
+the repository remote and physical checkout now use gramlot-rosetta. Old dependency folders are preserved but no longer loaded.
 
 ## Verification
 

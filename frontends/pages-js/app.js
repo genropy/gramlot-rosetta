@@ -1,10 +1,9 @@
-import {attachTools} from '/pages-common/tools.js';
 import {Application} from 'gramlot-dom';
-import {RosettaBuilder} from '/pages-common/builder.js';
+import {GramlotBuilder} from 'gramlot-builder';
 
 let application;
 function render(code) {
-    const builder = new RosettaBuilder('main');
+    const builder = new GramlotBuilder('main');
     let next;
     try {
         builder.main = new Function('root', code);
@@ -14,7 +13,6 @@ function render(code) {
         application?.dispose();
         document.getElementById('root').replaceChildren(container);
         application = next;
-        attachTools(application);
     } catch (error) {
         next?.dispose();
         builder.dispose();
@@ -28,8 +26,9 @@ window.addEventListener('message', event => {
     try { render(event.data.code); } catch (failure) { error = failure.message; }
     event.source.postMessage({type: 'recipe-result', error}, location.origin);
 });
-const example = location.pathname.split('/').filter(Boolean).at(-1);
-fetch(example === 'hello-world' ? '/pages-js/recipe.js' : `/pages-js/examples/${example}.js`).then(response => response.text()).then(render).catch(error => {
+const recipes = {'hello-world': 'recipe.js', 'data-binding': 'data-binding.js', 'input-widgets': 'input-widgets.js', 'contact-box': 'contact-box.js', 'repeated-contacts': 'repeated-contacts.js', 'contact-colors': 'contact-colors.js'};
+const recipe = recipes[location.pathname.split('/').filter(Boolean).at(-1)];
+fetch(`/gramlot-js/${recipe}`).then(response => response.text()).then(render).catch(error => {
     document.getElementById('bootstrap-error').textContent = error.message;
     document.getElementById('bootstrap-error').hidden = false;
 });

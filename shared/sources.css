@@ -8,3 +8,13 @@
 .source-panel h1 { font-size: 18px; }
 .source-path { overflow-wrap: anywhere; color: #546174; font-size: 13px; }
 #source-code { overflow: auto; background: #fff; border: 1px solid #d6dce5; border-radius: 4px; padding: 16px; tab-size: 4; font: 13px/1.6 ui-monospace, SFMono-Regular, Consolas, monospace; }
+
+body { background: #fcfdff; padding: 18px; }
+.source-panel h1 { font-size: 14px; }
+.source-tabs { gap: 20px; }
+.cm-editor { min-height: 140px; border: 1px solid #e5eaf2; border-radius: 6px; overflow: hidden; }
+.cm-scroller { overflow: auto; }
+.lab-controls { display: flex; gap: 8px; margin-top: 12px; }
+.lab-controls button { border: 1px solid #cbd5e5; border-radius: 5px; background: white; color: #1643c5; padding: 6px 14px; font: inherit; cursor: pointer; }
+.lab-controls button:first-child { background: #1643c5; color: white; border-color: #1643c5; }
+[role=status] { font-size: 12px; color: #58657a; }

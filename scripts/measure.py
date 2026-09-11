@@ -28,15 +28,12 @@ def report(root):
         'vue_application': ['frontends/vue/src/App.vue'],
         'pages_js_recipe': ['frontends/pages-js/recipe.js'],
         'pages_js_bootstrap': ['frontends/pages-js/app.js'],
-        'shared_pages_builder': ['frontends/pages-common/builder.js'],
-        'shared_pages_tools': ['frontends/pages-common/tools.js'],
         'shared_live_editor': ['shared/editor/editor.js'],
-        'pages_recipe': ['frontends/pages/recipe.py'],
-        'pages_bootstrap': ['frontends/pages/app.js'],
+        'pages_recipe': ['frontends/pages/pages/hello-world.py'],
         'pages_host_adapter': ['backend/pages_host.py'],
-        'pages_browser_adapter': ['frontends/pages/module.js'],
         'shared_backend': ['backend/app.py'],
-        'shared_frame': ['backend/templates/frame.html', 'shared/frame.css'],
+        'shared_frame': ['backend/templates/frame.html', 'backend/templates/lesson.html',
+                         'backend/templates/overview.html', 'shared/frame.css', 'shared/frame.js'],
         'shared_style': ['shared/style.css', 'shared/example.css'],
         'shared_source_viewer': ['backend/source_browser.py',
                                  'backend/templates/sources.html', 'shared/sources.css'],
@@ -44,14 +41,9 @@ def report(root):
                         'frontends/react/package.json'],
         'vue_setup': ['frontends/vue/src/main.js', 'frontends/vue/index.html', 'frontends/vue/vite.config.js',
                       'frontends/vue/package.json'],
-        'pages_setup': ['frontends/pages/index.html'],
+        'nicegui_page': ['frontends/nicegui/page.py'],
+        'nicegui_host': ['backend/nicegui_host.py'],
     }
-    for variant, extension in (("react", "jsx"), ("vue", "vue"), ("pages", "py"), ("pages-js", "js")):
-        directory = root / "frontends" / variant
-        if variant in ("react", "vue"):
-            directory /= "src"
-        for path in sorted((directory / "examples").glob(f"*.{extension}")):
-            groups[f"{variant}_{path.stem}_page"] = [str(path.relative_to(root))]
     groups['shared_example_catalog'] = ['backend/examples.py']
     return {name: measure(root, paths) for name, paths in groups.items()}
 

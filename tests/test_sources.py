@@ -11,7 +11,9 @@ from backend.app import DemoServer
 @pytest.mark.parametrize('variant,filename', [
     ('react', 'frontends/react/src/App.jsx'),
     ('vue', 'frontends/vue/src/App.vue'),
-    ('pages', 'frontends/pages/recipe.py'),
+    ('pages-js', 'frontends/pages-js/recipe.js'),
+    ('nicegui', 'frontends/nicegui/page.py'),
+    ('pages', 'frontends/pages/pages/hello-world.py'),
 ])
 def test_source_matches_checkout_and_raw_text(variant, filename):
     server = DemoServer(pages=False)
@@ -39,7 +41,7 @@ def test_source_text_cannot_inject_html_or_template_placeholders(tmp_path):
 
     from backend.source_browser import SourceBrowser
     source = '</code></pre><script>window.injected=true</script>{source}'
-    path = tmp_path / 'frontends/pages/recipe.py'
+    path = tmp_path / 'frontends/pages/pages/hello-world.py'
     path.parent.mkdir(parents=True)
     path.write_text(source)
     template = tmp_path / 'backend/templates/sources.html'
