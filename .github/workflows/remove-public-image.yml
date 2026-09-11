@@ -8,7 +8,7 @@ jobs:
   remove:
     runs-on: ubuntu-24.04
     steps:
-      - name: Remove the single unintended public version
+      - name: Remove the newly created package containing only the unintended version
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh api --method DELETE orgs/genropy/packages/container/gramlot-rosetta/versions/1238406221
+        run: gh api --method DELETE orgs/genropy/packages/container/gramlot-rosetta
