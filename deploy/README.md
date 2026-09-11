@@ -1,75 +1,63 @@
-# Container and deployment
+# Rosetta deployment
 
-Deployment preparation started on 2026-09-11.
-Target: `rosetta.gramlot.org`, FastAPI/Uvicorn behind host nginx on Hetzner.
+Live at https://rosetta.gramlot.org since 2026-09-11. Pre-alpha; the first usable
+release is planned for late 2026. FastAPI/Uvicorn runs behind Hetzner nginx at
+127.0.0.1:19181. The separate Compose project is /opt/gramlot-rosetta.
 
-## Build and verify
+## Build inputs and registry
 
-Supply an approved `gramlot-0.1.0a1-py3-none-any.whl` under `.build/` (Git-ignored).
-Build with `docker build --build-arg GRAMLOT_WHEEL_SHA256=THE_SHA256 -t gramlot-rosetta:verify .`.
-The hash is mandatory. The image installs the existing locks, verifies the wheel,
-runs `pip check`, builds React/Vue and CodeMirror, retains displayed sources, and
-runs as uid 10001. No sibling framework sources are copied.
+The approved Gramlot wheel comes from the private genropy/gramlot-site repository:
+FRAMEWORK_REF=090bbd37feeb3576c08a7d47502a9f3bb26b4583 and
+GRAMLOT_WHEEL_SHA256=90a1558181efb9bb0f2555659263fe8a97696462afa26f3b046bc09b3ef85e7d.
+FRAMEWORK_READ_KEY is its owner-authorized read-only deploy key. The public PyPI
+pin is unchanged; this deployment does not publish a framework release.
 
-Start with port 8000 bound to loopback and the read-only/tmpfs/capability settings
-in `compose.yaml`. Run `python deploy/check-container.py http://127.0.0.1:PORT`
-and `ROSETTA_URL=http://127.0.0.1:PORT npm test`. The actual local container passed
-all 50 browser tests, including NiceGUI connection and the editable Gramlot JS
-laboratory. `/health` exposes the unpublished wheel channel and exact SHA256.
-The approved frozen wheel also builds successfully for linux/amd64 locally;
-CI repeats the checks on a native amd64 runner. The current deployment does not persist example data.
+Local builds require the wheel under ignored .build/ and its mandatory SHA256
+build argument. Docker verifies the hash, installs existing locks, runs pip check,
+builds React/Vue/CodeMirror, retains displayed sources and runs as uid 10001.
+No sibling framework source is copied. /health reports the wheel hash/channel.
 
-## CI and activation
+Images use the PRIVATE package ghcr.io/genropy/gramlot-rosetta-runtime. Its source
+association/inherited access remains the private site repo. This Rosetta repo has
+Actions Write access on the package. CI checks visibility before reading the wheel
+and again before pushing; a missing or non-private package blocks publication.
+The package was created first with an empty image so no private artifact was used
+before its visibility was verified. The original public package was withdrawn.
+Never upload the runtime image as an Actions artifact in this public repository.
 
-`.github/workflows/publish.yml` verifies PRs, then publishes the tested image on
-main. Docker is built once and pushed by the same job after all checks pass.
-Do not upload the image as an Actions artifact: this repository is public, while
-the approved framework wheel and its containing image must remain private.
-Only successful images may deploy; updates use immutable GHCR digests.
+## CI and access
 
-Required repository variables:
-- `FRAMEWORK_REF`: full commit SHA in private `genropy/gramlot-site`.
-- `FRAMEWORK_READ_KEY` secret: owner-approved read-only deploy key for that repo.
-  CI checks out only `.packages/gramlot` and does not persist the key.
-- `GRAMLOT_WHEEL_SHA256`: its SHA256.
-- `DEPLOY_ENABLED`: leave unset until host configuration is verified; `true` enables deployment.
+.github/workflows/publish.yml verifies PRs and builds/tests/publishes main updates.
+Fork PRs do not receive the private artifact secret and cannot pass full container
+verification. Main builds and pushes the exact tested image in one job.
+PUBLISH_ENABLED=true and DEPLOY_ENABLED=true are configured; production permits
+main only. Deployments use immutable image digests and Compose health checks.
+A manual workflow_dispatch also works; deploy_once is for initial activation only.
 
-The `production` environment needs `DEPLOY_SSH_KEY`, `DEPLOY_KNOWN_HOSTS` secrets
-and `DEPLOY_SSH_DESTINATION` variable (`account@host`). Restrict it to main.
-Create `/opt/gramlot-rosetta` on the host, supply `.env` from `.env.example`, and
-install the root-owned restricted dispatch/deploy wrappers from gramlot-site.
-Each key is forced to its application and cannot open a shell. The wrapper uses
-the job GITHUB_TOKEN for registry login in a temporary directory, removed on exit;
-no long-lived registry token is stored on the host. CI cannot upload or replace
-Compose files or host scripts. Never commit secrets or a live `.env`.
+Production secrets are DEPLOY_SSH_KEY and DEPLOY_KNOWN_HOSTS; the destination is
+an environment variable. The dedicated SSH key has a forced application-specific
+command. A root-owned wrapper validates the image reference, uses the job token
+for temporary registry login, and removes those credentials afterward. CI has no
+interactive shell and cannot replace the host's root-owned Compose/scripts.
+The deployment account is not in the Docker group.
 
-`deploy.sh` validates the digest, locks this application, pulls and starts it with
-Compose `--wait`. An unsuccessful update restores the previous recorded digest.
-A first deployment has no prior image for rollback.
+Keep loopback binding, read-only filesystem, tmpfs, capability restrictions and
+nginx WebSocket/forwarded-header settings. No persistent example storage or
+subscriber service is included. TLS renewal and nginx reload are configured.
 
-The proposed binding is `127.0.0.1:19181:8000`; verify the port and host capacity.
-Uvicorn trusts forwarded headers only because this service is bound to host
-loopback. Do not expose port 8000 directly. nginx must supply forwarded headers
-and WebSocket Upgrade/Connection; use the host configuration collected in the
-independent gramlot-site repository. Configure DNS, TLS and renewal before
-turning on automatic deployment. No database or subscriber service is included.
+## Checks and recovery
 
-The source repository is public. The owner approved a frozen wheel kept in the
-private site repository, with a pinned commit and SHA256. No PyPI release is
-published. Fork PRs cannot access the private artifact secret and cannot pass the
-full image verification; run trusted changes from an authorized branch.
+The actual amd64 image and public HTTPS site passed all 50 browser tests, including
+NiceGUI live updates and WebSockets. deploy/check-container.py verifies health,
+six public routes and private-path boundaries. The delayed NiceGUI first-input
+reset was fixed by initializing its value before binding; ten focused repeats passed.
 
-Host installation is pending explicit owner approval after automatic review
-blocked creation of the deployment account, SSH authorized keys and sudo rule.
-
-## Private registry correction
-
-Runtime images use ghcr.io/genropy/gramlot-rosetta-runtime, first created with an
-empty scratch image from the private site repository and verified private through
-the GitHub API. The package remains associated with the private site repository;
-its Actions access must explicitly grant gramlot-rosetta write permission.
-CI fails closed unless the package is private, both before accessing the wheel
-and immediately before pushing. PUBLISH_ENABLED stays false until this access is
-configured. The original public package was withdrawn and must not be reused.
-A workflow_dispatch with deploy_once=true performs initial loopback deployment;
-DEPLOY_ENABLED remains unset until external verification is complete.
+Use gh run list to follow releases. Set DEPLOY_ENABLED=false to stop automatic
+host updates; set PUBLISH_ENABLED=false to stop image publication as well.
+deploy.sh preserves the running release on pull failure and restores its prior
+recorded digest on failed startup. The initial release has no rollback predecessor.
+current-image and .env record the last successful digest. Retain successful CI run
+IDs and image tags. gh run rerun KNOWN_GOOD_RUN_ID --repo genropy/gramlot-rosetta
+rebuilds/tests/deploys a known-good source release. Administrative host configuration
+changes remain separate from application CI. See the private site's deployment
+runbook for the shared nginx, DNS, SSH wrapper and certificate configuration.
