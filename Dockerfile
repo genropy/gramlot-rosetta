@@ -10,7 +10,8 @@ RUN npm --prefix frontends/react ci --no-audit --no-fund && npm --prefix fronten
 RUN npm --prefix frontends/vue ci --no-audit --no-fund && npm --prefix frontends/vue run build
 
 FROM python:3.12-slim-bookworm AS runtime
-LABEL org.opencontainers.image.source="https://github.com/genropy/gramlot-rosetta"
+LABEL org.opencontainers.image.source="https://github.com/genropy/gramlot-site"
+LABEL org.opencontainers.image.url="https://github.com/genropy/gramlot-rosetta"
 WORKDIR /app
 ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 HOME=/tmp
 COPY requirements.lock /tmp/requirements.lock

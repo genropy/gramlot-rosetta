@@ -61,3 +61,15 @@ full image verification; run trusted changes from an authorized branch.
 
 Host installation is pending explicit owner approval after automatic review
 blocked creation of the deployment account, SSH authorized keys and sudo rule.
+
+## Private registry correction
+
+Runtime images use ghcr.io/genropy/gramlot-rosetta-runtime, first created with an
+empty scratch image from the private site repository and verified private through
+the GitHub API. The package remains associated with the private site repository;
+its Actions access must explicitly grant gramlot-rosetta write permission.
+CI fails closed unless the package is private, both before accessing the wheel
+and immediately before pushing. PUBLISH_ENABLED stays false until this access is
+configured. The original public package was withdrawn and must not be reused.
+A workflow_dispatch with deploy_once=true performs initial loopback deployment;
+DEPLOY_ENABLED remains unset until external verification is complete.

@@ -1,7 +1,7 @@
 name: gramlot-rosetta
 services:
   rosetta:
-    image: ${APP_IMAGE:?Set an immutable ghcr.io/genropy/gramlot-rosetta digest}
+    image: ${APP_IMAGE:?Set an immutable ghcr.io/genropy/gramlot-rosetta-runtime digest}
     ports:
       - "127.0.0.1:${APP_PORT:-19181}:8000"
     restart: unless-stopped

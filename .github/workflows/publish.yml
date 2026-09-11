@@ -4,6 +4,11 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      deploy_once:
+        description: Deploy this verified build once, without enabling automatic updates
+        type: boolean
+        default: false
 permissions:
   contents: read
 concurrency:
@@ -22,6 +27,13 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Require a private registry before accessing the framework
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          visibility="$(gh api orgs/genropy/packages/container/gramlot-rosetta-runtime --jq .visibility)"
+          [[ "$visibility" == private ]] || { echo 'Rosetta registry must exist and be private'; exit 1; }
       - name: Validate immutable artifact configuration
         env:
           ARTIFACT_REF: ${{ vars.FRAMEWORK_REF }}
@@ -61,20 +73,24 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: printf '%s' "$GH_TOKEN" | docker login ghcr.io -u "$GITHUB_ACTOR" --password-stdin
       - id: image
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         if: vars.PUBLISH_ENABLED == 'true' && github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         run: |
-          tag="ghcr.io/genropy/gramlot-rosetta:sha-${GITHUB_SHA}"
+          tag="ghcr.io/genropy/gramlot-rosetta-runtime:sha-${GITHUB_SHA}"
           docker tag gramlot-rosetta:verified "$tag"
+          visibility="$(gh api orgs/genropy/packages/container/gramlot-rosetta-runtime --jq .visibility)"
+          [[ "$visibility" == private ]] || exit 1
           docker push "$tag"
           image="$(docker inspect --format '{{index .RepoDigests 0}}' "$tag")"
-          [[ "$image" =~ ^ghcr.io/genropy/gramlot-rosetta@sha256:[0-9a-f]{64}$ ]]
+          [[ "$image" =~ ^ghcr.io/genropy/gramlot-rosetta-runtime@sha256:[0-9a-f]{64}$ ]]
           echo "image=$image" >> "$GITHUB_OUTPUT"
   deploy:
     permissions:
       contents: read
       packages: read
     needs: verify
-    if: vars.DEPLOY_ENABLED == 'true' && github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    if: (vars.DEPLOY_ENABLED == 'true' || inputs.deploy_once == true) && github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     environment: production
     runs-on: ubuntu-24.04
     steps:

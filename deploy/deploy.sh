@@ -3,14 +3,14 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 image="${1:?Pass image@sha256:digest}"
-[[ "$image" =~ ^ghcr.io/genropy/gramlot-rosetta@sha256:[0-9a-f]{64}$ ]] || { echo 'Unexpected image reference' >&2; exit 2; }
+[[ "$image" =~ ^ghcr.io/genropy/gramlot-rosetta-runtime@sha256:[0-9a-f]{64}$ ]] || { echo 'Unexpected image reference' >&2; exit 2; }
 exec 9>.deploy.lock
 flock -n 9 || { echo 'Another deployment is running' >&2; exit 3; }
 previous="$(cat current-image 2>/dev/null || true)"
 export APP_IMAGE="$image"
 docker compose --env-file .env -f compose.yaml pull rosetta
 if ! docker compose --env-file .env -f compose.yaml up -d --no-build --wait --wait-timeout 120 rosetta; then
-  if [[ "$previous" =~ ^ghcr.io/genropy/gramlot-rosetta@sha256:[0-9a-f]{64}$ ]]; then
+  if [[ "$previous" =~ ^ghcr.io/genropy/gramlot-rosetta-runtime@sha256:[0-9a-f]{64}$ ]]; then
     export APP_IMAGE="$previous"
     docker compose --env-file .env -f compose.yaml up -d --no-build --wait --wait-timeout 120 rosetta
     echo 'Previous image restored' >&2
