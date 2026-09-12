@@ -130,7 +130,6 @@ class DemoServer:
         overview_links = link('/overview/', 'Introduction', 'introduction')
         for name in ('pages', 'pages-js', 'react', 'vue', 'nicegui'):
             overview_links += link(f'/overview/{name}/', self.TITLES[name], name)
-        overview_links += link('/builder/', 'Visual builder · PoC', 'builder')
         overview_links += link('/overview/styles/', 'Example styles', 'styles')
         overview_links += link('/overview/common/', 'Shared infrastructure', 'common')
         lessons = ''.join(link(f'/{variant}/{key}/', label, key)
