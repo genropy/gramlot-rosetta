@@ -101,7 +101,8 @@ class DemoServer:
             "example_label": "Live example" if variant == "pages-js" else "Example",
             "inspector_tool": ('<div class="example-tools"><button type="button" '
                                'class="inspector-tool" aria-label="Open inspector" '
-                               'title="Inspector"><span aria-hidden="true">🔍</span> Open inspector</button></div>')
+                               'title="Inspector"><span aria-hidden="true" class="inspector-icon"></span>'
+                               '<span>Open inspector</span></button></div>')
                               if variant in ('pages', 'pages-js') else '',
             "variant": variant,
             "example": example,

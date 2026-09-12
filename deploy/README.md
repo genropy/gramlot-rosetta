@@ -6,11 +6,11 @@ release is planned for late 2026. FastAPI/Uvicorn runs behind Hetzner nginx at
 
 ## Build inputs and registry
 
-The approved Gramlot wheel comes from the private genropy/gramlot-site repository:
-FRAMEWORK_REF=090bbd37feeb3576c08a7d47502a9f3bb26b4583 and
-GRAMLOT_WHEEL_SHA256=90a1558181efb9bb0f2555659263fe8a97696462afa26f3b046bc09b3ef85e7d.
-FRAMEWORK_READ_KEY is its owner-authorized read-only deploy key. The public PyPI
-pin is unchanged; this deployment does not publish a framework release.
+The approved Gramlot wheel is downloaded from GitHub release v0.1.3 in
+ genropy/gramlot, with the source-controlled SHA256
+893b9a75a10437f239739b70f635a602dac24864e68b0c1de4deea2cc80dfae2.
+The old private artifact checkout and FRAMEWORK_READ_KEY are no longer used.
+No PyPI, npm or CDN publication is part of this deployment.
 
 Local builds require the wheel under ignored .build/ and its mandatory SHA256
 build argument. Docker verifies the hash, installs existing locks, runs pip check,
@@ -27,12 +27,13 @@ Never upload the runtime image as an Actions artifact in this public repository.
 
 ## CI and access
 
-.github/workflows/publish.yml verifies PRs and builds/tests/publishes main updates.
-Fork PRs do not receive the private artifact secret and cannot pass full container
-verification. Main builds and pushes the exact tested image in one job.
-PUBLISH_ENABLED=true and DEPLOY_ENABLED=true are configured; production permits
-main only. Deployments use immutable image digests and Compose health checks.
-A manual workflow_dispatch also works; deploy_once is for initial activation only.
+.github/workflows/publish.yml verifies PRs and main pushes without publication.
+Version tags vMAJOR.MINOR.PATCH (optionally with a prerelease suffix) must identify
+an ancestor of origin/main. Only tag runs publish and deploy the tested image.
+PUBLISH_ENABLED=true and DEPLOY_ENABLED=true are stop switches; production permits
+v* tags only. There is no untagged workflow_dispatch bypass. Deployments use
+immutable image digests and Compose health checks. Framework and application tags
+are separate release actions.
 
 Production secrets are DEPLOY_SSH_KEY and DEPLOY_KNOWN_HOSTS; the destination is
 an environment variable. The dedicated SSH key has a forced application-specific
@@ -47,7 +48,7 @@ subscriber service is included. TLS renewal and nginx reload are configured.
 
 ## Checks and recovery
 
-The actual amd64 image and public HTTPS site passed all 50 browser tests, including
+The updated local amd64 image passed all 50 browser tests, including
 NiceGUI live updates and WebSockets. deploy/check-container.py verifies health,
 six public routes and private-path boundaries. The delayed NiceGUI first-input
 reset was fixed by initializing its value before binding; ten focused repeats passed.

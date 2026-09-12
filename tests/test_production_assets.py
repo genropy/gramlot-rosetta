@@ -7,9 +7,9 @@ from backend.app import DemoServer
 from backend.production_assets import ProductionGramlotAssets
 
 ENTRY_NAMES = (
-    "startup", "lab-app", "builder-app", "gramlot-dom", "gramlot-builder",
-    "genro-bag-js", "genro-tytx", "decimal", "msgpack", "module",
-    "inspector-component", "inspector-editor",
+    "startup", "lab-app", "builder-app", "gramlot-page-startup", "gramlot-dom",
+    "gramlot-builder", "genro-bag-js", "genro-tytx", "decimal.js",
+    "@msgpack/msgpack", "@xmldom/xmldom", "module",
 )
 
 
@@ -20,7 +20,9 @@ def production_fixture(tmp_path):
     version_directory.mkdir(parents=True)
     entries = {name: f"{name}.js" for name in ENTRY_NAMES}
     for filename in entries.values():
-        (version_directory / filename).write_text("export {};\n")
+        path = version_directory / filename
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text("export {};\n")
     (directory / "manifest.json").write_text(json.dumps({"version": version, "entries": entries}))
     return directory, version
 
@@ -59,7 +61,8 @@ def test_development_still_uses_adapter_modules():
     response = TestClient(DemoServer(production=False).app).get(
         "/examples/pages/hello-world/"
     )
-    assert "/examples/pages/_runtime/common/entry.js" in response.text
+    assert "/examples/pages/_runtime/" in response.text
+    assert "/esm/gramlot-page-startup.js" in response.text
     assert "/assets/gramlot/" not in response.text
 
 

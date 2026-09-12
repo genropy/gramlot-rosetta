@@ -27,16 +27,12 @@ class ProductionGramlotAssets:
         return self.base_url + filename
 
     def import_map(self) -> dict[str, str]:
-        entries = {
-            "gramlot-dom": "gramlot-dom",
-            "gramlot-builder": "gramlot-builder",
-            "genro-bag-js": "genro-bag-js",
-            "genro-tytx": "genro-tytx",
-            "decimal.js": "decimal",
-            "@msgpack/msgpack": "msgpack",
-            "module": "module",
+        consumer_entries = {"startup", "lab-app", "builder-app", "gramlot-page-startup"}
+        return {
+            specifier: self.entry(specifier)
+            for specifier in self.manifest["entries"]
+            if specifier not in consumer_entries
         }
-        return {specifier: self.entry(name) for specifier, name in entries.items()}
 
     def configure_runtime(self, runtime) -> None:
         runtime.entry_url = self.entry("startup")

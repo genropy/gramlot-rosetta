@@ -27,7 +27,8 @@ def test_installed_adapter_discovers_active_lessons():
 def test_adapter_import_map_assets_and_entry_are_served():
     client = TestClient(DemoServer().app)
     response = client.get('/examples/pages/hello-world/')
-    assert '/examples/pages/_runtime/common/entry.js' in response.text
+    assert re.search(r'/examples/pages/_runtime/[0-9a-f]+/esm/gramlot-page-startup.js',
+                     response.text)
     assert '<h1>' not in response.text
     imports = json.loads(re.search(r'<script type="importmap">(.*?)</script>',
                                   response.text).group(1))['imports']
@@ -37,7 +38,7 @@ def test_adapter_import_map_assets_and_entry_are_served():
         assert 'javascript' in asset.headers['content-type']
         assert asset.headers['cache-control'] == 'no-cache, must-revalidate'
     assert '/shared/example.css' in response.text
-    assert client.get('/examples/pages/_runtime/dom/missing.js').status_code == 404
+    assert client.get('/examples/pages/_runtime/missing.js').status_code == 404
 
 
 @pytest.mark.parametrize('variant', ['pages', 'pages-js', 'react', 'vue', 'nicegui'])

@@ -5,6 +5,7 @@ import {python} from '@codemirror/lang-python';
 import {html} from '@codemirror/lang-html';
 import {css} from '@codemirror/lang-css';
 import {vue} from '@codemirror/lang-vue';
+import {oneDark} from '@codemirror/theme-one-dark';
 
 const source = document.getElementById('source-code');
 const initial = source.textContent;
@@ -21,14 +22,14 @@ const preview = () => parent.document.querySelector('.example-panel iframe');
 const editor = new EditorView({
     doc: initial,
     parent: holder,
-    extensions: [basicSetup, languages[source.dataset.language]?.() ?? [],
+    extensions: [basicSetup, oneDark, languages[source.dataset.language]?.() ?? [],
         EditorState.readOnly.of(!editable), EditorView.editable.of(editable),
         EditorView.contentAttributes.of({'aria-label': editable ? 'Recipe editor' : 'Read-only source'}),
         EditorView.lineWrapping,
         EditorView.theme({
-            '&': {fontSize: '13px', backgroundColor: '#fcfdff'},
+            '&': {fontSize: '13px'},
             '.cm-content': {fontFamily: 'ui-monospace, SFMono-Regular, Consolas, monospace'},
-            '.cm-gutters': {backgroundColor: '#f5f7fb', border: 'none'},
+            '.cm-gutters': {border: 'none'},
         }),
         EditorView.updateListener.of(update => {
             if (editable && update.docChanged) status.textContent = 'Changes ready to run.';

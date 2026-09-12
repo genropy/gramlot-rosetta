@@ -11,7 +11,8 @@ for attempt in range(30):
         with urllib.request.urlopen(base + '/health', timeout=2) as response:
             health = json.load(response)
         assert health['status'] == 'ok'
-        assert health['runtime']['channel'] == 'unpublished-wheel'
+        assert health['runtime']['channel'] == 'github-release'
+        assert health['runtime']['sha256'] == '893b9a75a10437f239739b70f635a602dac24864e68b0c1de4deea2cc80dfae2'
         break
     except (OSError, ValueError):
         if attempt == 29:

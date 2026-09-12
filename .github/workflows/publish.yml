@@ -3,12 +3,7 @@ on:
   pull_request:
   push:
     branches: [main]
-  workflow_dispatch:
-    inputs:
-      deploy_once:
-        description: Deploy this verified build once, without enabling automatic updates
-        type: boolean
-        default: false
+    tags: ['v*']
 permissions:
   contents: read
 concurrency:
@@ -24,6 +19,16 @@ jobs:
       image: ${{ steps.image.outputs.image }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Validate release tag
+        if: startsWith(github.ref, 'refs/tags/')
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          [[ "$RELEASE_TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?$ ]]
+          git merge-base --is-ancestor HEAD origin/main
       - uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -34,32 +39,14 @@ jobs:
           set -euo pipefail
           visibility="$(gh api orgs/genropy/packages/container/gramlot-rosetta-runtime --jq .visibility)"
           [[ "$visibility" == private ]] || { echo 'Rosetta registry must exist and be private'; exit 1; }
-      - name: Validate immutable artifact configuration
+      - name: Download and verify the released framework
         env:
-          ARTIFACT_REF: ${{ vars.FRAMEWORK_REF }}
-          WHEEL_SHA: ${{ vars.GRAMLOT_WHEEL_SHA256 }}
-        run: |
-          [[ "$ARTIFACT_REF" =~ ^[0-9a-f]{40}$ && "$WHEEL_SHA" =~ ^[0-9a-f]{64}$ ]] || { echo 'Configure the private artifact commit and wheel SHA256'; exit 1; }
-      - name: Read private framework artifact
-        uses: actions/checkout@v4
-        with:
-          repository: genropy/gramlot-site
-          ref: ${{ vars.FRAMEWORK_REF }}
-          path: .framework
-          sparse-checkout: .packages/gramlot
-          ssh-key: ${{ secrets.FRAMEWORK_READ_KEY }}
-          persist-credentials: false
-      - name: Verify and stage the wheel
-        env:
-          WHEEL_SHA: ${{ vars.GRAMLOT_WHEEL_SHA256 }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           mkdir -p .build
-          cp .framework/.packages/gramlot/gramlot-0.1.0a1-py3-none-any.whl .build/
-          printf '%s  %s\n' "$WHEEL_SHA" .build/gramlot-0.1.0a1-py3-none-any.whl | sha256sum -c -
-          rm -rf .framework
-      - env:
-          WHEEL_SHA: ${{ vars.GRAMLOT_WHEEL_SHA256 }}
-        run: docker build --platform linux/amd64 --build-arg "GRAMLOT_WHEEL_SHA256=$WHEEL_SHA" -t gramlot-rosetta:verified .
+          gh release download v0.1.3 --repo genropy/gramlot --pattern gramlot-0.1.3-py3-none-any.whl --dir .build
+          echo '893b9a75a10437f239739b70f635a602dac24864e68b0c1de4deea2cc80dfae2  .build/gramlot-0.1.3-py3-none-any.whl' | sha256sum -c -
+      - run: docker build --platform linux/amd64 --build-arg GRAMLOT_WHEEL_SHA256=893b9a75a10437f239739b70f635a602dac24864e68b0c1de4deea2cc80dfae2 -t gramlot-rosetta:verified .
       - run: |
           docker run -d --name site-check --read-only --tmpfs /tmp:size=64m --cap-drop ALL --security-opt no-new-privileges -p 127.0.0.1:18048:8000 gramlot-rosetta:verified
           python deploy/check-container.py http://127.0.0.1:18048
@@ -68,14 +55,14 @@ jobs:
           ROSETTA_URL=http://127.0.0.1:18048 npm test
       - if: always()
         run: docker logs site-check || true
-      - if: vars.PUBLISH_ENABLED == 'true' && github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+      - if: vars.PUBLISH_ENABLED == 'true' && github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: printf '%s' "$GH_TOKEN" | docker login ghcr.io -u "$GITHUB_ACTOR" --password-stdin
       - id: image
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        if: vars.PUBLISH_ENABLED == 'true' && github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        if: vars.PUBLISH_ENABLED == 'true' && github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
         run: |
           tag="ghcr.io/genropy/gramlot-rosetta-runtime:sha-${GITHUB_SHA}"
           docker tag gramlot-rosetta:verified "$tag"
@@ -90,7 +77,7 @@ jobs:
       contents: read
       packages: read
     needs: verify
-    if: (vars.DEPLOY_ENABLED == 'true' || inputs.deploy_once == true) && github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    if: vars.DEPLOY_ENABLED == 'true' && github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
     environment: production
     runs-on: ubuntu-24.04
     steps:

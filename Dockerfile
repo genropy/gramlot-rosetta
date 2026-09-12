@@ -5,11 +5,11 @@ COPY requirements.lock /tmp/requirements.lock
 RUN pip install --no-cache-dir -r /tmp/requirements.lock
 # Explicit approved artifact; no sibling sources or implicit latest release.
 ARG GRAMLOT_WHEEL_SHA256
-COPY .build/gramlot-0.1.0a1-py3-none-any.whl /tmp/gramlot-0.1.0a1-py3-none-any.whl
-RUN test -n "$GRAMLOT_WHEEL_SHA256" && echo "$GRAMLOT_WHEEL_SHA256  /tmp/gramlot-0.1.0a1-py3-none-any.whl" | sha256sum -c - \
-    && pip install --no-cache-dir --no-deps /tmp/gramlot-0.1.0a1-py3-none-any.whl \
+COPY .build/gramlot-0.1.3-py3-none-any.whl /tmp/gramlot-0.1.3-py3-none-any.whl
+RUN test -n "$GRAMLOT_WHEEL_SHA256" && echo "$GRAMLOT_WHEEL_SHA256  /tmp/gramlot-0.1.3-py3-none-any.whl" | sha256sum -c - \
+    && pip install --no-cache-dir --no-deps /tmp/gramlot-0.1.3-py3-none-any.whl \
     && pip check \
-    && printf '{"channel":"unpublished-wheel","sha256":"%s"}\n' "$GRAMLOT_WHEEL_SHA256" > /app/runtime-provenance.json \
+    && printf '{"channel":"github-release","sha256":"%s"}\n' "$GRAMLOT_WHEEL_SHA256" > /app/runtime-provenance.json \
     && rm /tmp/*.whl \
     && groupadd --gid 10001 rosetta && useradd --uid 10001 --gid rosetta --no-create-home rosetta
 

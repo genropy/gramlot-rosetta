@@ -5,7 +5,7 @@ gallery contract preserved in standby/progressive/previous-SPEC.md.
 
 ## Active lesson and presentation
 
-Hello World and Data binding are active in Gramlot Python, Gramlot JS, React, Vue and NiceGUI.
+Hello World, Data binding, Input widgets, Contact box, Repeated contacts and Contact colors are active in Gramlot Python, Gramlot JS, React, Vue and NiceGUI.
 In the first lesson, each renders one h1 containing "Hello World". No editable field, sample label,
 style controls, binding or business API belongs to this first lesson. Teaching
 explanations belong in the shared frame, outside the executable recipe.
@@ -23,7 +23,7 @@ Supporting source tabs remain read-only, including Gramlot JS Boilerplate/Common
 
 The master page has a left navigation tree: Overview contains Introduction, the
 five implementation boilerplates and Shared infrastructure. Simple examples
-contains Hello World and Data binding. Lesson source panes show only authored recipe/component
+contains all six active lessons. Lesson source panes show only authored recipe/component
 code; supporting code is accessed through Overview, never through lesson tabs.
 Raw source is available without interpreting markup or permitting arbitrary files.
 
@@ -41,10 +41,11 @@ presentation CSS to its generated HTML. Gramlot JS reuses the same adapter asset
 and import map but owns a small local editing harness. NiceGUI is mounted through
 its native FastAPI integration. Framework code is never copied into the consumer.
 
-Keep /pages and /pages-js identifiers stable. Only hello-world and data-binding are accepted by the
-comparison, example and source routes. Later lesson files remain preserved, but
-React and Vue must not import them into the active build. Former lesson tests are
-retained under standby/progressive/tests until those lessons are reintroduced.
+Keep /pages and /pages-js identifiers stable. Only the six active lesson identifiers
+are accepted by the comparison, example and source routes. Other lesson files
+remain preserved, but React and Vue must not import them into the active build.
+Former lesson tests remain under standby/progressive/tests until those lessons are
+reintroduced.
 Orders and standalone reflections stay outside active routes.
 
 ## Acceptance

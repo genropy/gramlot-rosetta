@@ -1,8 +1,7 @@
 # Gramlot Rosetta
 
 A progressive comparison of Gramlot Python, Gramlot JS, React, Vue and NiceGUI.
-The current lessons are **Hello World**, **Input widgets** (six fields in a responsive layout) and **Data binding** (a labelled textbox
-updates a shared message and its heading), with the example on
+The current lessons are **Hello World**, **Data binding**, **Input widgets**, **Contact box**, **Repeated contacts** and **Contact colors**, with the example on
 the left and its actual source in CodeMirror on the right. On narrow screens,
 source follows the preview. Explanations stay outside the executable examples.
 
@@ -21,14 +20,13 @@ Requires Python 3.12+, uv and Node compatible with Vite 8.
 ```sh
 git clone https://github.com/genropy/gramlot-rosetta.git
 cd gramlot-rosetta
-ROSETTA_GRAMLOT_WHEEL=/absolute/path/gramlot-0.1.0a1-py3-none-any.whl ./scripts/setup.sh
+ROSETTA_GRAMLOT_WHEEL=/absolute/path/gramlot-0.1.3-py3-none-any.whl ./scripts/setup.sh
 ./scripts/run.sh
 ```
 
 Open [Rosetta](http://127.0.0.1:8026/). `ROSETTA_PORT` changes the port.
-The development checkout retains the current wheel in `.local/packages/` as the
-setup fallback. A new clone needs a wheel built from the current Gramlot sources;
-the earlier alpha with the same version number lacks the FastAPI adapter.
+The development checkout may retain a current wheel in `.local/packages/` as a
+setup fallback. A new clone can use the published Gramlot 0.1.3 wheel.
 NiceGUI and the other Python dependencies are recorded in `requirements.lock`.
 
 Gramlot Python uses `gramlot.contrib.fastapi.mount_gramlot`, which discovers
@@ -44,11 +42,11 @@ there. Setup does not modify sibling sources. Python and JS always come from the
 same installed package; the former run-time PYTHONPATH override is retired.
 Rebuild/reinstall after framework changes, then restart Rosetta and reload.
 
-Setup also builds the installed Gramlot browser resources into a content-versioned
-bundle under `shared/gramlot/`. Development continues to use the adapter's source
-modules. Set `GRAMLOT_ROSETTA_MODE=production` when starting the server to use the
-shared bundle, immutable versioned asset URLs and response compression; startup
-fails clearly if the production bundle is missing.
+Setup copies the installed wheel's verified, content-versioned browser distribution
+byte for byte under `shared/gramlot/` and adds Rosetta's small consumer harnesses.
+Development and production therefore use the same framework browser build. Set
+`GRAMLOT_ROSETTA_MODE=production` to serve that immutable payload; startup fails
+clearly if it is missing.
 
 NiceGUI uses its native `ui.page` and `ui.run_with` integration under
 `/examples/nicegui`; it owns its browser connection. See the

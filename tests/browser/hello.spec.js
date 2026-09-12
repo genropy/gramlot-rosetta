@@ -17,11 +17,15 @@ for (const [variant, file] of Object.entries(files)) {
     await expect(page.getByRole('navigation', {name: 'Implementations'}).getByRole('link')).toHaveCount(5);
     const preview = page.frameLocator('.example-panel iframe');
     const source = page.frameLocator('.source-frame-panel iframe');
-    await expect(page.locator('.example-panel h2')).toContainText(variant === 'pages-js' ? 'Live example' : 'Example');
+    await expect(page.locator('.example-panel h2')).toHaveText('Hello World');
+    await expect(page.locator('.source-frame-panel h2')).toHaveText(`Code · ${{
+      pages: 'Gramlot Python', 'pages-js': 'Gramlot JS', react: 'React', vue: 'Vue', nicegui: 'NiceGUI',
+    }[variant]}`);
     await expect(page.locator('.lab-introduction')).toHaveCount(0);
     await expect(preview.locator('h1')).toHaveText('Hello World');
     await expect(preview.locator('input')).toHaveCount(0);
     await expect(source.locator('.cm-editor')).toBeVisible();
+    await expect(source.locator('.cm-editor')).toHaveCSS('background-color', 'rgb(40, 44, 52)');
     await expect(source.locator('#source-code')).toHaveText(readFileSync(file, 'utf8'));
     await expect(source.locator('.cm-content')).toHaveAttribute('contenteditable', variant === 'pages-js' ? 'true' : 'false');
     await expect(source.getByRole('button', {name: 'Run', exact: true})).toHaveCount(variant === 'pages-js' ? 1 : 0);
@@ -90,7 +94,11 @@ test('master tree separates overview setup from lesson code', async ({page}) => 
   const tree = page.getByRole('navigation', {name: 'Groups and lessons'});
   await expect(tree.getByText('Overview', {exact: true})).toBeVisible();
   await expect(tree.getByText('Simple examples', {exact: true})).toBeVisible();
-  await expect(tree.getByRole('link', {name: 'Hello World', exact: true})).toHaveCount(1);
+  const helloLink = tree.getByRole('link', {name: 'Hello World', exact: true});
+  await expect(helloLink).toHaveCount(1);
+  await expect(helloLink).toHaveCSS('font-size', '15px');
+  expect((await helloLink.boundingBox()).height).toBeGreaterThanOrEqual(32);
+  expect(await helloLink.evaluate(element => getComputedStyle(element, '::before').width)).toBe('18px');
   for (const title of ['Gramlot Python', 'Gramlot JS', 'React', 'Vue', 'NiceGUI', 'Shared infrastructure']) {
     await tree.getByRole('link', {name: title, exact: true}).click();
     const setup = page.frameLocator('.overview-source iframe');
@@ -135,13 +143,13 @@ for (const variant of ['pages', 'pages-js']) {
     await expect(preview.locator('h1')).toHaveText('Hello World');
     await expect(preview.locator('.gramlot-inspector-launcher')).toBeHidden();
     const launcher = page.getByRole('button', {name: 'Open inspector', exact: true});
-    await expect(launcher).toHaveText('🔍 Open inspector');
+    await expect(launcher).toHaveText('Open inspector');
     const buttonBox = await launcher.boundingBox();
     const frameBox = await page.locator('.example-panel iframe').boundingBox();
     expect(buttonBox.y).toBeGreaterThanOrEqual(frameBox.y + frameBox.height);
-    await expect(page.locator('.rosetta-layout .inspector-tool')).toHaveCount(0);
-    const panelBox = await page.locator('.rosetta-layout').boundingBox();
-    expect(buttonBox.y).toBeGreaterThanOrEqual(panelBox.y + panelBox.height);
+    await expect(page.locator('.example-panel .inspector-tool')).toHaveCount(1);
+    const panelBox = await page.locator('.example-panel').boundingBox();
+    expect(buttonBox.y + buttonBox.height).toBeLessThanOrEqual(panelBox.y + panelBox.height);
     const sourceBox = await page.locator('.source-frame-panel').boundingBox();
     const sourceFrameBox = await page.locator('.source-frame-panel iframe').boundingBox();
     expect(Math.abs(sourceBox.y + sourceBox.height - sourceFrameBox.y - sourceFrameBox.height)).toBeLessThan(2);
